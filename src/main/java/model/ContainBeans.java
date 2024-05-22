@@ -8,13 +8,13 @@ public class ContainBeans implements Serializable{
 
 	String utente;
 	String codice_ordine;
-	String codice_prodotto;
+	int codice_prodotto;
 	
 	public ContainBeans()
 	{
 		utente=" ";
 		codice_ordine=" ";
-		codice_prodotto=" ";
+		codice_prodotto=-1;
 	}
 	
 	String getUtente()
@@ -27,7 +27,7 @@ public class ContainBeans implements Serializable{
 		return codice_ordine;
 	}
 	
-	String getCodiceProdotto()
+	int getCodiceProdotto()
 	{
 		return codice_prodotto;
 	}
@@ -42,7 +42,7 @@ public class ContainBeans implements Serializable{
 		this.codice_ordine=codice_ordine;
 	}
 	
-	void setCodiceProdotto(String codice_prodotto)
+	void setCodiceProdotto(int codice_prodotto)
 	{
 		this.codice_prodotto=codice_prodotto;
 	}

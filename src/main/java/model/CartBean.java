@@ -7,30 +7,30 @@ public class CartBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	String utente;
-	String codice_prodotto;
+	int codice_prodotto;
 	
 	public CartBean()
 	{
 		utente=" ";
-		codice_prodotto=" ";
+		codice_prodotto=-1;
 	}
 	
-	String getUtente()
+	public String getUtente()
 	{
 	  return utente;	
 	}
 	
-	String getCodiceProdotto()
+	public int getCodiceProdotto()
 	{
        return codice_prodotto;
 	}
 	
-	void setUtente(String utente)
+	public void setUtente(String utente)
 	{
 	  	this.utente=utente;
 	}
 	
-	void setCodiceProdotto(String codice_prodotto) 
+	public void setCodiceProdotto(int codice_prodotto) 
 	{
 		this.codice_prodotto=codice_prodotto;
 	}

@@ -14,72 +14,72 @@ public class AdressBean implements Serializable{
 	int numero;
 	String codice_postale;
 	
-	String getId()
+	public String getId()
 	{
 		return id;
 	}
 	
-	String getUtente()
+	public String getUtente()
 	{
 		return utente;
 	}
 	
-	String getPaese()
+	public String getPaese()
 	{
 		return paese;
 	}
 	
-	String getStrada()
+	public String getStrada()
 	{
 		return strada;
 	}
 	
-	String getCittà()
+	public String getCittà()
 	{
 		return città;
 	}
 	
-	int getNumero()
+	public int getNumero()
 	{
 		return numero;
 	}
 	
-	String getCodicePostale()
+	public String getCodicePostale()
 	{
 		return codice_postale;
 	}
 	
-	void setId(String id)
+	public void setId(String id)
 	{
 		this.id=id;
 	}
 	
-	void setUtente(String utente)
+	public void setUtente(String utente)
 	{
 		this.utente=utente;
 	}
 	
-	void setPaese(String paese)
+	public void setPaese(String paese)
 	{
 		this.paese=paese;
 	}
 	
-	void setStrada(String strada)
+	public void setStrada(String strada)
 	{
 		this.strada=strada;
 	}
 	
-	void setCittà(String città)
+	public void setCittà(String città)
 	{
 		this.città=città;
 	}
 	
-	void setNumero(int numero)
+	public void setNumero(int numero)
 	{
 		this.numero=numero;
 	}
 	
-	void setCodicePostale(String codice_postale)
+	public void setCodicePostale(String codice_postale)
 	{
 		this.codice_postale=codice_postale;
 	}

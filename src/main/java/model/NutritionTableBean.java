@@ -6,7 +6,7 @@ public class NutritionTableBean implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
-	String codice_prodotto;
+	int codice_prodotto;
 	int energia;
 	double grassi;
 	double grassi_saturi;
@@ -18,7 +18,7 @@ public class NutritionTableBean implements Serializable{
 	
 	public NutritionTableBean()
 	{
-	  codice_prodotto=" ";
+	  codice_prodotto=-1;
 	  energia=0;
 	  grassi=0.0;
 	  grassi_saturi=0.0;
@@ -29,91 +29,92 @@ public class NutritionTableBean implements Serializable{
 	  sale=0.0;
 	}
 	
-	String getCodiceProdotto()
+	public int getCodiceProdotto()
 	{
 		return codice_prodotto;
 	}
 	
-	int getEnergia()
+	public int getEnergia()
 	{
 		return energia;
 	}
 	
-	double getGrassi()
+	public double getGrassi()
 	{
 		return grassi;
 	}
 	
-	double getGrassiSaturi()
+	public double getGrassiSaturi()
 	{
 		return grassi_saturi;
 	}
 	
-	double getCarboedati()
+	public double getCarboedati()
 	{
 		return carboedrati;
 	}
 	
-	double getZucherri()
+	public double getZucherri()
 	{
 		return zucherri;
 	}
 	
-	double getFibre()
+	public double getFibre()
 	{
 		return fibre;
 	}
 	
-	double getProteine()
+	public double getProteine()
 	{
 		return proteine;
 	}
 	
-	double getSale()
+	public double getSale()
 	{
 		return sale;
 	}
 	
-	void setCodiceProdotto (String codice_prodotto)
+	public void setCodiceProdotto (int codice_prodotto)
 	{
 	  this.codice_prodotto=codice_prodotto;
 	}
 	
-	void setEnergia(int energia)
+	public void setEnergia(int energia)
 	{
 		  this.energia=energia;
 	}
-	void setGrassi(double grassi)
+	
+	public void setGrassi(double grassi)
 	{
 		  this.grassi=grassi;
 	}
 	
-	void setGrassiSaturi(double grassi_saturi)
+	public void setGrassiSaturi(double grassi_saturi)
 	{
 		  this.grassi_saturi=grassi_saturi;
 	}
 	
-	void setCarboedrati(double carboedrati)
+	public void setCarboedrati(double carboedrati)
 	{
 		  this.carboedrati=carboedrati;
 	}
 	
-	void setZucherri(double zucherri)
+	public void setZucherri(double zucherri)
 	{
 		  this.zucherri=zucherri;
 	}
 	
-	void setFibre(double fibre)
+	public void setFibre(double fibre)
 	{
 		  this.fibre=fibre;
 	}
 	
-	void setProteine(double proteine)
+	public void setProteine(double proteine)
 	{
 		  this.proteine=proteine;
 	}
 	
-	void ssetSale(double sale)
+	public void ssetSale(double sale)
 	{
 		  this.sale=sale;
 	}

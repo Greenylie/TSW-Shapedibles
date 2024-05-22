@@ -27,68 +27,68 @@ public class UserBean implements Serializable{
 		user_admin= false;
 	}
 	
-	void setUsername(String username) 
+	public void setUsername(String username) 
 	{
 		this.username=username;
 	}
-	void setEmail(String email) 
+	public void setEmail(String email) 
 	{
 		this.email=email;
 	}
-	void setPass(String pass) 
+	public void setPass(String pass) 
 	{
 		this.pass=pass;
 	}
-	void setNomeCOgnome(String nome_cognome) 
+	public void setNomeCOgnome(String nome_cognome) 
 	{
 		this.nome_cognome=nome_cognome;
 	}
-	void setSesso(String sesso) 
+	public void setSesso(String sesso) 
 	{
 		this.sesso=sesso;
 	}
-	void setPaese(String paese) 
+	public void setPaese(String paese) 
 	{
 		this.paese=paese;
 	}
-	void setDataNascita(String paese) 
+	public void setDataNascita(String paese) 
 	{
 		this.paese=paese;
 	}
-	void setUserAdmmin(boolean user_admin) 
+	public void setUserAdmmin(boolean user_admin) 
 	{
 		this.user_admin=user_admin;
 	}
 	
-	String getUsername()
+	public String getUsername()
 	{
 		return username;
 	}
-	String getEmail()
+	public String getEmail()
 	{
 		return email;
 	}
-	String getPass()
+	public String getPass()
 	{
 		return pass;
 	}
-	String setNomeCognome()
+	public String setNomeCognome()
 	{
 		return nome_cognome;
 	}
-	String setSesso()
+	public String setSesso()
 	{
 		return sesso;
 	}
-	String getPaese()
+	public String getPaese()
 	{
 		return paese;
 	}
-	String getDataNascita()
+	public String getDataNascita()
 	{
 		return data_nascita;
 	}
-	boolean getUserAdmin()
+	public boolean getUserAdmin()
 	{
 		return user_admin;
 	}

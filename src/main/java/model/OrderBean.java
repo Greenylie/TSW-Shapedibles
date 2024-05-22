@@ -23,62 +23,62 @@ public class OrderBean implements Serializable{
 	  saldo_totale=0.0;
 	}
 	
-	String getUtente()
+	public String getUtente()
 	{ 
 		return utente;
 	}
 	
-	String getCodice()
+	public String getCodice()
 	{ 
 		return codice;
 	}
 	
-	String getIndirizzo()
+	public String getIndirizzo()
 	{ 
 		return indirizzo;
 	}
 	
-	String getStato()
+	public String getStato()
 	{ 
 		return stato;
 	}
 	
-	String getDataOrdine()
+	public String getDataOrdine()
 	{ 
 		return data_ordine;
 	}
 	
-	double getSaldoTotale()
+	public double getSaldoTotale()
 	{ 
 		return saldo_totale;
 	}
 	
-	void setUtente(String utente) 
+	public void setUtente(String utente) 
 	{
 	  this.utente=utente;	
 	}
 	
-	void setCodice(String codice) 
+	public void setCodice(String codice) 
 	{
 	  this.codice=codice;
 	}
 	
-	void setIndirizzo(String indirizzo) 
+	public void setIndirizzo(String indirizzo) 
 	{
 	  this.indirizzo=indirizzo;
 	}
 	
-	void setStato(String stato) 
+	public void setStato(String stato) 
 	{
 	  this.stato=stato;
 	}
 	
-	void setDataOrdine(String data_ordine)
+	public void setDataOrdine(String data_ordine)
 	{
 	  this.data_ordine=data_ordine;	
 	}
 	
-	void setSaldoTotale(double saldo_totale) 
+	public void setSaldoTotale(double saldo_totale) 
 	{
 	  this.saldo_totale=saldo_totale;
 	}

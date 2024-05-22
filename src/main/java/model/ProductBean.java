@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class ProductBean implements Serializable
 {
 	private static final long serialVersionUID = 1L;
-	String codice;
+	int codice;
 	String nome;
 	double costo;
 	String descrizione;
@@ -14,7 +14,7 @@ public class ProductBean implements Serializable
 	
 	public ProductBean()
 	{
-	 codice= " ";
+	 codice= -1;
      nome= " ";
 	 costo= 0.0;
 	 descrizione= " ";
@@ -22,62 +22,62 @@ public class ProductBean implements Serializable
 	 tipologia= " ";
 	}
 	
-	String getCodice()
+	public int getCodice()
 	{
 		return codice;
 	}
 	
-	String getNome()
+	public String getNome()
 	{
 		return nome;
 	}
 	
-	double getCosto()
+	public double getCosto()
 	{
 		return costo;
 	}
 	
-	String getDescrizione()
+	public String getDescrizione()
 	{
 		return descrizione;
 	}
 	
-	int getDisponibilità()
+	public int getDisponibilità()
 	{
 		return disponibilità;
 	}
 	
-	String getTipologia()
+	public String getTipologia()
 	{
 		return tipologia;
 	}
 	
-	void setCodice(String codice)
+	public void setCodice(int codice)
 	{
 		this.codice=codice;
 	}
 	
-	void setNome (String nome)
+	public void setNome (String nome)
 	{
 		this.nome=nome;
 	}
 	
-	void setCosto (double costo)
+	public void setCosto (double costo)
 	{
 		this.costo=costo;
 	}
 	
-	void setDescrizione (String descrizione)
+	public void setDescrizione (String descrizione)
 	{
 		this.descrizione=descrizione;
 	}
 	
-	void setDisponibilità (int disponibilità)
+	public void setDisponibilità (int disponibilità)
 	{
 		this.disponibilità=disponibilità;
 	}
 	
-	void setTipologia (String tipologia)
+	public void setTipologia (String tipologia)
 	{
 		this.tipologia=tipologia;
 	}

@@ -17,32 +17,32 @@ public class CouponBean implements Serializable{
 		saldo_minimo= 0.0;
 	}
 	
-	String getCodice()
+	public String getCodice()
 	{
 		return codice;
 	}
 	
-	int getPercentualeSconto() 
+	public int getPercentualeSconto() 
 	{
 		return percentuale_sconto;
 	}
 	
-	double getSaldoMinimo()
+	public double getSaldoMinimo()
 	{
 		return saldo_minimo;
 	}
 	
-	void setCodice(String codice)
+	public void setCodice(String codice)
 	{
 		this.codice=codice;
 	}
 	
-	void setPercentualeSconto(int percentuale_sconto)
+	public void setPercentualeSconto(int percentuale_sconto)
 	{
 		this.percentuale_sconto=percentuale_sconto;
 	}
 	
-	void setSaldoMinimo(double saldo_minimo)
+	public void setSaldoMinimo(double saldo_minimo)
 	{
 		this.saldo_minimo=saldo_minimo;
 	}
