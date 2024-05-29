@@ -1,8 +1,7 @@
-package control;
+package model;
 
 import java.sql.SQLException;
 import java.util.Collection;
-import model.UserBean;
 
 public interface IUserDao {
     public void doSave(UserBean user) throws SQLException;

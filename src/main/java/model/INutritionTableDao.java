@@ -1,0 +1,14 @@
+package model;
+
+import java.sql.SQLException;
+import java.util.Collection;
+
+public interface INutritionTableDao {
+	public void doSave(NutritionTableBean nutritionTable) throws SQLException;
+	
+	public boolean doDelete(int productID) throws SQLException;
+	
+	public AdressBean doRetrieveByKey(int productID) throws SQLException;
+	
+	public Collection<NutritionTableBean> doRetrieveAll(String order) throws SQLException;
+}

@@ -1,8 +1,7 @@
-package control;
+package model;
 
 import java.sql.SQLException;
 import java.util.Collection;
-import model.ProductBean;
 
 public interface IProductDao {
 	public void doSave(ProductBean product) throws SQLException;

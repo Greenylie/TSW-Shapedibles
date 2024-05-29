@@ -1,0 +1,14 @@
+package model;
+
+import java.sql.SQLException;
+import java.util.Collection;
+
+public interface IOrderDao {
+	public void doSave(OrderBean order) throws SQLException;
+	
+	public boolean doDelete(String user, int id) throws SQLException;
+	
+	public AdressBean doRetrieveByKey(String user, int id) throws SQLException;
+	
+	public Collection<OrderBean> doRetrieveAll(String order) throws SQLException;
+}

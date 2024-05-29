@@ -1,8 +1,7 @@
-package control;
+package model;
 
 import java.sql.SQLException;
 import java.util.Collection;
-import model.CouponBean;
 
 public interface ICouponDao {
     public void doSave(CouponBean coupon) throws SQLException;

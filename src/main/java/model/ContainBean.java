@@ -2,7 +2,7 @@ package model;
 
 import java.io.Serializable;
 
-public class ContainBeans implements Serializable{
+public class ContainBean implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
@@ -10,7 +10,7 @@ public class ContainBeans implements Serializable{
 	String codice_ordine;
 	int codice_prodotto;
 	
-	public ContainBeans()
+	public ContainBean()
 	{
 		utente=" ";
 		codice_ordine=" ";

@@ -1,11 +1,10 @@
-package control;
+package model;
 
 import java.sql.SQLException;
 import java.util.Collection;
-import model.AdressBean;
 
 public interface IAdressDao {
-    public void doSave(AdressBean product) throws SQLException;
+    public void doSave(AdressBean adress) throws SQLException;
 	
 	public boolean doDelete(String id, String user) throws SQLException;
 	
