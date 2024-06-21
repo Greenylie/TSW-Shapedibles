@@ -49,7 +49,7 @@ public class NutritionTableBean implements Serializable{
 		return grassi_saturi;
 	}
 	
-	public double getCarboedati()
+	public double getCarboedrati()
 	{
 		return carboedrati;
 	}
@@ -114,7 +114,7 @@ public class NutritionTableBean implements Serializable{
 		  this.proteine=proteine;
 	}
 	
-	public void ssetSale(double sale)
+	public void setSale(double sale)
 	{
 		  this.sale=sale;
 	}

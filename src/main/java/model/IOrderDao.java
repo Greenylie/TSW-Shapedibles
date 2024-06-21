@@ -8,7 +8,7 @@ public interface IOrderDao {
 	
 	public boolean doDelete(String user, int id) throws SQLException;
 	
-	public AdressBean doRetrieveByKey(String user, int id) throws SQLException;
+	public OrderBean doRetrieveByKey(String user, int id) throws SQLException;
 	
 	public Collection<OrderBean> doRetrieveAll(String order) throws SQLException;
 }

@@ -7,18 +7,20 @@ import java.sql.SQLException;
 import java.util.Collection;
 import java.util.LinkedList;
 
+import javax.sql.DataSource;
+
 import model.IProductDao;
 import model.ProductBean;
 
 
-public class ProductDaoDriverMan implements IProductDao
+public class ProductDaoDataSource implements IProductDao
 {
 	private static final String TABLE_NAME = "prodotti";
-	private DriverManagerConnectionPool dmcp= null;
+	private DataSource ds= null;
 	
-	public ProductDaoDriverMan(DriverManagerConnectionPool dmcp)
+	public ProductDaoDataSource(DataSource ds)
 	{
-		this.dmcp=dmcp;
+		this.ds=ds;
 		System.out.println("DriverManager Product Model creation....");
 	}
 	
@@ -28,11 +30,11 @@ public class ProductDaoDriverMan implements IProductDao
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		
-		String insertSQL="INSERT INTO " + ProductDaoDriverMan.TABLE_NAME 
+		String insertSQL="INSERT INTO " + ProductDaoDataSource.TABLE_NAME 
 				+ " (nome, costo, descrizione, disponibilità , tipologia) VALUES (?,?,?,?,?)";
 		
 		try {
-			connection = dmcp.getConnection();
+			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(insertSQL);
 			preparedStatement.setString(1, product.getNome());
 			preparedStatement.setDouble(2, product.getCosto());
@@ -46,7 +48,7 @@ public class ProductDaoDriverMan implements IProductDao
 				if (preparedStatement != null)
 					 preparedStatement.close();
 			} finally {
-				dmcp.releaseConnection(connection);;
+				connection.close();
 			}
 		}
 		
@@ -61,10 +63,10 @@ public class ProductDaoDriverMan implements IProductDao
 		
 		int result = 0;
 		
-		String deleteSQL = "DELETE FORM" + ProductDaoDriverMan.TABLE_NAME + " WHERE CODE = ?";
+		String deleteSQL = "DELETE FORM" + ProductDaoDataSource.TABLE_NAME + " WHERE CODE =?";
 		
 		try {
-			connection= dmcp.getConnection();
+			connection= ds.getConnection();
 			preparedStatement = connection.prepareStatement(deleteSQL);
 			preparedStatement.setInt(1, code);
 			
@@ -75,7 +77,7 @@ public class ProductDaoDriverMan implements IProductDao
 				if (preparedStatement != null)
 					preparedStatement.close();
 			} finally {
-				dmcp.releaseConnection(connection);
+				connection.close();
 			}
 		}
 		return (result!=0);
@@ -88,10 +90,10 @@ public class ProductDaoDriverMan implements IProductDao
 		PreparedStatement preparedStatement = null;
 		
 		ProductBean bean= new ProductBean();
-		String selectSQL = "SELECT * FROM " + ProductDaoDriverMan.TABLE_NAME + "WHERE CODE = ?";
+		String selectSQL = "SELECT * FROM " + ProductDaoDataSource.TABLE_NAME + "WHERE CODE =?";
 		
 		try {
-			connection = dmcp.getConnection();
+			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(selectSQL);
 			preparedStatement.setInt(1, code);
 			
@@ -111,7 +113,7 @@ public class ProductDaoDriverMan implements IProductDao
 				if(preparedStatement != null)
 					preparedStatement.close();
 		} finally{
-			dmcp.releaseConnection(connection);
+			connection.close();
 		}
 		}
 		
@@ -124,14 +126,14 @@ public class ProductDaoDriverMan implements IProductDao
 		PreparedStatement preparedStatement = null;
 		
 		Collection<ProductBean> products= new LinkedList<ProductBean>();
-		String selectSQL = "SELECT * FROM " + ProductDaoDriverMan.TABLE_NAME;
+		String selectSQL = "SELECT * FROM " + ProductDaoDataSource.TABLE_NAME;
 		
 		if(order != null && !order.equals("")) {
 			selectSQL +=" ORDER BY" + order;
 		}
 		
 		try {
-			connection = dmcp.getConnection();
+			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(selectSQL);
 			
 			ResultSet rs = preparedStatement.executeQuery();
@@ -152,7 +154,7 @@ public class ProductDaoDriverMan implements IProductDao
 				if(preparedStatement != null)
 					preparedStatement.close();
 		} finally{
-			dmcp.releaseConnection(connection);
+			connection.close();
 		}
 		}
 		

@@ -1,6 +1,9 @@
 package model;
 
 import java.io.Serializable;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 public class UserBean implements Serializable{
 
@@ -13,7 +16,7 @@ public class UserBean implements Serializable{
 	String sesso;
 	String paese;
 	String data_nascita;
-	boolean user_admin;
+	int user_admin;
 	
 	public UserBean()
 	{
@@ -24,7 +27,7 @@ public class UserBean implements Serializable{
 		sesso= " ";
 		paese= " ";
 		data_nascita= " ";
-		user_admin= false;
+		user_admin= -1;
 	}
 	
 	public void setUsername(String username) 
@@ -35,11 +38,11 @@ public class UserBean implements Serializable{
 	{
 		this.email=email;
 	}
-	public void setPass(String pass) 
+	public void setPass(String pass) throws NoSuchAlgorithmException 
 	{
-		this.pass=pass;
+		this.pass=hashPassword(pass);
 	}
-	public void setNomeCOgnome(String nome_cognome) 
+	public void setNomeCognome(String nome_cognome) 
 	{
 		this.nome_cognome=nome_cognome;
 	}
@@ -51,11 +54,11 @@ public class UserBean implements Serializable{
 	{
 		this.paese=paese;
 	}
-	public void setDataNascita(String paese) 
+	public void setDataNascita(String data_nascita) 
 	{
-		this.paese=paese;
+		this.data_nascita=data_nascita;
 	}
-	public void setUserAdmmin(boolean user_admin) 
+	public void setUserAdmin(int user_admin) 
 	{
 		this.user_admin=user_admin;
 	}
@@ -72,11 +75,11 @@ public class UserBean implements Serializable{
 	{
 		return pass;
 	}
-	public String setNomeCognome()
+	public String getNomeCognome()
 	{
 		return nome_cognome;
 	}
-	public String setSesso()
+	public String getSesso()
 	{
 		return sesso;
 	}
@@ -88,7 +91,7 @@ public class UserBean implements Serializable{
 	{
 		return data_nascita;
 	}
-	public boolean getUserAdmin()
+	public int getUserAdmin()
 	{
 		return user_admin;
 	}
@@ -98,5 +101,15 @@ public class UserBean implements Serializable{
 	public String toString() {
 		return username + user_admin;
 	}
+	
+	 private String hashPassword(String password) throws NoSuchAlgorithmException {
+		    MessageDigest md = MessageDigest.getInstance("SHA-512");
+		    byte[] hashedBytes = md.digest(password.getBytes(StandardCharsets.UTF_8));
+		    StringBuilder sb = new StringBuilder();
+		    for (byte b : hashedBytes) {
+		        sb.append(String.format("%02x", b));
+		    }
+		    return sb.toString();
+		   }
 
 }

@@ -8,7 +8,7 @@ public interface INutritionTableDao {
 	
 	public boolean doDelete(int productID) throws SQLException;
 	
-	public AdressBean doRetrieveByKey(int productID) throws SQLException;
+	public NutritionTableBean doRetrieveByKey(int productID) throws SQLException;
 	
 	public Collection<NutritionTableBean> doRetrieveAll(String order) throws SQLException;
 }

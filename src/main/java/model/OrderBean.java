@@ -7,7 +7,7 @@ public class OrderBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	String utente;
-	String codice;
+	int codice;
 	String indirizzo;
 	String stato;
 	String data_ordine;
@@ -16,7 +16,7 @@ public class OrderBean implements Serializable{
 	public OrderBean()
 	{
 	  utente=" ";
-	  codice=" ";
+	  codice=0;
 	  indirizzo=" ";
 	  stato=" ";
 	  data_ordine=" ";
@@ -28,7 +28,7 @@ public class OrderBean implements Serializable{
 		return utente;
 	}
 	
-	public String getCodice()
+	public int getCodice()
 	{ 
 		return codice;
 	}
@@ -58,7 +58,7 @@ public class OrderBean implements Serializable{
 	  this.utente=utente;	
 	}
 	
-	public void setCodice(String codice) 
+	public void setCodice(int codice) 
 	{
 	  this.codice=codice;
 	}
