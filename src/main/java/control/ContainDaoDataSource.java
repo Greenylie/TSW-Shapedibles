@@ -60,7 +60,7 @@ public class ContainDaoDataSource implements IContainDao {
 		
 		int result = 0;
 		
-		String deleteSQL = "DELETE FORM" + ContainDaoDataSource.TABLE_NAME + "WHERE UTENTE =? AND CODICE_ORDINE =?";
+		String deleteSQL = "DELETE FROM " + ContainDaoDataSource.TABLE_NAME + " WHERE UTENTE = ? AND CODICE_ORDINE = ?";
 		
 		try {
 			connection= ds.getConnection();
@@ -88,7 +88,7 @@ public class ContainDaoDataSource implements IContainDao {
 		PreparedStatement preparedStatement = null;
 		
 		ContainBean bean= new ContainBean();
-		String selectSQL = "SELECT * FROM " + ContainDaoDataSource.TABLE_NAME + "WHERE UTENTE =? AND CODICE_ORDINE =?";
+		String selectSQL = "SELECT * FROM " + ContainDaoDataSource.TABLE_NAME + " WHERE UTENTE = ? AND CODICE_ORDINE = ?";
 		
 		try {
 			connection = ds.getConnection();
@@ -122,7 +122,7 @@ public class ContainDaoDataSource implements IContainDao {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		
-		Collection<ContainBean> coupons= new LinkedList<ContainBean>();
+		Collection<ContainBean> items= new LinkedList<ContainBean>();
 		String selectSQL = "SELECT * FROM " + ContainDaoDataSource.TABLE_NAME;
 		
 		if(order != null && !order.equals("")) {
@@ -141,6 +141,7 @@ public class ContainDaoDataSource implements IContainDao {
 				bean.setUtente(rs.getString("Utente"));
 				bean.setCodiceOrdine(rs.getInt("Codice_Ordine"));
 				bean.setCodiceProdotto(rs.getInt("Codice_Prodotto"));
+				items.add(bean);
 			}
 			
 		} finally {
@@ -152,7 +153,7 @@ public class ContainDaoDataSource implements IContainDao {
 		}
 		}
 		
-		return coupons;
+		return items;
 	}
 
 }

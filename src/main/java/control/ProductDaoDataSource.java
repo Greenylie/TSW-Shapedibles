@@ -63,7 +63,7 @@ public class ProductDaoDataSource implements IProductDao
 		
 		int result = 0;
 		
-		String deleteSQL = "DELETE FORM" + ProductDaoDataSource.TABLE_NAME + " WHERE CODE =?";
+		String deleteSQL = "DELETE FROM " + ProductDaoDataSource.TABLE_NAME + " WHERE CODICE = ?";
 		
 		try {
 			connection= ds.getConnection();
@@ -90,7 +90,7 @@ public class ProductDaoDataSource implements IProductDao
 		PreparedStatement preparedStatement = null;
 		
 		ProductBean bean= new ProductBean();
-		String selectSQL = "SELECT * FROM " + ProductDaoDataSource.TABLE_NAME + "WHERE CODE =?";
+		String selectSQL = "SELECT * FROM " + ProductDaoDataSource.TABLE_NAME + " WHERE CODICE= ? ";
 		
 		try {
 			connection = ds.getConnection();
@@ -104,7 +104,7 @@ public class ProductDaoDataSource implements IProductDao
 				bean.setNome(rs.getString("NOME"));
 				bean.setCosto(rs.getDouble("COSTO"));
 				bean.setDescrizione(rs.getString("DESCRIZIONE"));
-				bean.setDisponibilità(rs.getInt("QUANTITÀ"));
+				bean.setDisponibilità(rs.getInt("DISPONIBILITÀ"));
 				bean.setTipologia(rs.getString("TIPOLOGIA"));
 			}
 			
@@ -129,7 +129,7 @@ public class ProductDaoDataSource implements IProductDao
 		String selectSQL = "SELECT * FROM " + ProductDaoDataSource.TABLE_NAME;
 		
 		if(order != null && !order.equals("")) {
-			selectSQL +=" ORDER BY" + order;
+			selectSQL +=" ORDER BY " + order;
 		}
 		
 		try {
@@ -145,8 +145,9 @@ public class ProductDaoDataSource implements IProductDao
 				bean.setNome(rs.getString("NOME"));
 				bean.setCosto(rs.getDouble("COSTO"));
 				bean.setDescrizione(rs.getString("DESCRIZIONE"));
-				bean.setDisponibilità(rs.getInt("QUANTITÀ"));
+				bean.setDisponibilità(rs.getInt("DISPONIBILITÀ"));
 				bean.setTipologia(rs.getString("TIPOLOGIA"));
+				products.add(bean);
 			}
 			
 		} finally {

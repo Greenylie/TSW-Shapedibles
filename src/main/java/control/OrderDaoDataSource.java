@@ -63,7 +63,7 @@ public class OrderDaoDataSource implements IOrderDao
 		
 		int result = 0;
 		
-		String deleteSQL = "DELETE FORM" + OrderDaoDataSource.TABLE_NAME + " WHERE CODICE =? AND USER =?";
+		String deleteSQL = "DELETE FROM " + OrderDaoDataSource.TABLE_NAME + " WHERE CODICE = ? AND USER = ?";
 		
 		try {
 			connection= ds.getConnection();
@@ -91,7 +91,7 @@ public class OrderDaoDataSource implements IOrderDao
 		PreparedStatement preparedStatement = null;
 		
 		OrderBean bean= new OrderBean();
-		String selectSQL = "SELECT * FROM " + OrderDaoDataSource.TABLE_NAME + "WHERE CODICE =? AND USER =?";
+		String selectSQL = "SELECT * FROM " + OrderDaoDataSource.TABLE_NAME + " WHERE CODICE = ? AND USER = ?";
 		
 		try {
 			connection = ds.getConnection();
@@ -128,7 +128,7 @@ public class OrderDaoDataSource implements IOrderDao
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		
-		Collection<OrderBean> coupons= new LinkedList<OrderBean>();
+		Collection<OrderBean> orders= new LinkedList<OrderBean>();
 		String selectSQL = "SELECT * FROM " + OrderDaoDataSource.TABLE_NAME;
 		
 		if(order != null && !order.equals("")) {
@@ -150,6 +150,7 @@ public class OrderDaoDataSource implements IOrderDao
 				bean.setStato(rs.getString("stato"));
 				bean.setDataOrdine(rs.getString("data_ordine"));
 				bean.setSaldoTotale(rs.getDouble("saldo_totale"));
+				orders.add(bean);
 			}
 			
 		} finally {
@@ -161,7 +162,7 @@ public class OrderDaoDataSource implements IOrderDao
 		}
 		}
 		
-		return coupons;
+		return orders;
 	}
 	
 }

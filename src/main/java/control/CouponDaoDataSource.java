@@ -60,7 +60,7 @@ public class CouponDaoDataSource implements ICouponDao{
 		
 		int result = 0;
 		
-		String deleteSQL = "DELETE FORM" + CouponDaoDataSource.TABLE_NAME + " WHERE CODICE =?";
+		String deleteSQL = "DELETE FROM " + CouponDaoDataSource.TABLE_NAME + " WHERE CODICE = ?";
 		
 		try {
 			connection= ds.getConnection();
@@ -88,7 +88,7 @@ public class CouponDaoDataSource implements ICouponDao{
 		PreparedStatement preparedStatement = null;
 		
 		CouponBean bean= new CouponBean();
-		String selectSQL = "SELECT * FROM " + CouponDaoDataSource.TABLE_NAME + "WHERE CODICE =?";
+		String selectSQL = "SELECT * FROM " + CouponDaoDataSource.TABLE_NAME + "WHERE CODICE = ?";
 		
 		try {
 			connection = ds.getConnection();
@@ -140,6 +140,7 @@ public class CouponDaoDataSource implements ICouponDao{
 						bean.setCodice(rs.getString("CODICE"));
 						bean.setPercentualeSconto(rs.getInt("PERCENTUALE_SCONTO"));
 						bean.setSaldoMinimo(rs.getDouble("SALDO_MINIMO"));
+						coupons.add(bean);
 					}
 					
 				} finally {

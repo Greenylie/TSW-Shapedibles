@@ -65,7 +65,7 @@ public class NutritionTableDaoDataSource implements INutritionTableDao
 		
 		int result = 0;
 		
-		String deleteSQL = "DELETE FORM" + NutritionTableDaoDataSource.TABLE_NAME + " WHERE CODICE_PRODOTTO =?";
+		String deleteSQL = "DELETE FROM " + NutritionTableDaoDataSource.TABLE_NAME + " WHERE CODICE_PRODOTTO = ?";
 		
 		try {
 			connection= ds.getConnection();
@@ -92,7 +92,7 @@ public class NutritionTableDaoDataSource implements INutritionTableDao
 		PreparedStatement preparedStatement = null;
 		
 		NutritionTableBean bean= new NutritionTableBean();
-		String selectSQL = "SELECT * FROM " + NutritionTableDaoDataSource.TABLE_NAME + "WHERE CODICE_PRODOTTO =?";
+		String selectSQL = "SELECT * FROM " + NutritionTableDaoDataSource.TABLE_NAME + " WHERE CODICE_PRODOTTO = ?";
 		
 		try {
 			connection = ds.getConnection();
@@ -131,7 +131,7 @@ public class NutritionTableDaoDataSource implements INutritionTableDao
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		
-		Collection<NutritionTableBean> coupons= new LinkedList<NutritionTableBean>();
+		Collection<NutritionTableBean> tables= new LinkedList<NutritionTableBean>();
 		String selectSQL = "SELECT * FROM " + NutritionTableDaoDataSource.TABLE_NAME;
 		
 		if(order != null && !order.equals("")) {
@@ -156,6 +156,7 @@ public class NutritionTableDaoDataSource implements INutritionTableDao
 				bean.setFibre(rs.getInt("FIBRE"));
 				bean.setProteine(rs.getInt("PROTEINE"));
 				bean.setSale(rs.getInt("SALE"));
+				tables.add(bean);
 			}
 			
 		} finally {
@@ -167,7 +168,7 @@ public class NutritionTableDaoDataSource implements INutritionTableDao
 		}
 		}
 		
-		return coupons;
+		return tables;
 	}
 
 }

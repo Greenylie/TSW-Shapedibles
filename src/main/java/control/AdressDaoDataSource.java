@@ -63,7 +63,7 @@ public class AdressDaoDataSource implements IAdressDao
 		
 		int result = 0;
 		
-		String deleteSQL = "DELETE FORM" + AdressDaoDataSource.TABLE_NAME + " WHERE CODICE = ? AND UTENTE=? ";
+		String deleteSQL = "DELETE FROM " + AdressDaoDataSource.TABLE_NAME + " WHERE CODICE = ? AND UTENTE= ? ";
 		
 		try {
 			connection= ds.getConnection();
@@ -92,7 +92,7 @@ public class AdressDaoDataSource implements IAdressDao
 		PreparedStatement preparedStatement = null;
 		
 		AdressBean bean= new AdressBean();
-		String selectSQL = "SELECT * FROM " + AdressDaoDataSource.TABLE_NAME + "WHERE CODICE =?  AND UTENTE=? ";
+		String selectSQL = "SELECT * FROM " + AdressDaoDataSource.TABLE_NAME + " WHERE CODICE = ?  AND UTENTE= ? ";
 		
 		try {
 			connection = ds.getConnection();
@@ -130,7 +130,7 @@ public class AdressDaoDataSource implements IAdressDao
 				Connection connection = null;
 				PreparedStatement preparedStatement = null;
 				
-				Collection<AdressBean> coupons= new LinkedList<AdressBean>();
+				Collection<AdressBean> adresses= new LinkedList<AdressBean>();
 				String selectSQL = "SELECT * FROM " + AdressDaoDataSource.TABLE_NAME;
 				
 				if(order != null && !order.equals("")) {
@@ -153,6 +153,7 @@ public class AdressDaoDataSource implements IAdressDao
 						bean.setCittà(rs.getString("città"));
 						bean.setNumero(rs.getInt("NUMERO"));
 						bean.setCodicePostale(rs.getString("CODICE_POSTALE"));
+						adresses.add(bean);
 					}
 					
 				} finally {
@@ -164,6 +165,6 @@ public class AdressDaoDataSource implements IAdressDao
 				}
 				}
 				
-				return coupons;
-  }
+				return adresses;
+				}
 }

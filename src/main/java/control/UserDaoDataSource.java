@@ -68,7 +68,7 @@ public class UserDaoDataSource implements IUserDao{
 		
 		int result = 0;
 		
-		String deleteSQL = "DELETE FORM" +UserDaoDataSource.TABLE_NAME + " WHERE USERNAME =?";
+		String deleteSQL = "DELETE FROM " +UserDaoDataSource.TABLE_NAME + " WHERE USERNAME = ?";
 		
 		try {
 			connection= ds.getConnection();
@@ -95,7 +95,7 @@ public class UserDaoDataSource implements IUserDao{
 				PreparedStatement preparedStatement = null;
 				
 				UserBean bean= new UserBean();
-				String selectSQL = "SELECT * FROM " + UserDaoDataSource.TABLE_NAME + "WHERE USERNAME =?";
+				String selectSQL = "SELECT * FROM " + UserDaoDataSource.TABLE_NAME + " WHERE USERNAME = ?";
 				
 				try {
 					connection = ds.getConnection();
@@ -136,7 +136,7 @@ public class UserDaoDataSource implements IUserDao{
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		
-		Collection<UserBean> products= new LinkedList<UserBean>();
+		Collection<UserBean> users= new LinkedList<UserBean>();
 		String selectSQL = "SELECT * FROM " + UserDaoDataSource.TABLE_NAME;
 		
 		if(order != null && !order.equals("")) {
@@ -160,6 +160,7 @@ public class UserDaoDataSource implements IUserDao{
 				bean.setPaese(rs.getString("PAESE"));
 				bean.setDataNascita(rs.getString("DATA_NASCITA"));
 				bean.setUserAdmin(rs.getInt("USER_ADMIN"));
+				users.add(bean);
 			}
 			
 		} catch (NoSuchAlgorithmException e) {
@@ -174,7 +175,7 @@ public class UserDaoDataSource implements IUserDao{
 		}
 		}
 		
-		return products;
+		return users;
 	}
  
 }

@@ -1,53 +1,124 @@
- <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<%@ page import="model.UserBean, control.UserDaoDataSource, java.security.NoSuchAlgorithmException, control.DriverManagerConnectionPool, java.sql.SQLException, java.util.*, javax.sql.DataSource, javax.servlet.ServletContext" %>
+ <%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
+<% 
+	Collection<?> products = (Collection<?>) request.getAttribute("products");
+	if(products == null) {
+		response.sendRedirect("./product");
+		return;
+	}
+	ProductBean product = (ProductBean) request.getAttribute("product");
+	Cart cart = (Cart) session.getAttribute("cart");
+%>
+
 <!DOCTYPE html>
 <html>
+
+<%@ page contentType="text/html; charset=UTF-8" import="java.util.*, model.ProductBean, model.Cart"%>
+
 <head>
-<meta charset="ISO-8859-1">
-<title>Pagina di test</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link href="productStyle.css" rel="stylesheet" type="text/css">
+	<title>Pagina prodotti  </title>
 </head>
+
 <body>
-  <h1> Pagina di test del DAO </h1>
+  <h2> Products </h2>
+  <a href="product">List</a>
+  <table border="1">
+   <tr>
+   		<th>Code <a href="product?sort=codice"> Sort</a></th>
+   		<th>Name <a href="product?sort=nome"> Sort</a></th>
+   		<th>Description <a href="product?sort=descrizione"> Sort</a></th>
+   		<th>Action</th>
+   </tr>
   <%
-      ServletContext context = request.getServletContext();
-      DataSource dmcp= (DataSource) context.getAttribute("DataSource");
-	  UserBean user= new UserBean();
-	  UserDaoDataSource userdao = new UserDaoDataSource(dmcp);
-	  
-	  UserBean user1=new UserBean();
-	  UserDaoDataSource userdao1 = new UserDaoDataSource(dmcp);
-	  
-	  try{
-	  user.setUsername("admin2");
-	  user.setEmail("TryAdmin2@gmail.com"); 
-	  user.setPass("admin2");
-	  user.setNomeCognome("Mera Salamin");
-	  user.setSesso("Donna");
-	  user.setPaese("Italia");
-	  user.setDataNascita("2024-06-17");
-	  user.setUserAdmin(1);
-	  
-	  /* user1.setUsername("user2");
-	  user1.setEmail("TryUser2@gmail.com"); 
-	  user1.setPass("user2");
-	  user1.setNomeCognome("Indus Tarbella");
-	  user1.setSesso("uomo");
-	  user1.setPaese("Italia");
-	  user1.setDataNascita("2024-06-17");
-	  user1.setUserAdmin(0); */
-	  
-     userdao.doSave(user); 
-	  //userdao1.doSave(user1);
-	  
-	  
-	  } catch(NoSuchAlgorithmException e)
-	   { System.out.println("Eccezione cifratura");} 
-	   catch(SQLException e)
-	   { System.out.println("Eccezione SQL");
-	   e.printStackTrace();}  
-	  
-	  
+	if(products != null && products.size()!= 0) {
+		Iterator<?> it = products.iterator();
+		while (it.hasNext()) {
+			ProductBean bean = (ProductBean) it.next();
   %>
+  <tr>
+   		<td><%=bean.getCodice()%></td>
+   		<td><%=bean.getNome()%></td>
+   		<td><%=bean.getDescrizione()%></td>
+   		<td> <a href="product?action=delete&id=<%=bean.getCodice()%>"> Delete</a><br>
+   			 <a href="product?action=read&id=<%=bean.getCodice()%>"> Details</a><br>
+   			 <a href="product?action=addC&id=<%=bean.getCodice()%>"> Add to cart</a><br>
+   		</td>
+   </tr>
+   <% 
+	  }
+	  } else {
+   %>
+    <tr>
+   		<td colspan="6"> No products available</td>
+   </tr>
+    <% 
+	  }
+   %>
+  </table>
+  
+  <h2>Dettagli</h2>
+  <% 
+  	if (product != null) {
+  %>
+  <table border="1">
+  	<tr>
+  		<th>Code</th>
+  		<th>Name</th>
+  		<th>Description</th>
+  		<th>Price</th>
+  		<th>Quantity</th>  
+  	</tr>
+  	<tr>
+  		<td><%=product.getCodice()%></td>
+   		<td><%=product.getNome()%></td>
+   		<td><%=product.getDescrizione()%></td>
+   		<td><%=product.getCosto()%></td>
+   		<td><%=product.getDisponibilità()%></td>
+  	</tr>
+  </table>
+  <%
+  	}
+  %>
+  
+  <h2>Insert</h2>
+  <form action="product" method="post">
+  	<input type="hidden" name="action" value="insert">
+  	
+  	<label for="name">Name:</label><br>
+  	<input name="name" type="text" maxlength="20" required placeholder="enter name"><br>
+  	
+  	<label for="description">Description:</label><br>
+  	<textarea name="description" maxlength="100" rows="3" required placeholder="enter description"></textarea><br>
+  	
+  	<label for="price">Price:</label><br>
+  	<input name="price" type="number" step="0.01" min="0.00" value="0.0" required><br>
+  	
+  	<label for="quantity">Quantity:</label><br>
+  	<input name="quantity" type="number" min="1" value="1" required><br>	
+  	
+  	<input type="submit" value="Add"><input type="reset" value="Reset">  	
+  </form>
+  <% if(cart != null) {%>
+  	<h2>Cart</h2>
+  	<table border="1">
+  		<tr> 
+  			<th>Name</th>
+  			<th>Action</th>
+  		</tr>
+  	
+  <% 
+     List<ProductBean> prodcart= cart.getProducts();
+     for(ProductBean beancart: prodcart) {
+  %>
+   <tr> 
+  			<td><%=beancart.getNome()%></td>
+  			<td><a href="product?action=deleteC&id=<%=beancart.getCodice()%>"> Delete from cart </a></td>
+  	</tr>
+  <%} %>
+  </table>
+  <% } %>
 </body>
 </html>
