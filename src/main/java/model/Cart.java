@@ -1,5 +1,7 @@
 package model;
 
+import model.bean.ProductBean;
+
 import java.util.ArrayList;
 import java.util.List;
 
