@@ -38,9 +38,9 @@ public class UserBean implements Serializable{
 	{
 		this.email=email;
 	}
-	public void setPass(String pass) throws NoSuchAlgorithmException 
+	public void setPass(String pass) 
 	{
-		this.pass=hashPassword(pass);
+		this.pass=pass;
 	}
 	public void setNomeCognome(String nome_cognome) 
 	{
@@ -101,15 +101,5 @@ public class UserBean implements Serializable{
 	public String toString() {
 		return username + user_admin;
 	}
-	
-	 private String hashPassword(String password) throws NoSuchAlgorithmException {
-		    MessageDigest md = MessageDigest.getInstance("SHA-512");
-		    byte[] hashedBytes = md.digest(password.getBytes(StandardCharsets.UTF_8));
-		    StringBuilder sb = new StringBuilder();
-		    for (byte b : hashedBytes) {
-		        sb.append(String.format("%02x", b));
-		    }
-		    return sb.toString();
-		   }
 
 }

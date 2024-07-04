@@ -14,7 +14,7 @@
 <!DOCTYPE html>
 <html>
 
-<%@ page contentType="text/html; charset=UTF-8" import="java.util.*, model.ProductBean, model.Cart"%>
+<%@ page contentType="text/html; charset=UTF-8" import="java.util.*, model.bean.ProductBean, model.Cart"%>
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -120,5 +120,8 @@
   <%} %>
   </table>
   <% } %>
+  
+  <a href="loginView.jsp" > login</a>
+  <a href="RegisterView.jsp" > register</a>
 </body>
 </html>

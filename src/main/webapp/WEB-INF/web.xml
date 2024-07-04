@@ -22,10 +22,30 @@
     <servlet-name>ProductControl</servlet-name>
     <servlet-class>control.ProductControl</servlet-class>
   </servlet>
+  
+  <servlet>
+    <servlet-name>Login</servlet-name>
+    <servlet-class>control.Login</servlet-class>
+  </servlet>
+  
+  <servlet>
+    <servlet-name>Register</servlet-name>
+    <servlet-class>control.Register</servlet-class>
+  </servlet>
  
   <servlet-mapping>
     <servlet-name>ProductControl</servlet-name>
     <url-pattern>/product</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>Login</servlet-name>
+    <url-pattern>/login</url-pattern>
+  </servlet-mapping>
+  
+ <servlet-mapping>
+    <servlet-name>Register</servlet-name>
+    <url-pattern>/register</url-pattern>
   </servlet-mapping>
 
 </web-app>

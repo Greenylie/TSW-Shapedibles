@@ -115,10 +115,8 @@ public class UserDaoDataSource implements IUserDao {
 						bean.setUserAdmin(rs.getInt("USER_ADMIN"));
 					}
 					
-				} catch (NoSuchAlgorithmException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} finally {
+				} 
+				finally {
 					try{
 						if(preparedStatement != null)
 							preparedStatement.close();
@@ -163,9 +161,6 @@ public class UserDaoDataSource implements IUserDao {
 				users.add(bean);
 			}
 			
-		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} finally {
 			try{
 				if(preparedStatement != null)
