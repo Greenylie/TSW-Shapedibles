@@ -14,11 +14,10 @@
   	 <input name="username" type="text" maxlength="30" required placeholder="entre username"><br>
   	 
   	 <label for="name"> Password: </label><br>
-  	 <input name="password" type="text" maxlength="30" required placeholder="enter password"><br>
+  	 <input name="password" type="password" maxlength="30" required placeholder="enter password"><br>
   	 
   	 <input type="submit" value="Login"> <input type="reset" value="Reset">  
   	 
-  	  <a href="RegisterView.jsp" > register</a>	
   </form>
   
    <a href="RegisterView.jsp" > register</a>

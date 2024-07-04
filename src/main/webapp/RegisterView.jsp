@@ -20,6 +20,9 @@
   	 <label for="password"> Password: </label><br>
   	 <input name="password" type="password" maxlength="30" required placeholder="enter password"><br>
   	 
+  	  <label for="passwordConf"> Repeat the password: </label><br>
+  	 <input name="passwordConf" type="password" maxlength="30" required placeholder="enter password again"><br>
+  	 
   	 <label for="nome e cognome"> Nome e cognome: </label><br>
   	 <input name="nome_cognome" type="text" maxlength="30" required placeholder="enter name and surname"><br>
   	 

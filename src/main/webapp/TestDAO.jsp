@@ -23,6 +23,12 @@
 </head>
 
 <body>
+	<% 
+	if(session.getAttribute("LoggedUser")!=null)
+	{ %>
+	  <h1> Sei Loggato!</h1>
+	<% } %>
+
   <h2> Products </h2>
   <a href="product">List</a>
   <table border="1">

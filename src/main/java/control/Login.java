@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
 import model.datasource.UserDaoDataSource;
@@ -49,26 +50,24 @@ public class Login extends HttpServlet {
 		String password= request.getParameter("password");
 		
 		UserBean userCheck = new UserBean();
-		UserBean userChecked = new UserBean();
 		
 		try {
-			userChecked.setUsername(username);
-			userChecked.setPass(password);
 			
 			DataSource ds= (DataSource) getServletContext().getAttribute("DataSource");
 			UserDaoDataSource userDao = new UserDaoDataSource(ds);
 			
 			userCheck= userDao.doRetrieveByKey(username);
 			
-			if(userChecked.getUsername().equals(userCheck.getUsername())) 
+			if(username.equals(userCheck.getUsername()) && hashPassword(password).equals(userCheck.getPass())) 
 			{
-				if(hashPassword(userChecked.getPass()).equals(userCheck.getPass())) 
-				{
-					System.out.println("Sei loggato!");
-				}
-				else System.out.println("Password errata!");
+				
+				HttpSession session = request.getSession(true);
+				session.setAttribute("LoggedUser", userCheck);
+				
+				response.sendRedirect(request.getContextPath() + "/TestDAO.jsp");
+				
 			}
-			else System.out.println("Username errato!" );
+			// else response.sendRedirect(request.getContextPath() + "/.jsp");
 			
 		}
 		catch(SQLException e)

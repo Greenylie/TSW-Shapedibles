@@ -47,6 +47,7 @@ public class Register extends HttpServlet {
 		String username= request.getParameter("username");
 		String email= request.getParameter("email");
 		String password= request.getParameter("password");
+		String passwordConf= request.getParameter("passwordConf");
 		String nomeCognome= request.getParameter("nome_cognome");
 		String sesso= request.getParameter("sesso");
 		String paese= request.getParameter("paese");
@@ -54,30 +55,33 @@ public class Register extends HttpServlet {
 		int isAdmin= 0;
 		
 		UserBean user= new UserBean();
-		
-		try {
-			user.setUsername(username);
-			user.setEmail(email);
-			user.setPass(hashPassword(password));
-			user.setNomeCognome(nomeCognome);
-			user.setSesso(sesso);
-			user.setPaese(paese);
-			user.setDataNascita(dataNascista);
-			user.setUserAdmin(isAdmin);
-			
-			DataSource ds= (DataSource) getServletContext().getAttribute("DataSource");
-			UserDaoDataSource userDao = new UserDaoDataSource(ds);
-			userDao.doSave(user);
-			
-		}
-		catch(SQLException e)
+		if(password.equals(passwordConf)) 
 		{
-			System.out.println("Error..." + e.getMessage());
-		}
-		catch(NoSuchAlgorithmException e)
-		{
-			System.out.println("Error..." + e.getMessage());
-		}
+			try {
+				user.setUsername(username);
+				user.setEmail(email);
+				user.setPass(hashPassword(password));
+				user.setNomeCognome(nomeCognome);
+				user.setSesso(sesso);
+				user.setPaese(paese);
+				user.setDataNascita(dataNascista);
+				user.setUserAdmin(isAdmin);
+			
+				DataSource ds= (DataSource) getServletContext().getAttribute("DataSource");
+				UserDaoDataSource userDao = new UserDaoDataSource(ds);
+				userDao.doSave(user);
+				response.sendRedirect(request.getContextPath() + "/loginView.jsp");
+			
+			}
+			catch(SQLException e)
+			{
+				System.out.println("Error..." + e.getMessage());
+			}
+			catch(NoSuchAlgorithmException e)
+			{
+				System.out.println("Error..." + e.getMessage());
+			}
+		} 
 	}
 	
 	private String hashPassword(String password) throws NoSuchAlgorithmException {
