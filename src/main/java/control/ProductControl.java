@@ -1,7 +1,9 @@
 package control;
 
-import java.io.IOException;
-import java.sql.SQLException;
+import model.Cart;
+import model.bean.ProductBean;
+import model.dao.IProductDao;
+import model.datasource.ProductDaoDataSource;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,10 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
-
-import model.Cart;
-import model.IProductDao;
-import model.ProductBean;
+import java.io.IOException;
+import java.sql.SQLException;
 
 /**
  * Servlet implementation class ProductControl
