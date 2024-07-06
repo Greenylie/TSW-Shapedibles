@@ -8,7 +8,7 @@
   <display-name>Shapedibles</display-name>
   
   <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
+    <welcome-file>/views/pages/index.jsp</welcome-file>
   </welcome-file-list>
   
   <resource-ref>

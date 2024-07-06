@@ -1,0 +1,229 @@
+.sticky {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 12fr 1fr;
+    grid-template-rows: 1fr 12fr;
+    grid-template-areas:
+        "header header"
+        "null ruler";
+}
+
+header {
+    grid-area: header;
+}
+
+.header-wrapper {
+    position: relative;
+    display: flex;
+    align-content: center;
+    height: 7vh;
+    min-height: 30px;
+    padding: 10px 5px;
+    margin: 15px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 3em;
+    box-shadow: 0 4px 15px #ffffff09;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    transition: box-shadow ease-out 0.6s,
+    height ease-out 0.2s,
+    width ease-out 0.2s,
+    margin ease-out 0.2s;
+
+}
+
+.header-left {
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+.logo{
+    height: 100%;
+    display: flex;  
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+}
+
+.logo a {
+    height: 180%;
+}
+
+.logo img {
+    height: 100%;
+    display: block;
+    
+    filter: invert(65%) sepia(0%) brightness(200%) contrast(100%) drop-shadow(0 10px 10px rgba(255,255,255,0));
+    transition: height ease-out 0.2s,
+                width ease-out 0.2s,
+                rotate ease-in-out 0.1s,
+                filter ease 0.1s,
+                transform ease 0.1s;
+}
+
+.logo:hover img {
+    rotate: -4deg;
+    filter: invert(65%) sepia(0%) brightness(200%) contrast(100%) drop-shadow(0 10px 10px rgba(255,255,255,0.3));
+    transform: translateY(-5px); 
+}
+
+.header-center {
+    position: relative;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.searchbar {
+    margin: 0;
+    width: calc(100% - 20px);
+    height: calc(100% - 20px);  
+    border-radius: 3em;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(2px);
+    padding: 4px 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.16);
+    transition: border ease-out 0.3s,
+                box-shadow ease-out 0.35s;
+}
+
+.searchbar:hover {
+    border: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+.searchbar input[type="search"] {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: white;
+    font-size: 16px;
+    font-family: Merriweather, sans-serif;
+    width: 100%;
+}
+
+.searchbar button {
+    aspect-ratio: 1/1;
+    height: 75%;
+    width: auto;
+    padding: 5px 5px;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    left: 1%;
+    rotate: 0;
+
+    background: transparent;
+    border: none;
+    color: rgb(200,200,200,0.7);
+    cursor: default;
+    
+    transition: background 0.3s,
+                rotate ease-in-out 0.6s,
+                left ease-out 0.7s,
+                right ease-out 0.7s;
+}
+
+.searchbar input[type="search"]:focus + button{
+    rotate: 360deg;
+    
+    background: rgb(255,255,255, 0.05);
+    border: rgb(255,255,255, 0.3) 1px;
+    backdrop-filter: blur(5px);
+}
+
+.searchbar input[type="search"]::placeholder {
+    transition: color ease-out 0.5s;
+}
+
+.searchbar input[type="search"]:focus::placeholder {
+    color: transparent;
+}
+
+.header-right {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.ruler {
+    grid-area: ruler;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    top: -16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    opacity: 20%;
+}
+
+.line {
+    margin-top: 2px;
+    height: 0;
+    width: 2%;
+    background: white;
+    transition: height ease-out 0.7s,
+                opacity ease-out 0.6s;
+}
+
+.handle {
+    width: 55%;
+    opacity: 0;
+    user-select: none;
+
+    transition: width ease-out 0.3s,
+                opacity ease-out 0.6s;
+}
+
+.handle:hover {
+    width: 65%;
+    opacity: 100%;
+}
+
+.handle img {
+    width: 100%;
+    display: block;
+    filter: invert(65%) sepia(0%) brightness(200%) contrast(100%);
+}
+
+@media only screen and (max-width: 768px) {
+    .sticky {
+        grid-template-columns: 5fr 1fr;
+        grid-template-rows: 1fr 15fr;
+    }
+    
+    .header-wrapper {
+        padding: 10px 5px;
+        margin: 15px;
+    }
+    
+    .ruler {
+        top: -10px;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .sticky {
+        grid-template-columns: 4fr 1fr;
+        grid-template-rows: 1fr 18fr;
+    }
+
+    .header-wrapper {
+        padding: 10px 5px;
+        margin: 20px;
+    }
+    
+    .ruler {
+        top: -5px;
+    }
+}

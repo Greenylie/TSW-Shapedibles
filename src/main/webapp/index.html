@@ -5,23 +5,32 @@
     <meta charset="UTF-8">
     <title>Shapedibles</title>
     <link rel="stylesheet" href="assets/styles/base.css">
-    <script src="assets/script/base.js"></script>
+    <script src="assets/script/pages/sticky.js"></script>
 </head>
 <body>
-    <header>
-       <div class="header-wrapper"> <!--Uso una div come wrapper per rendere il logo più grande della navbar-->
-           <div class="logo">
-               <a href="index.html"><img src="assets/images/svg/logo.svg" alt="Logo" id="logoSvg"></a>
+    <div class="sticky">
+        <header>
+           <div class="header-wrapper">
+               <div class="logo">
+                   <a href="index.html"><img src="assets/images/svg/logo.svg" alt="Logo" id="logoSvg"></a>
+               </div>
+               <div class="button-back cart">
+                   <div class="button">
+                   <i class="fa fa-solid fa-play fa-2x"></i>
+                   </div>
+               </div>
            </div>
-       </div>
-    </header>
-    <main id="main"></main>
-    <div class="ruler">
-        <div class="line"></div>
-        <a class="handle" href="#main">
-            <img src="assets/images/svg/handle.svg" alt="Logo">
-        </a>
+        </header>
+
+        <div class="ruler">
+            <div class="line"></div>
+            <a class="handle" href="#main">
+                <img src="assets/images/svg/handle.svg" alt="Logo">
+            </a>
+        </div>
     </div>
+
+    <main id="main"></main>
 
     <svg>
         <filter id='noiseFilter'>
