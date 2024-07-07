@@ -40,7 +40,7 @@ INSERT INTO Indirizzi (id, Utente, paese, strada, città, numero, codice_postale
 VALUES ('adUser1-1', 'user', 'Italia', 'via Garibaldi', 'Salerno', 4, '814121');
 INSERT INTO Indirizzi (id, Utente, paese, strada, città, numero, codice_postale) 
 VALUES ('adUser1-2', 'user', 'Italia', 'via Duomo', 'Milano', 20, '20057');
-INSERT INTO Indirizzi (id, Uproducttente, paese, strada, città, numero, codice_postale) 
+INSERT INTO Indirizzi (id, Utente, paese, strada, città, numero, codice_postale) 
 VALUES ('adUser2-1', 'user2', 'Italia', 'via Roma', 'Milano', 10, '20057');
 
 create table Prodotti 
