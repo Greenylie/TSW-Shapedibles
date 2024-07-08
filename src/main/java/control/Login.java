@@ -60,11 +60,11 @@ public class Login extends HttpServlet {
 			
 			if(username.equals(userCheck.getUsername()) && hashPassword(password).equals(userCheck.getPass())) 
 			{
-				
 				HttpSession session = request.getSession(true);
 				session.setAttribute("LoggedUser", userCheck);
-				
-				response.sendRedirect(request.getContextPath() + "/TestDAO.jsp");
+				String checkout = (String) request.getAttribute("Checkout");
+				if( checkout != null) response.sendRedirect(request.getContextPath() + "/Checkout.jsp");
+				else response.sendRedirect(request.getContextPath() + "/TestDAO.jsp");
 				
 			}
 			// else response.sendRedirect(request.getContextPath() + "/.jsp");
