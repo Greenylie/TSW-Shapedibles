@@ -6,6 +6,6 @@
         driverClassName="com.mysql.cj.jdbc.Driver"
         type="javax.sql.DataSource"
         username="root"
-        password="3reticDre4m!"
+        password="Runter1234"
         url="jdbc:mysql://localhost:3306/shapedibles?useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC"/>
 </Context>

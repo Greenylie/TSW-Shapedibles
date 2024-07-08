@@ -108,25 +108,6 @@
   	<input type="submit" value="Add"><input type="reset" value="Reset">  	
   </form>
   
-  <% if(cart != null) { %>
-		<h2>Cart</h2>
-		<table border="1">
-		<tr>
-			<th>Name</th>
-			<th>Action</th>
-		</tr>
-		<% List<ProductBean> prodcart = cart.getProducts(); 	
-		   for(ProductBean beancart: prodcart) {
-		%>
-		<tr>
-			<td><%=beancart.getNome()%></td>
-			<td><a href="product?action=deleteC&id=<%=beancart.getCodice()%>">Delete from cart</a></td>
-		</tr>
-		<%} %>
-	</table>		
-	<% } %>	
-	
-  
   <a href="loginView.jsp" > login</a>
   <a href="RegisterView.jsp" > register</a>
    <a href="CartView.jsp" > Cart</a>
