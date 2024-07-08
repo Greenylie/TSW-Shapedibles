@@ -19,7 +19,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<link href="productStyle.css" rel="stylesheet" type="text/css">
-	<title>Pagina prodotti  </title>
+	<title>Pagina prodotti</title>
 </head>
 
 <body>
@@ -108,10 +108,10 @@
   	<input type="submit" value="Add"><input type="reset" value="Reset">  	
   </form>
   
-  <a href="loginView.jsp" > login</a>
-  <a href="RegisterView.jsp" > register</a>
-   <a href="CartView.jsp" > Cart</a>
-   <a href="Checkout.jsp" > Checkout</a>
+  <a href="loginView.jsp" > Login </a>
+  <a href="RegisterView.jsp" > Register </a>
+   <a href="Cart.jsp" > Cart </a>
+   <a href="Checkout.jsp" > Checkout </a>
    
 </body>
 </html>

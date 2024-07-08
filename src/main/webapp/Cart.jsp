@@ -35,9 +35,10 @@
 	</table>		
 	<% } %>	
 	
-  <a href="loginView.jsp" > login</a>
-  <a href="RegisterView.jsp" > register</a>
+  <a href="loginView.jsp" > Login</a>
+  <a href="RegisterView.jsp" > Register</a>
    <a href="CartView.jsp" > Cart</a>
    <a href="Checkout.jsp" > Checkout</a>
+   <a href="Product.jsp" > Prodotti</a> <!-- I piedi di Ste -->
 </body>
 </html>
