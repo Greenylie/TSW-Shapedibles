@@ -7,9 +7,9 @@
                 <feTurbulence
                         type='fractalNoise'
                         baseFrequency='0.5'
-                        stitchTiles='stitch'/>
+                        stitchTiles='stitch'></feTurbulence>
         
-                <feBlend in="SourceGraphic" in2="monoNoise" mode="screen" />
+                <feBlend in="SourceGraphic" in2="monoNoise" mode="screen"></feBlend>
             </filter>
         </defs>
     </svg>
