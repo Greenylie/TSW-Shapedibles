@@ -8,7 +8,6 @@
 		return;
 	}
 	ProductBean product = (ProductBean) request.getAttribute("product");
-	Cart cart = (Cart) session.getAttribute("cart");
 %>
 
 <!DOCTYPE html>

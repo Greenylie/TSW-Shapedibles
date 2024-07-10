@@ -14,7 +14,7 @@ import java.util.LinkedList;
 
 public class NutritionTableDaoDataSource implements INutritionTableDao
 {
-	private static final String TABLE_NAME="TabelleNutrizionali";
+	private static final String TABLE_NAME="tabelleNutrizionali";
 	private DataSource ds=null;
 	
 	public NutritionTableDaoDataSource(DataSource ds)

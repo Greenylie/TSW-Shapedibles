@@ -48,4 +48,33 @@
     <url-pattern>/register</url-pattern>
   </servlet-mapping>
 
+<servlet>
+    <servlet-name>ProductUpload</servlet-name>
+    <servlet-class>control.ProductUpload</servlet-class>
+    <init-param>
+		<param-name>file-upload</param-name>
+		<param-value>img</param-value>
+	</init-param>
+	<multipart-config>
+		<max-file-size>52428800</max-file-size>
+		<max-request-size>52428800</max-request-size>
+		<file-size-threshold>0</file-size-threshold>
+	</multipart-config>
+  </servlet>
+
+ <servlet-mapping>
+    <servlet-name>ProductUpload</servlet-name>
+    <url-pattern>/productupload</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>cartControl</servlet-name>
+    <servlet-class>control.CartControl</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>cartControl</servlet-name>
+    <url-pattern>/cartControl</url-pattern>
+  </servlet-mapping>
+
 </web-app>

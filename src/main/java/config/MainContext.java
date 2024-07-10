@@ -16,7 +16,8 @@ public class MainContext implements ServletContextListener
 		ServletContext context = sce.getServletContext();
 
 		//Per usare il Data  Source
-		DataSource ds = null; try	{
+		DataSource ds = null; 
+		try	{
 			Context initCtx = new InitialContext();
 			Context envCtx = (Context) initCtx.lookup("java:comp/env");
 

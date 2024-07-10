@@ -40,7 +40,7 @@ public class ProductControl extends HttpServlet {
 		
 		DataSource ds= (DataSource) getServletContext().getAttribute("DataSource");
 		productDao = new ProductDaoDataSource(ds);
-		
+		  
 		Cart cart = (Cart) request.getSession().getAttribute("cart");
 		if(cart == null) 
 		{
@@ -56,10 +56,7 @@ public class ProductControl extends HttpServlet {
 			if(action.equalsIgnoreCase("addC")) {
 				int id = Integer.parseInt(request.getParameter("id"));
 				cart.addProduct(productDao.doRetrieveByKey(id));
-			} else if(action.equalsIgnoreCase("DeleteC")) {
-				int id = Integer.parseInt(request.getParameter("id"));
-				cart.deleteProduct(productDao.doRetrieveByKey(id));
-			} else if(action.equalsIgnoreCase("read")) {
+			}  else if(action.equalsIgnoreCase("read")) {
 				int id = Integer.parseInt(request.getParameter("id"));
 				request.removeAttribute("product");
 				request.setAttribute("product", productDao.doRetrieveByKey(id));
@@ -95,7 +92,7 @@ public class ProductControl extends HttpServlet {
 			System.out.println("Error; " + e.getMessage());
 		}
 		
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/TestDAO.jsp");
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Product.jsp");
 		dispatcher.forward(request, response);		
 	}
 

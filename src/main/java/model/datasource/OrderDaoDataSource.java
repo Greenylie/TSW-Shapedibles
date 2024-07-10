@@ -14,7 +14,7 @@ import java.util.LinkedList;
 
 public class OrderDaoDataSource implements IOrderDao
 {
-	private static final String TABLE_NAME="Ordini";
+	private static final String TABLE_NAME="ordini";
 	private DataSource ds=null;
 	
 	public OrderDaoDataSource(DataSource ds)

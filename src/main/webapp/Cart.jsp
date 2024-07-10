@@ -29,7 +29,7 @@
 		%>
 		<tr>
 			<td><%=beancart.getNome()%></td>
-			<td><a href="product?action=deleteC&id=<%=beancart.getCodice()%>">Delete from cart</a></td>
+			<td><a href="cartControl?action=deleteC&id=<%=beancart.getCodice()%>">Delete from cart</a></td>
 		</tr>
 		<%} %>
 	</table>		

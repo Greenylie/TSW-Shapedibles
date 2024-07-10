@@ -92,7 +92,9 @@ public class ProductDaoDataSource implements IProductDao
 		String selectSQL = "SELECT * FROM " + ProductDaoDataSource.TABLE_NAME + " WHERE CODICE= ? ";
 		
 		try {
+			//if(ds==null) System.out.println("ds nulla.");
 			connection = ds.getConnection();
+			//if(connection==null) System.out.println("connesione nulla.");
 			preparedStatement = connection.prepareStatement(selectSQL);
 			preparedStatement.setInt(1, code);
 			
