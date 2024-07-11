@@ -1,8 +1,11 @@
 package control;
 
 import model.Cart;
+import model.bean.ImageBean;
 import model.bean.ProductBean;
+import model.dao.IImageDao;
 import model.dao.IProductDao;
+import model.datasource.ImageDaoDataSource;
 import model.datasource.ProductDaoDataSource;
 
 import javax.servlet.RequestDispatcher;
@@ -37,9 +40,9 @@ public class ProductControl extends HttpServlet {
 		// TODO Auto-generated method stub
 		IProductDao productDao = null;
 		
-		
 		DataSource ds= (DataSource) getServletContext().getAttribute("DataSource");
 		productDao = new ProductDaoDataSource(ds);
+		
 		  
 		Cart cart = (Cart) request.getSession().getAttribute("cart");
 		if(cart == null) 
@@ -63,18 +66,6 @@ public class ProductControl extends HttpServlet {
 			} else if(action.equalsIgnoreCase("delete")) {
 				int id = Integer.parseInt(request.getParameter("id"));
 				productDao.doDelete(id);
-			} else if(action.equalsIgnoreCase("insert")) {
-				String name = request.getParameter("name");
-				String description = request.getParameter("description");
-				Double price= Double.parseDouble(request.getParameter("price"));
-				int quantity= Integer.parseInt(request.getParameter("quantity"));
-				
-				ProductBean bean = new ProductBean();
-				bean.setNome(name);
-				bean.setDescrizione(description);
-				bean.setCosto(price);
-				bean.setDisponibilità(quantity);
-				productDao.doSave(bean);
 			}
 		}
 		

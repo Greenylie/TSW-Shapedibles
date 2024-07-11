@@ -19,8 +19,14 @@ import javax.servlet.http.Part;
 import javax.sql.DataSource;
 
 import javax.servlet.RequestDispatcher;
+
+import model.bean.ImageBean;
+import model.bean.InfoBean;
 import model.bean.ProductBean;
+import model.datasource.ImageDaoDataSource;
+import model.datasource.InfoDaoDataSource;
 import model.datasource.ProductDaoDataSource;
+
 
 /**
  * Servlet implementation class ProductUpload
@@ -31,6 +37,9 @@ public class ProductUpload extends HttpServlet {
 	private static final long serialVersionUID = 1L; 
 	static String SAVE_DIR= "img";
 	static ProductDaoDataSource prodDao;
+	static ImageDaoDataSource imgDao;
+	static InfoDaoDataSource infDao;
+	String img;
 	
 	DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-mm-dd");
 	LocalDateTime now = LocalDateTime.now();
@@ -58,10 +67,16 @@ public class ProductUpload extends HttpServlet {
 		// TODO Auto-generated method stub
 		Collection<?> prodotti = (Collection<?>) request.getSession().getAttribute("Products");
 		String savePath = request.getServletContext().getRealPath("") + File.separator + SAVE_DIR;
-		ProductBean p1 = new ProductBean();
+		ProductBean beanP1 = new ProductBean();
+		ProductBean beanP2 = new ProductBean();
+		ImageBean beanI = new ImageBean();
+		InfoBean beanIn = new InfoBean();
+		InfoBean beanIn2 = new InfoBean();
 		
 		DataSource ds = (DataSource) request.getServletContext().getAttribute("DataSource");
 		prodDao= new ProductDaoDataSource(ds);
+		imgDao= new ImageDaoDataSource(ds);
+		infDao= new InfoDaoDataSource(ds);
 		
 		String fileName= null;
 		String message = "upload=/n";
@@ -77,7 +92,7 @@ public class ProductUpload extends HttpServlet {
 					  if(fileSize <=5 * 1024 *1024) {
 						  if(isValidMagicNumber(part)) {
 							  part.write(savePath + File.separator + fileName);
-							  //p1.setImg(fileName);
+							  img=fileName;
 							  message = message + fileName + "\n";
 						  } else  System.out.println("Errore: Il file non ha un magic number valido"); //request.setAttribute("error", "Errore: Il file non ha un magic number valido");
 					  }  else  System.out.println("Errore: limite messimo consentito");//request.setAttribute("error", "Errore: Il file non ha un magic number valido");
@@ -92,19 +107,33 @@ public class ProductUpload extends HttpServlet {
 		   String type= request.getParameter("type");
 		try {
 			
-			//System.out.println(p1.getImg());
+			System.out.println(img);
+			beanIn.setNome(name);
+			beanIn.setDescrizione(description);
+			beanIn.setCosto(price);
+			beanIn.setDisponibilità(quantity);
+			beanIn.setTipologia(type);
+			infDao.doSave(beanIn);
 			
-				p1.setNome(name);
-				p1.setDescrizione(description);
-				p1.setCosto(price);
-				p1.setDisponibilità(quantity);
-				p1.setTipologia(type);
-				prodDao.doSave(p1);
+			beanIn2=infDao.doRetrieveByName(name);
+			
+			beanP1.setInfoCorrenti(beanIn2.getCodice());
+			beanP1.setNome(name);
+			prodDao.doSave(beanP1);
+			
+			beanP2=prodDao.doRetrieveByName(name);
+			
+			beanI.setCodiceProdotto(beanP2.getCodice());
+			beanI.setImg(img);
+			imgDao.doSave(beanI);
+			
+			
+			
 			} catch(SQLException e) {
 				System.out.println("Error: " + e.getMessage());
 			}
 		
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/TestDAO.jsp");
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Product.jsp");
 		dispatcher.forward(request, response);	
 		}
 

@@ -13,4 +13,6 @@ public interface IProductDao {
 	public ProductBean doRetrieveByKey(int code) throws SQLException;
 	
 	public Collection<ProductBean> doRetrieveAll(String order) throws SQLException;
+	
+	public ProductBean doRetrieveByName(String name) throws SQLException;
 }

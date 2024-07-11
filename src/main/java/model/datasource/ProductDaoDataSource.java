@@ -30,16 +30,14 @@ public class ProductDaoDataSource implements IProductDao
 		PreparedStatement preparedStatement = null;
 		
 		String insertSQL="INSERT INTO " + ProductDaoDataSource.TABLE_NAME 
-				+ " (nome, costo, descrizione, disponibilità , tipologia) VALUES (?,?,?,?,?)";
+				+ " (info_correnti, nome) VALUES (?,?)";
 		
 		try {
 			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(insertSQL);
-			preparedStatement.setString(1, product.getNome());
-			preparedStatement.setDouble(2, product.getCosto());
-			preparedStatement.setString(3, product.getDescrizione());
-			preparedStatement.setInt(4, product.getDisponibilità());
-			preparedStatement.setString(5, product.getTipologia());
+			preparedStatement.setInt(1, product.getInfoCorrenti());
+			preparedStatement.setString(2, product.getNome());
+			
 			
 			preparedStatement.executeUpdate();
 		} finally {
@@ -103,10 +101,7 @@ public class ProductDaoDataSource implements IProductDao
 			while(rs.next()) {
 				bean.setCodice(rs.getInt("CODICE"));
 				bean.setNome(rs.getString("NOME"));
-				bean.setCosto(rs.getDouble("COSTO"));
-				bean.setDescrizione(rs.getString("DESCRIZIONE"));
-				bean.setDisponibilità(rs.getInt("DISPONIBILITÀ"));
-				bean.setTipologia(rs.getString("TIPOLOGIA"));
+				bean.setInfoCorrenti(rs.getInt("INFO_CORRENTI"));	
 			}
 			
 		} finally {
@@ -120,7 +115,42 @@ public class ProductDaoDataSource implements IProductDao
 		
 		return bean;
 	}
-
+	@Override
+	public ProductBean doRetrieveByName(String name) throws SQLException {
+		// TODO Auto-generated method stub
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		
+		ProductBean bean= new ProductBean();
+		String selectSQL = "SELECT * FROM " + ProductDaoDataSource.TABLE_NAME + " WHERE NOME= ? ";
+		
+		try {
+			//if(ds==null) System.out.println("ds nulla.");
+			connection = ds.getConnection();
+			//if(connection==null) System.out.println("connesione nulla.");
+			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement.setString(1, name);
+			
+			ResultSet rs = preparedStatement.executeQuery();
+			
+			while(rs.next()) {
+				bean.setCodice(rs.getInt("CODICE"));
+				bean.setNome(rs.getString("NOME"));
+				bean.setInfoCorrenti(rs.getInt("INFO_CORRENTI"));	
+			}
+			
+		} finally {
+			try{
+				if(preparedStatement != null)
+					preparedStatement.close();
+		} finally{
+			connection.close();
+		}
+		}
+		
+		return bean;
+	}
+	
 	@Override
 	public Collection<ProductBean> doRetrieveAll(String order) throws SQLException {
 		Connection connection = null;
@@ -144,10 +174,7 @@ public class ProductDaoDataSource implements IProductDao
 				
 				bean.setCodice(rs.getInt("CODICE"));
 				bean.setNome(rs.getString("NOME"));
-				bean.setCosto(rs.getDouble("COSTO"));
-				bean.setDescrizione(rs.getString("DESCRIZIONE"));
-				bean.setDisponibilità(rs.getInt("DISPONIBILITÀ"));
-				bean.setTipologia(rs.getString("TIPOLOGIA"));
+				bean.setInfoCorrenti(rs.getInt("INFO_CORRENTI"));	
 				products.add(bean);
 			}
 			

@@ -43,43 +43,50 @@ VALUES ('adUser1-2', 'user', 'Italia', 'via Duomo', 'Milano', 20, '20057');
 INSERT INTO indirizzi (id, Utente, paese, strada, città, numero, codice_postale) 
 VALUES ('adUser2-1', 'user2', 'Italia', 'via Roma', 'Milano', 10, '20057');
 
+
+create table info_prodotto
+(
+  Codice int PRIMARY KEY not null AUTO_INCREMENT, 
+  nome varchar(70) not null,
+  costo decimal(10,2) not null,
+  descrizione varchar(10000) not null, 
+  disponibilità int not null,
+  tipologia varchar(10) not null
+);
+
+
+INSERT INTO info_prodotto (Nome, costo, descrizione, disponibilità, tipologia) 
+VALUES ('Burro di arachidi proteico', 12.00, 'il nostro cremisissimo burro di arachidi proteico, con pezzi di arachide interi per un extra crunch', 20, 'cibo'); 
+INSERT INTO info_prodotto (Nome, costo, descrizione, disponibilità, tipologia) 
+VALUES ('100% Proteine solubile, al gusto brownie', 27.50, '1000g di proteine pure al 100% per le tue sessioni di workout più intense. Ora al sapore di Brownie al cioccolato', 15, 'proteine'); 
+INSERT INTO info_prodotto (Nome, costo, descrizione, disponibilità, tipologia) 
+VALUES ('Shaker S', 9.99, 'shaker di plastica di alta qualita nero trasparente con tappo collegato e materiale termico isolante', 10, 'altro'); 
+INSERT INTO info_prodotto (Nome, costo, descrizione, disponibilità, tipologia) 
+VALUES ('Pancake proteico', 14.70, 'preparato con ricetta per preaparere i tuoi pankake proteici per una dolce e salutare colazione', 45, 'cibo'); 
+
 create table prodotti 
 (
  Codice int PRIMARY KEY not null AUTO_INCREMENT, 
+ info_correnti int not null,
  nome varchar(70) not null,
- costo decimal(10,2) not null,
- descrizione varchar(10000) not null, 
- disponibilità int not null,
- tipologia varchar(10) not null
+foreign key (info_correnti) References info_prodotto(codice) On Delete cascade on update cascade
 );
-
-INSERT INTO prodotti (Nome, costo, descrizione, disponibilità, tipologia) 
-VALUES ('Burro di arachidi proteico', 12.00, 'il nostro cremisissimo burro di arachidi proteico, con pezzi di arachide interi per un extra crunch', 20, 'cibo'); 
-INSERT INTO prodotti (Nome, costo, descrizione, disponibilità, tipologia) 
-VALUES ('100% Proteine solubile, al gusto brownie', 27.50, '1000g di proteine pure al 100% per le tue sessioni di workout più intense. Ora al sapore di Brownie al cioccolato', 15, 'proteine'); 
-INSERT INTO prodotti (Nome, costo, descrizione, disponibilità, tipologia) 
-VALUES ('Shaker S', 9.99, 'shaker di plastica di alta qualita nero trasparente con tappo collegato e materiale termico isolante', 10, 'altro'); 
-INSERT INTO prodotti (Nome, costo, descrizione, disponibilità, tipologia) 
-VALUES ('Pancake proteico', 14.70, 'preparato con ricetta per preaparere i tuoi pankake proteici per una dolce e salutare colazione', 45, 'cibo'); 
+INSERT INTO prodotti (info_correnti, nome) 
+VALUES (1,'Burro di arachidi proteico'); 
+INSERT INTO prodotti (info_correnti, nome) 
+VALUES (2,'100% Proteine solubile, al gusto brownie'); 
+INSERT INTO prodotti (info_correnti, nome) 
+VALUES (3,'Shaker S'); 
+INSERT INTO prodotti (info_correnti, nome) 
+VALUES (4,'Pancake proteico'); 
 
 create table imagine 
 (
-  num_Imagine int auto_increment PRIMARY KEY,
-  img varchar(100) not null,
+   num_Imagine int auto_increment PRIMARY KEY,
+   img varchar(100) not null,
    Codice_Prodotto int not null,
-  foreign key (Codice_Prodotto) References Prodotti(Codice) ON UPDATE cascade on delete cascade
+   foreign key (Codice_Prodotto) References Prodotti(Codice) On Delete cascade on update cascade
 );
-
-create table stati 
-(
-  Codice_Prodotto int not null,
-  num_Stato int auto_increment PRIMARY KEY,
-  img varchar(100) not null,
-  nome varchar(70) not null,
-  costo decimal(10,2) not null,
-  foreign key (Codice_Prodotto) References Prodotti(Codice) ON UPDATE cascade on delete cascade
-);
-
 
 create table coupons
 (
@@ -166,6 +173,4 @@ INSERT INTO contiene (Utente, Codice_Ordine, Codice_Prodotto)
 VALUES ('user', 2, 1);
 INSERT INTO contiene (Utente, Codice_Ordine, Codice_Prodotto) 
 VALUES ('user2', 1, 1);
-
-
 
