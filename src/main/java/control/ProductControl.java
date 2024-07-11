@@ -82,9 +82,15 @@ public class ProductControl extends HttpServlet {
 		} catch (SQLException e) {
 			System.out.println("Error; " + e.getMessage());
 		}
-		
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Product.jsp");
-		dispatcher.forward(request, response);		
+		if(request.getSession().getAttribute("Emily")!=null){
+			request.getSession().setAttribute("Emily", null);
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ProductEmily.jsp");
+			dispatcher.forward(request, response);
+		}
+		else{
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Product.jsp");
+			dispatcher.forward(request, response);
+		}
 	}
 
 	/**

@@ -53,7 +53,7 @@
    		<td><%=info.getCodice()%></td>
    		<td><%=info.getNome()%></td>
    		<td><%=info.getDescrizione()%></td>
-   		<td> <a href="product?action=delete&id=<%=bean.getCodice()%>"> Delete</a><br>
+   		<td>
    			 <a href="product?action=read&id=<%=bean.getCodice()%>"> Details</a><br>
    			 <a href="product?action=addC&id=<%=bean.getCodice()%>"> Add to cart</a><br>
    		</td>
@@ -99,35 +99,11 @@
   	}
   %>
   
-  <h2>Insert</h2>
-  <form action="ProductUpload" method="post" enctype="multipart/form-data">
-  	<input type="hidden" name="action" value="insert">
-  	
-  	<label for="name">Name:</label><br>
-  	<input name="name" type="text" maxlength="20" required placeholder="enter name"><br>
-  	
-  	<label for="myfile">image:</label><br>
-  	<input name="myfile" type="file" required accept="image/*"><br>
-  	  	
-  	 <label for="type">type:</label><br>
-  	<input name="type" type="text" maxlength="20" required placeholder="enter type"><br>
-  	  	
-  	<label for="description">Description:</label><br>
-  	<textarea name="description" maxlength="100" rows="3" required placeholder="enter description"></textarea><br>
-  	
-  	<label for="price">Price:</label><br>
-  	<input name="price" type="number" step="0.01" min="0.00" value="0.0" required><br>
-  	
-  	<label for="quantity">Quantity:</label><br>
-  	<input name="quantity" type="number" min="1" value="1" required><br>	
-  	
-  	<input type="submit" value="Add"><input type="reset" value="Reset">  	
-  </form>
-  
   <a href="loginView.jsp" > Login </a>
   <a href="RegisterView.jsp" > Register </a>
    <a href="Cart.jsp" > Cart </a>
    <a href="Checkout.jsp" > Checkout </a>
+	<a href="ProductEmily.jsp" > Emily </a>
    
 </body>
 </html>
