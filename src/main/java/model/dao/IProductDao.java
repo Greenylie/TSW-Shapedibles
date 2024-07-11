@@ -4,6 +4,7 @@ import model.bean.ProductBean;
 
 import java.sql.SQLException;
 import java.util.Collection;
+import java.util.List;
 
 public interface IProductDao {
 	public void doSave(ProductBean product) throws SQLException;
@@ -13,4 +14,6 @@ public interface IProductDao {
 	public ProductBean doRetrieveByKey(int code) throws SQLException;
 	
 	public Collection<ProductBean> doRetrieveAll(String order) throws SQLException;
+
+	public List<ProductBean> searchByName(String query) throws SQLException;
 }
