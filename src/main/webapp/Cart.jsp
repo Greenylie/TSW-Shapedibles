@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html>
 
-<%@ page contentType="text/html; charset=UTF-8" import="java.util.*, model.bean.ProductBean, model.Cart"%>
+<%@ page contentType="text/html; charset=UTF-8" import="java.util.*, model.bean.*, model.Cart, javax.sql.DataSource, model.datasource.*"%>
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -17,20 +17,22 @@
 </head>
 
 <body>
-  <% if(cart != null) { %>
+  <%InfoDaoDataSource DAOEmily = new InfoDaoDataSource((DataSource)request.getServletContext().getAttribute("DataSource"));
+	  if(cart != null) { %>
 		<h2>Cart</h2>
 		<table border="1">
 		<tr>
 			<th>Name</th>
-			<th>costo</th>
+			<th>Price</th>
 			<th>Action</th>
 		</tr>
-		<% List<ProductBean> prodcart = cart.getProducts(); 	
+		<% List<ProductBean> prodcart = cart.getProducts();
 		   for(ProductBean beancart: prodcart) {
+			InfoBean infob = DAOEmily.doRetrieveByKey(beancart.getCodice());
 		%>
 		<tr>
-			<td><%=beancart.getNome()%></td>
-			<td><%=beancart.getCosto()%></td>
+			<td><%=infob.getNome()%></td>
+			<td><%=infob.getCosto()%></td>
 			<td><a href="cartControl?action=deleteC&id=<%=beancart.getCodice()%>">Delete from cart</a></td>
 		</tr>
 		<%} %>
@@ -41,6 +43,6 @@
   <a href="RegisterView.jsp" > Register</a>
    <a href="CartView.jsp" > Cart</a>
    <a href="Checkout.jsp" > Checkout</a>
-   <a href="Product.jsp" > Prodotti</a> <!-- I piedi di Ste -->
+   <a href="Product.jsp" > Product</a> <!-- I piedi di Ste -->
 </body>
 </html>
