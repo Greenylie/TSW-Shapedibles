@@ -46,10 +46,10 @@
 		while (it.hasNext()) {
 			ProductBean bean = (ProductBean) it.next();
 			InfoBean info = infoDao.doRetrieveByKey(bean.getInfoCorrenti());
-			ImageBean image = imageDao.doRetrieveByKey(bean.getCodice(), 1);
+			ImageBean image = imageDao.doRetrieveByKey(bean.getCodice());
   %>
   <tr>
-  		<td><%=image.getImg()%></td>	
+  		<td><img src="img/<%=image.getImg()%>" alt="product_img" width="100" height="100"></td>	
    		<td><%=info.getCodice()%></td>
    		<td><%=info.getNome()%></td>
    		<td><%=info.getDescrizione()%></td>
@@ -73,7 +73,7 @@
   <h2>Dettagli</h2>
   <% 
   	if (product != null) {
-  		ImageBean image = imageDao.doRetrieveByKey(product.getCodice(), 1);
+  		ImageBean image = imageDao.doRetrieveByKey(product.getCodice());
   		InfoBean info = infoDao.doRetrieveByKey(product.getInfoCorrenti());
   %>
   <table border="1">
@@ -87,7 +87,9 @@
   		
   	</tr>
   	<tr>
-  		<td><%=image.getImg()%></td>
+  	
+  	
+  		<td><img src="img/<%=image.getImg()%>" alt="product_img" width="300" height="300"> </td>
   		<td><%=product.getCodice()%></td>
    		<td><%=info.getNome()%></td>
    		<td><%=info.getDescrizione()%></td>
@@ -103,7 +105,7 @@
   <a href="RegisterView.jsp" > Register </a>
    <a href="Cart.jsp" > Cart </a>
    <a href="Checkout.jsp" > Checkout </a>
-	<a href="ProductEmily.jsp" > Emily </a>
+	<a href="ProductAdmin.jsp" > Admin </a>
    
 </body>
 </html>

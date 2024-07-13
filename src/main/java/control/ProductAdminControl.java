@@ -1,12 +1,7 @@
 package control;
 
-import model.Cart;
-import model.bean.ImageBean;
-import model.bean.ProductBean;
-import model.dao.IImageDao;
-import model.dao.IProductDao;
-import model.datasource.ImageDaoDataSource;
-import model.datasource.ProductDaoDataSource;
+import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,20 +10,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
-import java.io.IOException;
-import java.sql.SQLException;
+
+import model.Cart;
+import model.dao.IProductDao;
+import model.datasource.ProductDaoDataSource;
 
 /**
- * Servlet implementation class ProductControl
+ * Servlet implementation class ProductAdminControll
  */
-@WebServlet("/ProductControl")
-public class ProductControl extends HttpServlet {
+@WebServlet("/ProductAdminControl")
+public class ProductAdminControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+    
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ProductControl() {
+    public ProductAdminControl() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -82,10 +79,10 @@ public class ProductControl extends HttpServlet {
 		} catch (SQLException e) {
 			System.out.println("Error; " + e.getMessage());
 		}
-		
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Product.jsp");
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ProductAdmin.jsp");
 			dispatcher.forward(request, response);
-	}
+		}
+	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

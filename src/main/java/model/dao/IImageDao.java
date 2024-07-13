@@ -11,7 +11,7 @@ public interface IImageDao {
 	
 	public boolean doDelete(int num, int codice) throws SQLException;
 	
-	public ImageBean doRetrieveByKey(int num, int codice) throws SQLException;
+	public ImageBean doRetrieveByKey(int codice) throws SQLException;
 	
 	public Collection<ImageBean> doRetrieveAll(String order) throws SQLException;
 }

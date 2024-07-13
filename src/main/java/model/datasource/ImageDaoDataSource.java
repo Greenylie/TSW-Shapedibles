@@ -83,19 +83,19 @@ public class ImageDaoDataSource implements IImageDao
 	}
 
 	@Override
-	public ImageBean doRetrieveByKey(int num, int codice) throws SQLException {
+	public ImageBean doRetrieveByKey(int codice) throws SQLException {
 		// TODO Auto-generated method stub
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		
 		ImageBean bean= new ImageBean();
-		String selectSQL = "SELECT * FROM " + ImageDaoDataSource.TABLE_NAME + " WHERE Codice_Prodotto = ? AND  Num_Imagine = ?";
+		String selectSQL = "SELECT * FROM " + ImageDaoDataSource.TABLE_NAME + " WHERE Codice_Prodotto = ? ";
 		
 		try {
 			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(selectSQL);
 			preparedStatement.setInt(1, codice);
-			preparedStatement.setInt(2, num);
+			
 			
 			ResultSet rs = preparedStatement.executeQuery();
 			

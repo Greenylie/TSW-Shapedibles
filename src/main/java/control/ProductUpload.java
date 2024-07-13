@@ -84,13 +84,13 @@ public class ProductUpload extends HttpServlet {
 		{
 			for(Part part : request.getParts()) {
 				fileName = extractFileName(part);
-				//System.out.println("file name =" + fileName);
 				if(fileName != null || !fileName.equals("")) {
 					String fileExtension = getFileExtension(fileName);
 					if (isValidFileType(fileExtension)) {
 					  long fileSize = part.getSize();
 					  if(fileSize <=5 * 1024 *1024) {
 						  if(isValidMagicNumber(part)) {
+							  System.out.println(savePath + File.separator+ fileName);
 							  part.write(savePath + File.separator + fileName);
 							  img=fileName;
 							  message = message + fileName + "\n";
@@ -133,7 +133,7 @@ public class ProductUpload extends HttpServlet {
 				System.out.println("Error: " + e.getMessage());
 			}
 		
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Product.jsp");
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ProductAdmin.jsp");
 		dispatcher.forward(request, response);	
 		}
 

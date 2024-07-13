@@ -88,6 +88,15 @@ create table imagine
    foreign key (Codice_Prodotto) References Prodotti(Codice) On Delete cascade on update cascade
 );
 
+INSERT INTO imagine (Codice_prodotto, img) 
+VALUES (1,'butter.jpg'); 
+INSERT INTO imagine (Codice_prodotto, img) 
+VALUES (2,'protein.jpg'); 
+INSERT INTO imagine (Codice_prodotto, img) 
+VALUES (3,'shaker.jpg'); 
+INSERT INTO imagine (Codice_prodotto, img) 
+VALUES (4,'pancake.jpg'); 
+
 create table coupons
 (
  Codice varchar(13) PRIMARY KEY not null, 

@@ -5,9 +5,8 @@
     ImageDaoDataSource imageDao = new ImageDaoDataSource( (DataSource) request.getServletContext().getAttribute("DataSource"));
     InfoDaoDataSource infoDao = new InfoDaoDataSource( (DataSource) request.getServletContext().getAttribute("DataSource"));
     Collection<?> products = (Collection<?>) request.getAttribute("products");
-    request.getSession().setAttribute("Emily", "Emily");
     if(products == null) {
-        response.sendRedirect("./product");
+        response.sendRedirect("./productAdminControl");
         return;
     }
     ProductBean product = (ProductBean) request.getAttribute("product");
@@ -32,13 +31,13 @@
 <% } %>
 
 <h2> Products </h2>
-<a href="product">List</a>
+<a href="productAdminControl">List</a>
 <table border="1">
     <tr>
         <th>image</th>
-        <th>Code <a href="product?sort=codice"> Sort</a></th>
-        <th>Name <a href="product?sort=nome"> Sort</a></th>
-        <th>Description <a href="product?sort=descrizione"> Sort</a></th>
+        <th>Code <a href="productAdminControl?sort=codice"> Sort</a></th>
+        <th>Name <a href="productAdminControl?sort=nome"> Sort</a></th>
+        <th>Description <a href="productAdminControl?sort=descrizione"> Sort</a></th>
         <th>Action</th>
     </tr>
     <%
@@ -47,16 +46,16 @@
             while (it.hasNext()) {
                 ProductBean bean = (ProductBean) it.next();
                 InfoBean info = infoDao.doRetrieveByKey(bean.getInfoCorrenti());
-                ImageBean image = imageDao.doRetrieveByKey(bean.getCodice(), 1);
+                ImageBean image = imageDao.doRetrieveByKey(bean.getCodice());
     %>
     <tr>
-        <td><%=image.getImg()%></td>
+        <td><img src="img/<%=image.getImg()%>" alt="product_img" width="100" height="100"></td>
         <td><%=info.getCodice()%></td>
         <td><%=info.getNome()%></td>
         <td><%=info.getDescrizione()%></td>
-        <td> <a href="product?action=delete&id=<%=bean.getCodice()%>"> Delete</a><br>
-            <a href="product?action=read&id=<%=bean.getCodice()%>"> Details</a><br>
-            <a href="product?action=addC&id=<%=bean.getCodice()%>"> Add to cart</a><br>
+        <td> <a href="productAdminControl?action=delete&id=<%=bean.getCodice()%>"> Delete</a><br>
+            <a href="productAdminControl?action=read&id=<%=bean.getCodice()%>"> Details</a><br>
+            <a href="productAdminControl?action=addC&id=<%=bean.getCodice()%>"> Add to cart</a><br>
         </td>
     </tr>
     <%
@@ -74,7 +73,7 @@
 <h2>Dettagli</h2>
 <%
     if (product != null) {
-        ImageBean image = imageDao.doRetrieveByKey(product.getCodice(), 1);
+        ImageBean image = imageDao.doRetrieveByKey(product.getCodice());
         InfoBean info = infoDao.doRetrieveByKey(product.getInfoCorrenti());
 %>
 <table border="1">
@@ -88,7 +87,7 @@
 
     </tr>
     <tr>
-        <td><%=image.getImg()%></td>
+        <td><img src="img/<%=image.getImg()%>" alt="product_img" width="300" height="300"></td>
         <td><%=product.getCodice()%></td>
         <td><%=info.getNome()%></td>
         <td><%=info.getDescrizione()%></td>
