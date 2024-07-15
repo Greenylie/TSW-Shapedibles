@@ -80,6 +80,8 @@ VALUES (3,'Shaker S');
 INSERT INTO prodotti (info_correnti, nome) 
 VALUES (4,'Pancake proteico'); 
 
+
+
 create table imagine 
 (
    num_Imagine int auto_increment PRIMARY KEY,
@@ -96,6 +98,8 @@ INSERT INTO imagine (Codice_prodotto, img)
 VALUES (3,'shaker.jpg'); 
 INSERT INTO imagine (Codice_prodotto, img) 
 VALUES (4,'pancake.jpg'); 
+INSERT INTO imagine (Codice_prodotto, img) 
+VALUES (1,'butter2.jpg');
 
 create table coupons
 (
@@ -160,26 +164,26 @@ create table contiene
 (
  Utente varchar(18) NOT NULL,
  Codice_Ordine int not null,
- Codice_Prodotto int not null,
- PRIMARY KEY(Codice_Ordine, Codice_Prodotto, Utente),
+ Codice_Info int not null,
+ PRIMARY KEY(Codice_Ordine, Codice_Info, Utente),
  foreign key (Utente, Codice_Ordine) References Ordini(Utente, Codice) ON UPDATE cascade on delete cascade,
- foreign key (Codice_Prodotto) References Prodotti(Codice) ON UPDATE cascade on delete cascade
+ foreign key (Codice_Info) References info_prodotto(Codice) ON UPDATE cascade on delete cascade
 );   
 
-INSERT INTO contiene (Utente, Codice_Ordine, Codice_Prodotto) 
+INSERT INTO contiene (Utente, Codice_Ordine,  Codice_Info) 
 VALUES ('user', 1, 1);
-INSERT INTO contiene (Utente, Codice_Ordine, Codice_Prodotto) 
+INSERT INTO contiene (Utente, Codice_Ordine,  Codice_Info) 
 VALUES ('user', 1, 3);
-INSERT INTO contiene (Utente, Codice_Ordine, Codice_Prodotto) 
+INSERT INTO contiene (Utente, Codice_Ordine,  Codice_Info) 
 VALUES ('user2', 1, 3);
-INSERT INTO contiene (Utente, Codice_Ordine, Codice_Prodotto) 
+INSERT INTO contiene (Utente, Codice_Ordine,  Codice_Info) 
 VALUES ('user2', 1, 4);
-INSERT INTO contiene (Utente, Codice_Ordine, Codice_Prodotto) 
+INSERT INTO contiene (Utente, Codice_Ordine,  Codice_Info) 
 VALUES ('user', 2, 3);
-INSERT INTO contiene (Utente, Codice_Ordine, Codice_Prodotto) 
+INSERT INTO contiene (Utente, Codice_Ordine,  Codice_Info) 
 VALUES ('user', 2, 4);
-INSERT INTO contiene (Utente, Codice_Ordine, Codice_Prodotto) 
+INSERT INTO contiene (Utente, Codice_Ordine,  Codice_Info) 
 VALUES ('user', 2, 1);
-INSERT INTO contiene (Utente, Codice_Ordine, Codice_Prodotto) 
+INSERT INTO contiene (Utente, Codice_Ordine,  Codice_Info) 
 VALUES ('user2', 1, 1);
 
