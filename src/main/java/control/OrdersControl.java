@@ -1,5 +1,7 @@
 package control;
-
+import model.bean.ContainBean;
+import model.dao.IContainDao;
+import model.datasource.ContainDaoDataSource;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
@@ -52,10 +54,10 @@ public class OrdersControl extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
         IOrderDao orderDao = null;
-		
+		IContainDao containDao = null;
 		DataSource ds= (DataSource) getServletContext().getAttribute("DataSource");
 		orderDao = new OrderDaoDataSource(ds);
-		
+		containDao = new ContainDaoDataSource(ds);
 		String action = request.getParameter("action");
 		
 		try {
@@ -92,6 +94,13 @@ public class OrdersControl extends HttpServlet {
 				request.removeAttribute("orders");
 				request.setAttribute("orders", orderNew);
 	        }
+			else if(action.equalsIgnoreCase("orderDetails")) {
+				int orderNum = Integer.parseInt(request.getParameter("orderNum"));
+				String orderUser = request.getParameter("orderUser");
+				Collection<ContainBean> items = containDao.doRetrieveByOrder(orderUser, orderNum);
+				request.removeAttribute("Details");
+				request.setAttribute("Details", items);
+			}
 		}
 		} catch(SQLException e) {
 			System.out.println("Error: " + e.getMessage());
@@ -106,7 +115,7 @@ public class OrdersControl extends HttpServlet {
 			System.out.println("Error; " + e.getMessage());
 		}
 		
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/order.jsp");
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/OrderHistory.jsp");
 			dispatcher.forward(request, response);
 	}
 

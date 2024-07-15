@@ -108,9 +108,10 @@
   
   <a href="loginView.jsp" > Login </a>
   <a href="RegisterView.jsp" > Register </a>
-   <a href="Cart.jsp" > Cart </a>
+	<a href="Cart.jsp" > Cart </a>
    <a href="Checkout.jsp" > Checkout </a>
 	<a href="ProductAdmin.jsp" > Admin </a>
+	<a href="OrderHistory.jsp" > Order History </a>
    
 </body>
 </html>

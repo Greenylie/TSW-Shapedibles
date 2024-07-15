@@ -32,7 +32,17 @@
     <servlet-name>Register</servlet-name>
     <servlet-class>control.Register</servlet-class>
   </servlet>
- 
+
+    <servlet>
+        <servlet-name>Orders</servlet-name>
+        <servlet-class>control.OrdersControl</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Orders</servlet-name>
+        <url-pattern>/orders</url-pattern>
+    </servlet-mapping>
+
   <servlet-mapping>
     <servlet-name>ProductControl</servlet-name>
     <url-pattern>/product</url-pattern>
