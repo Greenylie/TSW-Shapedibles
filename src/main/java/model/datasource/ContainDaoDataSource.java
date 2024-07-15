@@ -156,4 +156,41 @@ public class ContainDaoDataSource implements IContainDao {
 		return items;
 	}
 
+	@Override
+	public Collection<ContainBean> doRetrieveByOrder(String user, int orderID) throws SQLException {
+		// TODO Auto-generated method stub
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		
+		Collection<ContainBean> items= new LinkedList<ContainBean>();
+		String selectSQL = "SELECT * FROM " + ContainDaoDataSource.TABLE_NAME + " WHERE UTENTE = ? AND CODICE_ORDINE = ?";
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement.setString(1, user);
+			preparedStatement.setInt(2, orderID);
+			
+			ResultSet rs = preparedStatement.executeQuery();
+			
+			while(rs.next()) {
+				ContainBean  bean = new ContainBean();
+				
+				bean.setUtente(rs.getString("Utente"));
+				bean.setCodiceOrdine(rs.getInt("Codice_Ordine"));
+				bean.setCodiceProdotto(rs.getInt("Codice_Prodotto"));
+				items.add(bean);
+			}
+			
+		} finally {
+			try{
+				if(preparedStatement != null)
+					preparedStatement.close();
+		} finally{
+			connection.close();
+		}
+		}
+		
+		return items;
+	}
+
 }

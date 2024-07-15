@@ -46,10 +46,12 @@
             while (it.hasNext()) {
                 ProductBean bean = (ProductBean) it.next();
                 InfoBean info = infoDao.doRetrieveByKey(bean.getInfoCorrenti());
-                ImageBean image = imageDao.doRetrieveByKey(bean.getCodice());
+                Collection<ImageBean> images = imageDao.doRetrieveByProduct(bean.getCodice());
+    			Iterator<?> it1 = images.iterator();
+    			ImageBean img = (ImageBean) it1.next();
     %>
     <tr>
-        <td><img src="img/<%=image.getImg()%>" alt="product_img" width="100" height="100"></td>
+        <td><img src="img/<%=img.getImg()%>" alt="product_img" width="100" height="100"></td>
         <td><%=info.getCodice()%></td>
         <td><%=info.getNome()%></td>
         <td><%=info.getDescrizione()%></td>
@@ -73,7 +75,8 @@
 <h2>Dettagli</h2>
 <%
     if (product != null) {
-        ImageBean image = imageDao.doRetrieveByKey(product.getCodice());
+    	Collection<ImageBean> images = imageDao.doRetrieveByProduct(product.getCodice());
+		Iterator<?> it1 = images.iterator();
         InfoBean info = infoDao.doRetrieveByKey(product.getInfoCorrenti());
 %>
 <table border="1">
@@ -87,7 +90,11 @@
 
     </tr>
     <tr>
-        <td><img src="img/<%=image.getImg()%>" alt="product_img" width="300" height="300"></td>
+        <td>
+  	    <% while (it1.hasNext()) { 
+  	    ImageBean img = (ImageBean) it1.next(); %>
+  		<img src="img/<%=img.getImg()%>" alt="product_img" width="300" height="300">
+  		<% } %>  </td>
         <td><%=product.getCodice()%></td>
         <td><%=info.getNome()%></td>
         <td><%=info.getDescrizione()%></td>

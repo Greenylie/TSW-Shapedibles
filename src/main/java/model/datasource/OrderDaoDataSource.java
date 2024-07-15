@@ -164,5 +164,45 @@ public class OrderDaoDataSource implements IOrderDao
 		
 		return orders;
 	}
+
+	@Override
+	public Collection<OrderBean> doRetrieveByUser(String user) throws SQLException {
+		// TODO Auto-generated method stub
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		
+		Collection<OrderBean> orders= new LinkedList<OrderBean>();
+		String selectSQL = "SELECT * FROM " + OrderDaoDataSource.TABLE_NAME + " WHERE UTENTE= ? ";
+		
+		try {
+			connection = ds.getConnection();
+			
+			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement.setString(1, user);
+			ResultSet rs = preparedStatement.executeQuery();
+			
+			while(rs.next()) {
+				OrderBean  bean = new OrderBean();
+				
+				bean.setUtente(rs.getString("Utente"));
+				bean.setCodice(rs.getInt("codice"));
+				bean.setIndirizzo(rs.getString("indirizzo"));
+				bean.setStato(rs.getString("stato"));
+				bean.setDataOrdine(rs.getString("data_ordine"));
+				bean.setSaldoTotale(rs.getDouble("saldo_totale"));
+				orders.add(bean);
+			}
+			
+		} finally {
+			try{
+				if(preparedStatement != null)
+					preparedStatement.close();
+		} finally{
+			connection.close();
+		}
+		}
+		
+		return orders;
+	}
 	
 }

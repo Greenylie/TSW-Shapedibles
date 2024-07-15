@@ -13,4 +13,6 @@ public interface IContainDao {
 	public ContainBean doRetrieveByKey(String user, int orderID) throws SQLException;
 	
 	public Collection<ContainBean> doRetrieveAll(String order) throws SQLException;
+	
+	public Collection<ContainBean> doRetrieveByOrder( String user, int orderID) throws SQLException;
 }

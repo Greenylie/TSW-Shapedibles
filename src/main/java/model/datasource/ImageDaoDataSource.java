@@ -83,13 +83,13 @@ public class ImageDaoDataSource implements IImageDao
 	}
 
 	@Override
-	public ImageBean doRetrieveByKey(int codice) throws SQLException {
+	public ImageBean doRetrieveByKey(int codice, int num) throws SQLException {
 		// TODO Auto-generated method stub
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		
 		ImageBean bean= new ImageBean();
-		String selectSQL = "SELECT * FROM " + ImageDaoDataSource.TABLE_NAME + " WHERE Codice_Prodotto = ? ";
+		String selectSQL = "SELECT * FROM " + ImageDaoDataSource.TABLE_NAME + " WHERE Codice_Prodotto = ? AND NUm_Imagin = ? ";
 		
 		try {
 			connection = ds.getConnection();
@@ -155,5 +155,43 @@ public class ImageDaoDataSource implements IImageDao
 		}
 		
 		return images;
+	}
+
+	@Override
+	public Collection<ImageBean> doRetrieveByProduct(int codice) throws SQLException {
+		// TODO Auto-generated method stub
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		
+		Collection<ImageBean> images= new LinkedList<ImageBean>();
+		String selectSQL = "SELECT * FROM " + ImageDaoDataSource.TABLE_NAME + " WHERE Codice_Prodotto= ? ";
+		
+		try {
+			connection = ds.getConnection();
+			
+			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement.setInt(1, codice);
+			ResultSet rs = preparedStatement.executeQuery();
+			
+			while(rs.next()) {
+				ImageBean  bean = new ImageBean();
+				
+				bean.setNumImage(rs.getInt("Num_Imagine"));
+				bean.setCodiceProdotto(rs.getInt("Codice_Prodotto"));
+				bean.setImg(rs.getString("img"));  
+				images.add(bean);
+			}
+			
+		} finally {
+			try{
+				if(preparedStatement != null)
+					preparedStatement.close();
+		} finally{
+			connection.close();
+		}
+		}
+		
+		return images;
+
 	}
 }

@@ -1,4 +1,4 @@
-package model.dao;
+ package model.dao;
 
 import model.bean.AddressBean;
 
@@ -13,4 +13,6 @@ public interface IAddressDao {
 	public AddressBean doRetrieveByKey(String id, String user) throws SQLException;
 	
 	public Collection<AddressBean> doRetrieveAll(String order) throws SQLException;
+	
+	public Collection<AddressBean> doRetrieveByUser(String user) throws SQLException;
 }

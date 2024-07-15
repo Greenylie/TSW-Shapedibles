@@ -166,4 +166,45 @@ public class AddressDaoDataSource implements IAddressDao
 				
 				return Addresses;
 				}
+
+	@Override
+	public Collection<AddressBean> doRetrieveByUser(String user) throws SQLException {
+		// TODO Auto-generated method stub
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		
+		Collection<AddressBean> Addresses= new LinkedList<AddressBean>();
+		String selectSQL = "SELECT * FROM " + AddressDaoDataSource.TABLE_NAME + " WHERE UTENTE= ? ";
+		
+		try {
+			connection = ds.getConnection();
+			
+			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement.setString(1, user);
+			ResultSet rs = preparedStatement.executeQuery();
+			
+			while(rs.next()) {
+				AddressBean  bean = new AddressBean();
+				
+				bean.setId(rs.getString("ID"));
+				bean.setUtente(rs.getString("UTENTE"));
+				bean.setPaese(rs.getString("PAESE"));
+				bean.setStrada(rs.getString("STRADA"));
+				bean.setCittà(rs.getString("città"));
+				bean.setNumero(rs.getInt("NUMERO"));
+				bean.setCodicePostale(rs.getString("CODICE_POSTALE"));
+				Addresses.add(bean);
+			}
+			
+		} finally {
+			try{
+				if(preparedStatement != null)
+					preparedStatement.close();
+		} finally{
+			connection.close();
+		}
+		}
+		
+		return Addresses;
+	}
 }

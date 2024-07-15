@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -86,11 +87,17 @@ public class checkoutControl extends HttpServlet {
 		infoDao = new InfoDaoDataSource(ds);
 		containDao = new ContainDaoDataSource(ds); 
 		
+				
 		try {
+			
+			 Collection<AddressBean> addresses = addressDao.doRetrieveByUser(user.getUsername());
+			
+			 request.removeAttribute("addresses");
+			 request.setAttribute("addresses", addresses);
+
 			
 				bean.setCodice((int) Math.random());
 				bean.setUtente(user.getUsername());
-				
 				bean.setStato("in checkout");
 				bean.setDataOrdine(now.toString());
 				
