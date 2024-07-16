@@ -30,6 +30,12 @@ public class MainContext implements ServletContextListener
 
 		context.setAttribute("DataSource", ds);
 		System.out.println("DataSource creation...."+ds.toString());
+
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			System.err.println("MySQL JDBC Driver not found: " + e.getMessage());
+		}
 	}
 
 	public void contextDestroyed(ServletContextEvent sce) {

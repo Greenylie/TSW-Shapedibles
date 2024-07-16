@@ -1,9 +1,13 @@
 package model.bean;
 
+import java.io.Serial;
 import java.io.Serializable;
+import java.util.Objects;
 
+@SuppressWarnings("ALL")
 public class ProductBean implements Serializable
 {
+	@Serial
 	private static final long serialVersionUID = 1L;
 	
 	private int codice;
@@ -46,4 +50,17 @@ public class ProductBean implements Serializable
 	{
 		this.nome=nome;
 	}
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ProductBean that = (ProductBean) o;
+        return Objects.equals(codice, that.codice);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(codice);
+    }
 }

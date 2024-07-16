@@ -1,5 +1,6 @@
 package control;
 
+import com.google.gson.Gson;
 import model.Cart;
 import model.bean.ImageBean;
 import model.bean.ProductBean;
@@ -16,13 +17,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 import java.io.IOException;
+import java.io.Serial;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Servlet implementation class ProductControl
  */
 @WebServlet("/ProductControl")
 public class ProductControl extends HttpServlet {
+	@Serial
 	private static final long serialVersionUID = 1L;
        
     /**
@@ -30,7 +35,6 @@ public class ProductControl extends HttpServlet {
      */
     public ProductControl() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -40,32 +44,47 @@ public class ProductControl extends HttpServlet {
 		// TODO Auto-generated method stub
 		IProductDao productDao = null;
 		
+		
 		DataSource ds= (DataSource) getServletContext().getAttribute("DataSource");
 		productDao = new ProductDaoDataSource(ds);
 		
-		  
 		Cart cart = (Cart) request.getSession().getAttribute("cart");
-		if(cart == null) 
+		if(cart == null)
 		{
 			cart = new Cart();
 			request.getSession().setAttribute("cart", cart);
 		}
-		
+
 		String action = request.getParameter("action");
-		
+
 		try {
 		if(action != null){
 			
 			if(action.equalsIgnoreCase("addC")) {
 				int id = Integer.parseInt(request.getParameter("id"));
 				cart.addProduct(productDao.doRetrieveByKey(id));
-			}  else if(action.equalsIgnoreCase("read")) {
+			} else if(action.equalsIgnoreCase("DeleteC")) {
+				int id = Integer.parseInt(request.getParameter("id"));
+				cart.deleteProduct(productDao.doRetrieveByKey(id));
+			} else if(action.equalsIgnoreCase("read")) {
 				int id = Integer.parseInt(request.getParameter("id"));
 				request.removeAttribute("product");
 				request.setAttribute("product", productDao.doRetrieveByKey(id));
 			} else if(action.equalsIgnoreCase("delete")) {
 				int id = Integer.parseInt(request.getParameter("id"));
 				productDao.doDelete(id);
+			} else if(action.equalsIgnoreCase("insert")) {
+				String name = request.getParameter("name");
+				String description = request.getParameter("description");
+				Double price= Double.parseDouble(request.getParameter("price"));
+				int quantity= Integer.parseInt(request.getParameter("quantity"));
+				
+				ProductBean bean = new ProductBean();
+				bean.setNome(name);
+				bean.setDescrizione(description);
+				bean.setCosto(price);
+				bean.setDisponibilità(quantity);
+				productDao.doSave(bean);
 			}
 		}
 		
@@ -83,8 +102,8 @@ public class ProductControl extends HttpServlet {
 			System.out.println("Error; " + e.getMessage());
 		}
 		
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Product.jsp");
-			dispatcher.forward(request, response);
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/TestDAO.jsp");
+		dispatcher.forward(request, response);		
 	}
 
 	/**

@@ -2,4 +2,7 @@
 /.settings/
 .classpath
 .project
+.idea
+out
+TSW-Shapedibles.iml
 /bin/

@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.List;
 
 
 public class ProductDaoDataSource implements IProductDao
@@ -189,5 +190,46 @@ public class ProductDaoDataSource implements IProductDao
 		
 		return products;
 	}
- 
+	
+
+	@Override
+	public List<ProductBean> searchByName(String query) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		
+		List<ProductBean> products = new LinkedList<ProductBean>();
+		String selectSQL = "SELECT * FROM " + ProductDaoDataSource.TABLE_NAME + " WHERE NOME LIKE ?";
+		
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement.setString(1, "%" + query + "%");
+			
+			ResultSet rs = preparedStatement.executeQuery();
+			
+			while(rs.next()) {
+				ProductBean bean = new ProductBean();
+				
+				bean.setCodice(rs.getInt("CODICE"));
+				bean.setNome(rs.getString("NOME"));
+				bean.setCosto(rs.getDouble("COSTO"));
+				bean.setDescrizione(rs.getString("DESCRIZIONE"));
+				bean.setDisponibilità(rs.getInt("DISPONIBILITÀ"));
+				bean.setTipologia(rs.getString("TIPOLOGIA"));
+				products.add(bean);
+			}
+			
+		} finally {
+			try{
+				if(preparedStatement != null)
+					preparedStatement.close();
+		} finally{
+                assert connection != null;
+                connection.close();
+		}
+		}
+		
+		return products;
+	}
+
 }
