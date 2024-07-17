@@ -15,7 +15,8 @@
         return;
     }
     Collection<ContainBean> items = (Collection<ContainBean>) request.getAttribute("Details");
-    InfoDaoDataSource infoDao= new InfoDaoDataSource((DataSource) request.getAttribute("DataSource"));
+    InfoDaoDataSource infoDao= new InfoDaoDataSource((DataSource) request.getServletContext().getAttribute("DataSource"));
+    UserDaoDataSource userDao= new UserDaoDataSource((DataSource) request.getServletContext().getAttribute("DataSource"));
 %>
 
 <!DOCTYPE html>
@@ -26,6 +27,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link href="productStyle.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="orders.js"></script>
     <title>Order History</title>
 </head>
 
@@ -102,6 +104,33 @@
 <%
     }}
 %>
+
+<h2>Filter </h2>
+<form action="orders" id="filterForm" method="get" onSubmit="DoSubmit()">
+    <input type="hidden" name="action" id="action" value="insert">
+
+	<label for="user">user:</label>
+	<select name="user" id="user">
+	 <option value="">all</option>
+	 <%
+	   Collection<?> users = (Collection<?>) userDao.doRetrieveAll("");
+	   Iterator<?> it = users.iterator();
+       while (it.hasNext()) {
+         UserBean bean = (UserBean) it.next();
+	 %>
+	 <option value="<%=bean.getUsername()%>"><%=bean.getUsername()%></option>
+	 <%} %>
+	 
+	</select> <br>
+
+    <label for="dateMin">Min Date:</label>
+    <input name="dateMin" id="dateMin" type="date" placeholder="yyyy-mm-dd"><br>
+
+    <label for="dateMax">Max Date:</label>
+    <input name="dateMax" id="dateMax" type="date" placeholder="yyyy-mm-dd"><br>
+
+    <input type="submit" value="Add" onclick="DoSubmit()"><input type="reset" value="Reset">
+</form>
 
 <a href="loginView.jsp" > Login </a>
 <a href="RegisterView.jsp" > Register </a>

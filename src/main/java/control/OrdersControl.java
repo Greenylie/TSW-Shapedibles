@@ -10,6 +10,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+import java.sql.Date;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -68,28 +69,28 @@ public class OrdersControl extends HttpServlet {
 				request.setAttribute("orders", orderDao.doRetrieveByUser(user));
 				
 			}  else if(action.equalsIgnoreCase("DateFilter")) {
-				String dateMax = request.getParameter("dateMax");
-				String dateMin = request.getParameter("dateMin");
+				Date dateMax = Date.valueOf(request.getParameter("dateMax"));
+				Date dateMin = Date.valueOf(request.getParameter("dateMin"));
 				Collection<OrderBean> orders = orderDao.doRetrieveAll("");
 				Iterator<?> it = orders.iterator();
 				Collection<OrderBean> orderNew= new LinkedList<OrderBean>();
 				while(it.hasNext()) {
 					OrderBean bean = (OrderBean) it.next();
-					if(isRightDate(bean.getDataOrdine(), dateMin, dateMax)) orderNew.add(bean);
+					if(isRightDate(Date.valueOf(bean.getDataOrdine()), dateMin, dateMax)) orderNew.add(bean);
 				}
 				request.removeAttribute("orders");
 				request.setAttribute("orders", orderNew);
 				
 		    }  else if(action.equalsIgnoreCase("User-DateFilter")) {
 		    	String user = request.getParameter("user");
-		    	String dateMax = request.getParameter("dateMax");
-				String dateMin = request.getParameter("dateMin");
+		    	Date dateMax = Date.valueOf(request.getParameter("dateMax"));
+				Date dateMin = Date.valueOf(request.getParameter("dateMin"));
 		    	Collection<OrderBean> orderUs = orderDao.doRetrieveByUser(user);
 		    	Iterator<?> it = orderUs.iterator();
 				Collection<OrderBean> orderNew= new LinkedList<OrderBean>();
 				while(it.hasNext()) {
 					OrderBean bean = (OrderBean) it.next();
-					if(isRightDate(bean.getDataOrdine(), dateMin, dateMax)) orderNew.add(bean);
+					if(isRightDate(Date.valueOf(bean.getDataOrdine()), dateMin, dateMax)) orderNew.add(bean);
 				}
 				request.removeAttribute("orders");
 				request.setAttribute("orders", orderNew);
@@ -120,45 +121,12 @@ public class OrdersControl extends HttpServlet {
 	}
 
 
-	private boolean isRightDate(String date, String dateMin, String dateMax) {
-		int day = Integer.parseInt(date.substring(0, 3));
-		int month = Integer.parseInt(date.substring(5, 6));
-		int year = Integer.parseInt(date.substring(8, 9));
-		
-		int dayMax = 0;
-		int monthMax = 0;
-		int yearMax = 0;
-		
-		int dayMin = 0;
-		int monthMin = 0;
-		int yearMin = 0;
-		
-		if(dateMax != null) {
-		dayMax = Integer.parseInt(dateMax.substring(0, 3));
-		monthMax = Integer.parseInt(dateMax.substring(5, 6));
-		yearMax = Integer.parseInt(dateMax.substring(8, 9));
-		}
-		else {
-			dayMax = Integer.parseInt(now.toString().substring(0, 3));
-			monthMax = Integer.parseInt(now.toString().substring(5, 6));
-			yearMax = Integer.parseInt(now.toString().substring(8, 9));
-		}
-		
-		if(dateMin != null) {
-		dayMin = Integer.parseInt(dateMin.substring(0, 3));
-		monthMin = Integer.parseInt(dateMin.substring(5, 6));
-		yearMin = Integer.parseInt(dateMin.substring(8, 9));
-		}
-		
-		if(year<=yearMax && year>=yearMin) 
+	private boolean isRightDate(Date date, Date dateMin, Date dateMax) 
+	{
+		if( date.compareTo(dateMin)==0 && date.compareTo(dateMin)>0 ) 
 		{
-			if(month<=monthMax && month>=monthMin) 
-			{
-				if(day<=dayMax && day>=dayMin)
-				{
-					return true;
-				} else return false;
-			} else return false;
+			if( date.compareTo(dateMax)==0 && date.compareTo(dateMax)>0 ) return true;
+		    else return false;
 		} else return false;
 	}
 
