@@ -82,23 +82,23 @@ VALUES (4,'Pancake proteico');
 
 
 
-create table imagine 
+create table Immagine 
 (
-   num_Imagine int auto_increment PRIMARY KEY,
+   num_Immagine int auto_increment PRIMARY KEY,
    img varchar(100) not null,
    Codice_Prodotto int not null,
    foreign key (Codice_Prodotto) References Prodotti(Codice) On Delete cascade on update cascade
 );
 
-INSERT INTO imagine (Codice_prodotto, img) 
+INSERT INTO Immagine (Codice_prodotto, img) 
 VALUES (1,'butter.jpg'); 
-INSERT INTO imagine (Codice_prodotto, img) 
+INSERT INTO Immagine (Codice_prodotto, img) 
 VALUES (2,'protein.jpg'); 
-INSERT INTO imagine (Codice_prodotto, img) 
+INSERT INTO Immagine (Codice_prodotto, img) 
 VALUES (3,'shaker.jpg'); 
-INSERT INTO imagine (Codice_prodotto, img) 
+INSERT INTO Immagine (Codice_prodotto, img) 
 VALUES (4,'pancake.jpg'); 
-INSERT INTO imagine (Codice_prodotto, img) 
+INSERT INTO Immagine (Codice_prodotto, img) 
 VALUES (1,'butter2.jpg');
 
 create table coupons

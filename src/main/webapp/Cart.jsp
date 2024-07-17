@@ -1,14 +1,16 @@
- <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+ <%@ page contentType="text/html; charset=UTF-8"
+		  pageEncoding="UTF-8"%>
 
 <% 
 	Cart cart = (Cart) session.getAttribute("cart");
+	System.out.println(cart);
 %>
 
 <!DOCTYPE html>
 <html>
 
 <%@ page contentType="text/html; charset=UTF-8" import="java.util.*, model.bean.*, model.Cart, javax.sql.DataSource, model.datasource.*"%>
+<%@ page import="java.sql.SQLException" %>
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -26,10 +28,15 @@
 			<th>Price</th>
 			<th>Action</th>
 		</tr>
-		<% List<ProductBean> prodcart = cart.getProducts();
+		<% List<ProductBean> prodcart = (List<ProductBean>) cart.getProducts();
 		   for(ProductBean beancart: prodcart) {
-			InfoBean infob = DAOEmily.doRetrieveByKey(beancart.getCodice());
-		%>
+               InfoBean infob = null;
+               try {
+                   infob = DAOEmily.doRetrieveByKey(beancart.getCodice());
+               } catch (SQLException e) {
+                   throw new RuntimeException(e);
+               }
+        %>
 		<tr>
 			<td><%=infob.getNome()%></td>
 			<td><%=infob.getCosto()%></td>

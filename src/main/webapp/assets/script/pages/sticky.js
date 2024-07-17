@@ -38,7 +38,7 @@ function searchInputChange() {
     const searchQuery = elInputSearch.value.trim();
     if (searchQuery.length > 0) {
         const xhr = new XMLHttpRequest();
-        xhr.open("GET", "Search?ricerca=" + encodeURIComponent(searchQuery), true);
+        xhr.open("GET", "search?ricerca=" + encodeURIComponent(searchQuery), true);
         xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
         xhr.onload = function() {
             if (this.status === 200) {
@@ -92,7 +92,7 @@ function productCartAction(action, product, elResultCartQuantity) {
     *   action: "addC" or "deleteC"
      */
         const xhr = new XMLHttpRequest();
-        xhr.open("POST", "ProductControl", true);
+        xhr.open("POST", "cartControl", true);
         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
         xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
 

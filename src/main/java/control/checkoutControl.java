@@ -1,12 +1,9 @@
 package control;
 
-import java.io.IOException;
-import java.sql.SQLException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import model.Cart;
+import model.bean.*;
+import model.dao.*;
+import model.datasource.*;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,31 +12,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
-
-import model.Cart;
-import model.bean.AddressBean;
-import model.bean.ContainBean;
-import model.bean.InfoBean;
-import model.bean.OrderBean;
-import model.bean.ProductBean;
-import model.bean.UserBean;
-import model.dao.IAddressDao;
-import model.dao.IContainDao;
-import model.dao.IImageDao;
-import model.dao.IInfoDao;
-import model.dao.IOrderDao;
-import model.dao.IProductDao;
-import model.datasource.AddressDaoDataSource;
-import model.datasource.ContainDaoDataSource;
-import model.datasource.InfoDaoDataSource;
-import model.datasource.OrderDaoDataSource;
-import model.datasource.ProductDaoDataSource;
+import java.io.IOException;
+import java.io.Serial;
+import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Servlet implementation class checkoutControl
  */
 @WebServlet("/checkoutControl")
 public class checkoutControl extends HttpServlet {
+	@Serial
 	private static final long serialVersionUID = 1L;
 	
 	DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-mm-dd");
@@ -65,27 +52,18 @@ public class checkoutControl extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		IProductDao productDao = null;
-		IOrderDao orderDao = null;
-		IAddressDao addressDao = null;
-		IInfoDao infoDao= null;
-		IContainDao containDao = null;
-		
-	
 		OrderBean bean = new OrderBean();
 		ContainBean contain= new ContainBean();
-		UserBean user= new UserBean();
-		Cart cart = (Cart) request.getSession().getAttribute("cart");
-	 	user = (UserBean) request.getSession().getAttribute("LoggedUser");
+        Cart cart = (Cart) request.getSession().getAttribute("cart");
+        UserBean user = (UserBean) request.getSession().getAttribute("LoggedUser");
 	 	String action = request.getParameter("action");
 
-		DataSource ds= (DataSource) getServletContext().getAttribute("DataSource");		
-		productDao = new ProductDaoDataSource(ds);
-		orderDao = new OrderDaoDataSource(ds);
-		addressDao = new AddressDaoDataSource(ds);
-		infoDao = new InfoDaoDataSource(ds);
-		containDao = new ContainDaoDataSource(ds); 
+		DataSource ds= (DataSource) getServletContext().getAttribute("DataSource");
+        IProductDao productDao = new ProductDaoDataSource(ds);
+        IOrderDao orderDao = new OrderDaoDataSource(ds);
+        IAddressDao addressDao = new AddressDaoDataSource(ds);
+        IInfoDao infoDao = new InfoDaoDataSource(ds);
+        IContainDao containDao = new ContainDaoDataSource(ds); 
 		
 				
 		try {
@@ -102,9 +80,9 @@ public class checkoutControl extends HttpServlet {
 				bean.setDataOrdine(now.toString());
 				
 	 	
-				Double saldotot=0.0;
+				double saldotot=0.0;
 	 	
-				List<ProductBean> prodcart = cart.getProducts();
+				List<ProductBean> prodcart = (List<ProductBean>) cart.getProducts();
 				List<ContainBean> containList = new ArrayList<>();
 					for(ProductBean beancart: prodcart) {
 							InfoBean infob = infoDao.doRetrieveByKey(beancart.getCodice());

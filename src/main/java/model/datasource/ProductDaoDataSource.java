@@ -16,7 +16,7 @@ import java.util.List;
 public class ProductDaoDataSource implements IProductDao
 {
 	private static final String TABLE_NAME = "prodotti";
-	private DataSource ds= null;
+	private final DataSource ds;
 	
 	public ProductDaoDataSource(DataSource ds)
 	{
@@ -46,7 +46,8 @@ public class ProductDaoDataSource implements IProductDao
 				if (preparedStatement != null)
 					 preparedStatement.close();
 			} finally {
-				connection.close();
+                assert connection != null;
+                connection.close();
 			}
 		}
 		
@@ -59,7 +60,7 @@ public class ProductDaoDataSource implements IProductDao
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		
-		int result = 0;
+		int result;
 		
 		String deleteSQL = "DELETE FROM " + ProductDaoDataSource.TABLE_NAME + " WHERE CODICE = ?";
 		
@@ -75,7 +76,8 @@ public class ProductDaoDataSource implements IProductDao
 				if (preparedStatement != null)
 					preparedStatement.close();
 			} finally {
-				connection.close();
+                assert connection != null;
+                connection.close();
 			}
 		}
 		return (result!=0);
@@ -110,7 +112,8 @@ public class ProductDaoDataSource implements IProductDao
 				if(preparedStatement != null)
 					preparedStatement.close();
 		} finally{
-			connection.close();
+                assert connection != null;
+                connection.close();
 		}
 		}
 		
@@ -145,7 +148,8 @@ public class ProductDaoDataSource implements IProductDao
 				if(preparedStatement != null)
 					preparedStatement.close();
 		} finally{
-			connection.close();
+                assert connection != null;
+                connection.close();
 		}
 		}
 		
@@ -157,10 +161,10 @@ public class ProductDaoDataSource implements IProductDao
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		
-		Collection<ProductBean> products= new LinkedList<ProductBean>();
+		Collection<ProductBean> products= new LinkedList<>();
 		String selectSQL = "SELECT * FROM " + ProductDaoDataSource.TABLE_NAME;
 		
-		if(order != null && !order.equals("")) {
+		if(order != null && !order.isEmpty()) {
 			selectSQL +=" ORDER BY " + order;
 		}
 		
@@ -184,7 +188,8 @@ public class ProductDaoDataSource implements IProductDao
 				if(preparedStatement != null)
 					preparedStatement.close();
 		} finally{
-			connection.close();
+                assert connection != null;
+                connection.close();
 		}
 		}
 		
@@ -197,7 +202,7 @@ public class ProductDaoDataSource implements IProductDao
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		
-		List<ProductBean> products = new LinkedList<ProductBean>();
+		List<ProductBean> products = new LinkedList<>();
 		String selectSQL = "SELECT * FROM " + ProductDaoDataSource.TABLE_NAME + " WHERE NOME LIKE ?";
 		
 		try {
@@ -212,10 +217,7 @@ public class ProductDaoDataSource implements IProductDao
 				
 				bean.setCodice(rs.getInt("CODICE"));
 				bean.setNome(rs.getString("NOME"));
-				bean.setCosto(rs.getDouble("COSTO"));
-				bean.setDescrizione(rs.getString("DESCRIZIONE"));
-				bean.setDisponibilità(rs.getInt("DISPONIBILITÀ"));
-				bean.setTipologia(rs.getString("TIPOLOGIA"));
+				bean.setInfoCorrenti(rs.getInt("INFO_CORRENTI"));
 				products.add(bean);
 			}
 			

@@ -1,5 +1,9 @@
 package model.datasource;
 
+import model.bean.ImageBean;
+import model.dao.IImageDao;
+
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -7,15 +11,10 @@ import java.sql.SQLException;
 import java.util.Collection;
 import java.util.LinkedList;
 
-import javax.sql.DataSource;
-
-import model.bean.ImageBean;
-import model.dao.IImageDao;
-
 public class ImageDaoDataSource implements IImageDao
 {
-	private static final String TABLE_NAME="imagine";
-	private DataSource ds=null;
+	private static final String TABLE_NAME="Immagine";
+	private final DataSource ds;
 	
 	public ImageDaoDataSource(DataSource ds)
 	{
@@ -48,7 +47,8 @@ public class ImageDaoDataSource implements IImageDao
 				if (preparedStatement != null)
 					 preparedStatement.close();
 			} finally {
-				connection.close();;
+                assert connection != null;
+                connection.close();
 			}
 		}
 	}
@@ -59,9 +59,9 @@ public class ImageDaoDataSource implements IImageDao
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		
-		int result = 0;
+		int result;
 		
-		String deleteSQL = "DELETE FROM " + ImageDaoDataSource.TABLE_NAME + " WHERE Codice_Prodotto = ? AND  Num_Imagine = ?";
+		String deleteSQL = "DELETE FROM " + ImageDaoDataSource.TABLE_NAME + " WHERE Codice_Prodotto = ? AND  Num_Immagine = ?";
 		
 		try {
 			connection= ds.getConnection();
@@ -76,7 +76,8 @@ public class ImageDaoDataSource implements IImageDao
 				if (preparedStatement != null)
 					preparedStatement.close();
 			} finally {
-				connection.close();
+                assert connection != null;
+                connection.close();
 			}
 		}
 		return (result!=0);
@@ -100,7 +101,7 @@ public class ImageDaoDataSource implements IImageDao
 			ResultSet rs = preparedStatement.executeQuery();
 			
 			while(rs.next()) {
-				bean.setNumImage(rs.getInt("Num_Imagine"));
+				bean.setNumImage(rs.getInt("Num_Immagine"));
 				bean.setCodiceProdotto(rs.getInt("Codice_Prodotto"));
 				bean.setImg(rs.getString("img"));  
 			}
@@ -110,7 +111,8 @@ public class ImageDaoDataSource implements IImageDao
 				if(preparedStatement != null)
 					preparedStatement.close();
 		} finally{
-			connection.close();
+                assert connection != null;
+                connection.close();
 		}
 		}
 		
@@ -123,10 +125,10 @@ public class ImageDaoDataSource implements IImageDao
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		
-		Collection<ImageBean> images= new LinkedList<ImageBean>();
+		Collection<ImageBean> images= new LinkedList<>();
 		String selectSQL = "SELECT * FROM " + ImageDaoDataSource.TABLE_NAME;
 		
-		if(order != null && !order.equals("")) {
+		if(order != null && !order.isEmpty()) {
 			selectSQL +=" ORDER BY" + order;
 		}
 		
@@ -139,7 +141,7 @@ public class ImageDaoDataSource implements IImageDao
 			while(rs.next()) {
 				ImageBean  bean = new ImageBean();
 				
-				bean.setNumImage(rs.getInt("Num_Imagine"));
+				bean.setNumImage(rs.getInt("Num_Immagine"));
 				bean.setCodiceProdotto(rs.getInt("Codice_Prodotto"));
 				bean.setImg(rs.getString("img"));  
 				images.add(bean);
@@ -150,7 +152,8 @@ public class ImageDaoDataSource implements IImageDao
 				if(preparedStatement != null)
 					preparedStatement.close();
 		} finally{
-			connection.close();
+                assert connection != null;
+                connection.close();
 		}
 		}
 		
@@ -159,7 +162,6 @@ public class ImageDaoDataSource implements IImageDao
 
 	@Override
 	public Collection<ImageBean> doRetrieveByProduct(int codice) throws SQLException {
-		// TODO Auto-generated method stub
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		
@@ -176,7 +178,7 @@ public class ImageDaoDataSource implements IImageDao
 			while(rs.next()) {
 				ImageBean  bean = new ImageBean();
 				
-				bean.setNumImage(rs.getInt("Num_Imagine"));
+				bean.setNumImage(rs.getInt("Num_Immagine"));
 				bean.setCodiceProdotto(rs.getInt("Codice_Prodotto"));
 				bean.setImg(rs.getString("img"));  
 				images.add(bean);

@@ -18,7 +18,7 @@ import java.lang.reflect.Type;
 import java.sql.SQLException;
 import java.util.Collection;
 
-@WebServlet("/Search")
+@WebServlet("/search")
 public class Search extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String query = request.getParameter("ricerca");
@@ -32,8 +32,6 @@ public class Search extends HttpServlet {
                 cart = new Cart();
                 request.getSession().setAttribute("cart", cart);
             }
-            
-            System.out.println("Carrello" + cart);
             
             Collection<ProductBean> searchResults = productDao.searchByName(query);
 
