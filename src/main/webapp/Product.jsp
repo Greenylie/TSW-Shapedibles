@@ -19,11 +19,12 @@
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<link href="productStyle.css" rel="stylesheet" type="text/css">
+	<link href="assets/styles/product.css" rel="stylesheet" type="text/css">
 	<title>Pagina prodotti</title>
 </head>
 
 <body>
+	<div class="productContainer">
 	<% 
 	if(session.getAttribute("LoggedUser")!=null)
 	{ %>
@@ -112,6 +113,6 @@
    <a href="Checkout.jsp" > Checkout </a>
 	<a href="ProductAdmin.jsp" > Admin </a>
 	<a href="OrderHistory.jsp" > Order History </a>
-   
+	</div>
 </body>
 </html>

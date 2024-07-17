@@ -75,7 +75,7 @@ public class AccountManageControl extends HttpServlet {
 			System.out.println("Error; " + e.getMessage());
 		}
 		
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/AccountManager.jsp");
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/AccountManagement.jsp");
 		dispatcher.forward(request, response);
 	}
 

@@ -90,7 +90,7 @@ public class UserProfileControl extends HttpServlet {
 			System.out.println("Error; " + e.getMessage());
 		}
 		
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/AccountManager.jsp");
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/UserProfile.jsp");
 		dispatcher.forward(request, response);
 	}
 

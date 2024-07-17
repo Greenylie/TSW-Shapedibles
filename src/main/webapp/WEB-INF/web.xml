@@ -54,6 +54,26 @@
 	<servlet-class>control.OrdersControl</servlet-class>
   </servlet>
 
+	<servlet>
+		<servlet-name>Users</servlet-name>
+		<servlet-class>control.AccountManageControl</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>UserProfile</servlet-name>
+		<servlet-class>control.UserProfileControl</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>UserProfile</servlet-name>
+		<url-pattern>/userprofile</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>Users</servlet-name>
+		<url-pattern>/users</url-pattern>
+	</servlet-mapping>
+
   <servlet-mapping>
 	<servlet-name>Orders</servlet-name>
 	<url-pattern>/orders</url-pattern>
