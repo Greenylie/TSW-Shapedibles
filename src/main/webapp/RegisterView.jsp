@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
+	<link href="assets/styles/register.css" rel="stylesheet" type="text/css">
 <title>Registrazione</title>
 </head>
 <body>

@@ -12,7 +12,7 @@
 }
 
 .productContainer {
-
+    background-color: rgba(var(--primary), 0.5);
 }
 
 html, body {
@@ -21,9 +21,6 @@ html, body {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: "Ubuntu", sans-serif;
-    font-weight: 400;
-    font-style: normal;
 }
 
 table, th, td {

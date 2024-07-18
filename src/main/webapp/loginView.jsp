@@ -4,22 +4,29 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
+	<link href="assets/styles/login.css" rel="stylesheet" type="text/css">
 <title>Login</title>
 </head>
 <body>
-  <h2> Login </h2>
-  <form action="login" method="post"> 
-  	 
-  	 <label for="name"> Username: </label><br>
-  	 <input name="username" type="text" maxlength="30" required placeholder="entre username"><br>
-  	 
-  	 <label for="name"> Password: </label><br>
-  	 <input name="password" type="password" maxlength="30" required placeholder="enter password"><br>
-  	 
-  	 <input type="submit" value="Login"> <input type="reset" value="Reset">  
-  	 
-  </form>
-  
-   <a href="RegisterView.jsp" > register</a>
-</body>
-</html>
+<div class="login">
+<h1> Login </h1>
+  <div action="login" method="post">
+  	 <div class="textbox">
+  	 <!--<label for="name"> Username: </label><br>-->
+  	 <input name="username" type="text" maxlength="30" required placeholder="enter username"><br>
+	 </div>
+		 <div class="textbox">
+		 <!--<label for="name"> Password: </label><br>-->
+         <input name="password" type="password" maxlength="30" required placeholder="enter password"><br>
+       </div>
+        <div class="invio">
+             <input type="submit" value="Login">
+        </div>
+      <div class="rightalign">
+	  <input type="reset" value="Reset">
+    </form>
+    <a href="RegisterView.jsp" > register</a>
+      </div>
+  </div>
+  </body>
+  </html>
