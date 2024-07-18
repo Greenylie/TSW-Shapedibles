@@ -10,7 +10,7 @@
 <body>
 <div class="login">
 <h1> Login </h1>
-  <div action="login" method="post">
+  <form action="login" method="post">
   	 <div class="textbox">
   	 <!--<label for="name"> Username: </label><br>-->
   	 <input name="username" type="text" maxlength="30" required placeholder="enter username"><br>
@@ -23,10 +23,10 @@
              <input type="submit" value="Login">
         </div>
       <div class="rightalign">
+      </div>
 	  <input type="reset" value="Reset">
     </form>
     <a href="RegisterView.jsp" > register</a>
-      </div>
-  </div>
-  </body>
-  </html>
+</div>
+</body>
+</html>
