@@ -123,7 +123,11 @@ public class checkoutControl extends HttpServlet {
 							InfoBean info= infoDao.doRetrieveByKey(conbean.getCodiceProdotto());
 							ProductBean product = productDao.doRetrieveByName(info.getNome());
 							info.setDisponibilità(info.getDisponibilità() - cart.getProductQuantity(product));
+							infoDao.doSave(info);
 							containDao.doSave(conbean);
+							product.setInfoCorrenti(info.getCodice());
+							productDao.doDelete(product.getCodice());
+							productDao.doSave(product);
 						}
 						cart.ClearCart();
 		        }

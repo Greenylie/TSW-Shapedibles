@@ -116,6 +116,7 @@
 <a href="Cart.jsp" > Cart </a>
 <a href="Checkout.jsp" > Checkout </a>
 <a href="ProductAdmin.jsp" > Admin </a>
+<a href="Adresses.jsp" > Your addresses </a>
 
 </body>
 </html>

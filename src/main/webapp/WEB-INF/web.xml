@@ -119,4 +119,14 @@
 	<url-pattern>/checkoutcontrol</url-pattern>
   </servlet-mapping>
 
+  <servlet>
+		<servlet-name>addressesControl</servlet-name>
+		<servlet-class>control.AddressesControl</servlet-class>
+  </servlet>
+	
+  <servlet-mapping>
+		<servlet-name>addressesControl</servlet-name>
+		<url-pattern>/addresses</url-pattern>
+   </servlet-mapping>
+
 </web-app>

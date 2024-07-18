@@ -11,21 +11,24 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
+import model.bean.AddressBean;
 import model.bean.UserBean;
+import model.dao.IAddressDao;
 import model.dao.IUserDao;
+import model.datasource.AddressDaoDataSource;
 import model.datasource.UserDaoDataSource;
 
 /**
- * Servlet implementation class AccountManageControl
+ * Servlet implementation class AdressesControl
  */
-@WebServlet("/AccountManageControl")
-public class AccountManageControl extends HttpServlet {
+@WebServlet("/addressesControl")
+public class AddressesControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AccountManageControl() {
+    public AddressesControl() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -42,26 +45,37 @@ public class AccountManageControl extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub		
+		UserBean user = (UserBean) request.getSession().getAttribute("LoggedUser");
 		IUserDao userDao = null;
-		
+		IAddressDao addressDao= null;
 		DataSource ds= (DataSource) getServletContext().getAttribute("DataSource");
 		userDao = new UserDaoDataSource(ds);
+		addressDao= new AddressDaoDataSource(ds);
+		
+		 int max = 50;
+	     int min = 1;
+	     int range = max - min + 1;
+	     int number= (int) (Math.random() * range) - min;
 		
 		String action = request.getParameter("action");
 		
 		try {
 			if(action != null){
-				if(action.equalsIgnoreCase("admin")) {
-					UserBean bean;
-					String username = request.getParameter("username");
-					bean = userDao.doRetrieveByKey(username);
-					bean.setUserAdmin(1);
-					userDao.doDelete(bean.getUsername());
-					userDao.doSave(bean);
+				if(action.equalsIgnoreCase("Add")) {
+					AddressBean address = new AddressBean();
+					address.setId("ad" + user.getUsername() +"-" + number);
+					address.setUtente(user.getUsername());
+					address.setPaese(request.getParameter("paese"));
+					address.setCittà(request.getParameter("citta"));
+					address.setStrada(request.getParameter("strada"));
+					address.setNumero(Integer.parseInt(request.getParameter("numero")));
+					address.setCodicePostale(request.getParameter("cap"));
+					
+					addressDao.doSave(address);
 				} else if(action.equalsIgnoreCase("delete")) {
-					String username = request.getParameter("username");
-					userDao.doDelete(username);
+					String id = request.getParameter("id");
+					addressDao.doDelete(id, user.getUsername());
 				}
 			}
 			
@@ -71,13 +85,13 @@ public class AccountManageControl extends HttpServlet {
 		
 		
 		try {
-			request.removeAttribute("users");
-			request.setAttribute("users", userDao.doRetrieveAll(""));
+			request.removeAttribute("addresses");
+			request.setAttribute("addresses", addressDao.doRetrieveByUser(user.getUsername()) );
 		} catch (SQLException e) {
 			System.out.println("Error; " + e.getMessage());
 		}
 		
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/AccountManagement.jsp");
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Adresses.jsp");
 		dispatcher.forward(request, response);
 	}
 

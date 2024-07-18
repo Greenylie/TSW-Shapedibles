@@ -62,8 +62,8 @@
             <td><%=bean.getPaese()%></td>
             <td><%=bean.getUserAdmin()%></td>
             <td>
-                <a href="Users?action=admin&id=<%=bean.getUsername()%>">Make Admin</a><br>
-                <a href="Users?action=delete&id=<%=bean.getUsername()%>">Delete user</a><br>
+                <a href="users?action=admin&username=<%=bean.getUsername()%>">Make Admin</a><br>
+                <a href="users?action=delete&username=<%=bean.getUsername()%>">Delete user</a><br>
             </td>
         </tr>
         <%

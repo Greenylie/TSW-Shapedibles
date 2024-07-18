@@ -19,7 +19,7 @@ public class AddressDaoDataSource implements IAddressDao
 	public AddressDaoDataSource(DataSource ds)
 	{
 		this.ds=ds;
-		System.out.println("DriverManager Product Model creation....");
+		System.out.println("DriverManager address Model creation....");
 	}
 
 	@Override
