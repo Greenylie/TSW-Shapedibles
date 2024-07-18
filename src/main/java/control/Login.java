@@ -62,8 +62,12 @@ public class Login extends HttpServlet {
 			{
 				HttpSession session = request.getSession(true);
 				session.setAttribute("LoggedUser", userCheck);
-				String checkout = (String) request.getAttribute("Checkout");
-				if( checkout != null) response.sendRedirect(request.getContextPath() + "/Checkout.jsp");
+				String checkout = (String) session.getAttribute("Checkout");
+				if( checkout != null) 
+					{
+						session.removeAttribute("Checkout");
+						response.sendRedirect(request.getContextPath() + "/Checkout.jsp");
+					}
 				else response.sendRedirect(request.getContextPath() + "/Product.jsp");
 				
 			}

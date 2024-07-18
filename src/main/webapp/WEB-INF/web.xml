@@ -33,31 +33,41 @@
 	<servlet-name>Login</servlet-name>
 	<servlet-class>control.Login</servlet-class>
   </servlet>
+  
+   <servlet-mapping>
+	<servlet-name>Login</servlet-name>
+	<url-pattern>/login</url-pattern>
+  </servlet-mapping>
 
   <servlet>
 	<servlet-name>Register</servlet-name>
 	<servlet-class>control.Register</servlet-class>
   </servlet>
 
-  <servlet-mapping>
-	<servlet-name>Login</servlet-name>
-	<url-pattern>/login</url-pattern>
-  </servlet-mapping>
-
-  <servlet-mapping>
-	<servlet-name>Register</servlet-name>
-	<url-pattern>/register</url-pattern>
-  </servlet-mapping>
+ <servlet-mapping>
+   <servlet-name>Register</servlet-name>
+   <url-pattern>/register</url-pattern>
+ </servlet-mapping>
 
   <servlet>
 	<servlet-name>Orders</servlet-name>
 	<servlet-class>control.OrdersControl</servlet-class>
   </servlet>
+  
+  <servlet-mapping>
+	<servlet-name>Orders</servlet-name>
+	<url-pattern>/orders</url-pattern>
+  </servlet-mapping>
 
 	<servlet>
 		<servlet-name>Users</servlet-name>
 		<servlet-class>control.AccountManageControl</servlet-class>
 	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>Users</servlet-name>
+		<url-pattern>/users</url-pattern>
+	</servlet-mapping>
 
 	<servlet>
 		<servlet-name>UserProfile</servlet-name>
@@ -68,16 +78,6 @@
 		<servlet-name>UserProfile</servlet-name>
 		<url-pattern>/userprofile</url-pattern>
 	</servlet-mapping>
-
-	<servlet-mapping>
-		<servlet-name>Users</servlet-name>
-		<url-pattern>/users</url-pattern>
-	</servlet-mapping>
-
-  <servlet-mapping>
-	<servlet-name>Orders</servlet-name>
-	<url-pattern>/orders</url-pattern>
-  </servlet-mapping>
 
   <servlet>
 	<servlet-name>ProductUpload</servlet-name>
@@ -106,6 +106,17 @@
   <servlet-mapping>
 	<servlet-name>cartControl</servlet-name>
 	<url-pattern>/cartControl</url-pattern>
+  </servlet-mapping>
+  
+  
+  <servlet>
+	<servlet-name>CheckoutControl</servlet-name>
+	<servlet-class>control.checkoutControl</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+	<servlet-name>CheckoutControl</servlet-name>
+	<url-pattern>/checkoutcontrol</url-pattern>
   </servlet-mapping>
 
 </web-app>

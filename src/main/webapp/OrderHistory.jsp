@@ -14,7 +14,7 @@
         response.sendRedirect("./orders");
         return;
     }
-    Collection<ContainBean> items = (Collection<ContainBean>) request.getAttribute("Details");
+    Collection<?> items = (Collection<?>) request.getAttribute("Details");
     InfoDaoDataSource infoDao= new InfoDaoDataSource((DataSource) request.getServletContext().getAttribute("DataSource"));
     UserDaoDataSource userDao= new UserDaoDataSource((DataSource) request.getServletContext().getAttribute("DataSource"));
 %>
@@ -78,14 +78,6 @@
 </table>
 
 <h2>Dettagli</h2>
-<%
-    if(items != null && items.size()!= 0) {
-        Iterator<?> it = items.iterator();
-        while (it.hasNext()) {
-            ContainBean bean = (ContainBean) it.next();
-        InfoBean info = infoDao.doRetrieveByKey(bean.getCodiceProdotto());
-
-%>
 <table border="1">
     <tr>
         <th>Name</th>
@@ -94,17 +86,26 @@
         <th>Quantity</th>
 
     </tr>
+
+<%
+    if(items != null && items.size()!= 0) {
+        Iterator<?> it = items.iterator();
+        while (it.hasNext()) {
+            ContainBean bean = (ContainBean) it.next();
+        InfoBean info = infoDao.doRetrieveByKey(bean.getCodiceProdotto());
+
+%>
+
     <tr>
         <td><%=info.getNome()%></td>
         <td><%=info.getDescrizione()%></td>
         <td><%=info.getCosto()%></td>
-        <td><%=info.getDisponibilità()%></td>
+        <td><%=bean.getQuantità()%></td>
     </tr>
-</table>
 <%
     }}
 %>
-
+</table>
 <h2>Filter </h2>
 <form action="orders" id="filterForm" method="get" onSubmit="DoSubmit()">
     <input type="hidden" name="action" id="action" value="insert">

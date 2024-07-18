@@ -26,6 +26,7 @@
 		<tr>
 			<th>Name</th>
 			<th>Price</th>
+			<th>quantity</th>
 			<th>Action</th>
 		</tr>
 		<% List<ProductBean> prodcart = (List<ProductBean>) cart.getProducts();
@@ -40,6 +41,7 @@
 		<tr>
 			<td><%=infob.getNome()%></td>
 			<td><%=infob.getCosto()%></td>
+			<td><%=cart.getProductQuantity(beancart)%></td>
 			<td><a href="cartControl?action=deleteC&id=<%=beancart.getCodice()%>">Delete from cart</a></td>
 		</tr>
 		<%} %>

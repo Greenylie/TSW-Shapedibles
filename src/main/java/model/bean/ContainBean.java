@@ -6,20 +6,15 @@ public class ContainBean implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
-	String utente;
 	int codice_ordine;
 	int codice_prodotto;
+	int quantità;
 	
 	public ContainBean()
 	{
-		utente=" ";
 		codice_ordine=-1;
 		codice_prodotto=-1;
-	}
-	
-	public String getUtente()
-	{
-		return utente;
+		quantità=1;
 	}
 	
 	public int getCodiceOrdine()
@@ -32,9 +27,9 @@ public class ContainBean implements Serializable{
 		return codice_prodotto;
 	}
 	
-	public void setUtente(String utente)
+	public int getQuantità()
 	{
-		this.utente=utente;
+		return quantità;
 	}
 	
 	public void setCodiceOrdine(int codice_ordine)
@@ -47,8 +42,13 @@ public class ContainBean implements Serializable{
 		this.codice_prodotto=codice_prodotto;
 	}
 	
+	public void setQuantità(int quantità)
+	{
+		this.quantità=quantità;
+	}
+	
 	@Override
 	public String toString() {
-		return utente + " " + codice_ordine + " " + codice_prodotto;
+		return codice_ordine + " " + codice_prodotto + " " + quantità;
 	}
 }

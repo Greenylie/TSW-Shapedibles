@@ -8,11 +8,11 @@ import java.util.Collection;
 public interface IContainDao {
 	public void doSave(ContainBean contain) throws SQLException;
 	
-	public boolean doDelete(String user, int orderID) throws SQLException;
+	public boolean doDelete(int orderID) throws SQLException;
 	
-	public ContainBean doRetrieveByKey(String user, int orderID) throws SQLException;
+	public ContainBean doRetrieveByKey(int orderID) throws SQLException;
 	
 	public Collection<ContainBean> doRetrieveAll(String order) throws SQLException;
 	
-	public Collection<ContainBean> doRetrieveByOrder( String user, int orderID) throws SQLException;
+	public Collection<ContainBean> doRetrieveByOrder(int orderID) throws SQLException;
 }

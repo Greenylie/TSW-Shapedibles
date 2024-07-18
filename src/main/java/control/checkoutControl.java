@@ -53,11 +53,10 @@ public class checkoutControl extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		OrderBean bean = new OrderBean();
-		ContainBean contain= new ContainBean();
         Cart cart = (Cart) request.getSession().getAttribute("cart");
         UserBean user = (UserBean) request.getSession().getAttribute("LoggedUser");
 	 	String action = request.getParameter("action");
-
+	 	
 		DataSource ds= (DataSource) getServletContext().getAttribute("DataSource");
         IProductDao productDao = new ProductDaoDataSource(ds);
         IOrderDao orderDao = new OrderDaoDataSource(ds);
@@ -65,6 +64,9 @@ public class checkoutControl extends HttpServlet {
         IInfoDao infoDao = new InfoDaoDataSource(ds);
         IContainDao containDao = new ContainDaoDataSource(ds); 
 		
+        int max = 10000;
+        int min = 1;
+        int range = max - min + 1;
 				
 		try {
 			
@@ -74,10 +76,11 @@ public class checkoutControl extends HttpServlet {
 			 request.setAttribute("addresses", addresses);
 
 			
-				bean.setCodice((int) Math.random());
+				bean.setCodice((int) (Math.random() * range) - min);
+				System.out.println(" username: " + user.getUsername());
 				bean.setUtente(user.getUsername());
 				bean.setStato("in checkout");
-				bean.setDataOrdine(now.toString());
+				bean.setDataOrdine(now.toString().substring(0,10));
 				
 	 	
 				double saldotot=0.0;
@@ -85,29 +88,44 @@ public class checkoutControl extends HttpServlet {
 				List<ProductBean> prodcart = (List<ProductBean>) cart.getProducts();
 				List<ContainBean> containList = new ArrayList<>();
 					for(ProductBean beancart: prodcart) {
+						    ContainBean contain= new ContainBean();
 							InfoBean infob = infoDao.doRetrieveByKey(beancart.getCodice());
-							saldotot += infob.getCosto();
+							saldotot += infob.getCosto() * cart.getProductQuantity(beancart);
 							contain.setCodiceProdotto(beancart.getCodice());
 							contain.setCodiceOrdine(bean.getCodice());
+							contain.setQuantità(cart.getProductQuantity(beancart));
 							containList.add(contain);
 					}
+					
+				String address = request.getParameter("address");
+				System.out.println(address);
+				if(address !="" && address!= null) bean.setIndirizzo(address);
 				bean.setSaldoTotale(saldotot);	
 				request.removeAttribute("order");
 				request.setAttribute("order", bean);
 			
-		   
+				request.removeAttribute("containList");
+				request.setAttribute("containList", containList);
+				
+				
+				
+					
 				if(action != null){
-					if(action.equalsIgnoreCase("addressSelect")) {
-						AddressBean address = (AddressBean) request.getSession().getAttribute("adress");
-						bean.setIndirizzo(address.getId());
+					/*if(action.equalsIgnoreCase("addressSelect")) {
+						
+						
 						request.removeAttribute("order");
 						request.setAttribute("order", bean);
-					} else if(action.equalsIgnoreCase("confirm")) {
-						bean.setStato("completato"); 
+					} else*/ if(action.equalsIgnoreCase("confirm")) {
+						bean.setStato("completato");
 						orderDao.doSave(bean);	
 						for(ContainBean conbean: containList) {
+							InfoBean info= infoDao.doRetrieveByKey(conbean.getCodiceProdotto());
+							ProductBean product = productDao.doRetrieveByName(info.getNome());
+							info.setDisponibilità(info.getDisponibilità() - cart.getProductQuantity(product));
 							containDao.doSave(conbean);
 						}
+						cart.ClearCart();
 		        }
 			  }
 		   
