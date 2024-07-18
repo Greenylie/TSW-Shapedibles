@@ -30,14 +30,14 @@ public class ContainDaoDataSource implements IContainDao {
 		PreparedStatement preparedStatement = null;
 		
 		String insertSQL="INSERT INTO " + ContainDaoDataSource.TABLE_NAME 
-				+ " (utente, codice_ordine, codice_prodotto) VALUES (?,?,?)";
+				+ " (codice_ordine, codice_info, quantità) VALUES (?,?,?)";
 		
 		try {
 			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(insertSQL);
-			preparedStatement.setString(1, contain.getUtente());
-			preparedStatement.setInt(2, contain.getCodiceOrdine());
-			preparedStatement.setInt(3, contain.getCodiceProdotto());
+			preparedStatement.setInt(1, contain.getCodiceOrdine());
+			preparedStatement.setInt(2, contain.getCodiceProdotto());
+			preparedStatement.setInt(3, contain.getQuantità());
 
 			
 			preparedStatement.executeUpdate();
@@ -53,20 +53,20 @@ public class ContainDaoDataSource implements IContainDao {
 	}
 
 	@Override
-	public boolean doDelete(String user, int orderID) throws SQLException {
+	public boolean doDelete(int orderID) throws SQLException {
 		// TODO Auto-generated method stub
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		
 		int result = 0;
 		
-		String deleteSQL = "DELETE FROM " + ContainDaoDataSource.TABLE_NAME + " WHERE UTENTE = ? AND CODICE_ORDINE = ?";
+		String deleteSQL = "DELETE FROM " + ContainDaoDataSource.TABLE_NAME + " WHERE CODICE_ORDINE = ?";
 		
 		try {
 			connection= ds.getConnection();
 			preparedStatement = connection.prepareStatement(deleteSQL);
-			preparedStatement.setString(1, user);
-			preparedStatement.setInt(2, orderID);
+			preparedStatement.setInt(1, orderID);
+			
 			
 			result = preparedStatement.executeUpdate();
 			
@@ -82,26 +82,25 @@ public class ContainDaoDataSource implements IContainDao {
 	}
 
 	@Override
-	public ContainBean doRetrieveByKey(String user, int orderID) throws SQLException {
+	public ContainBean doRetrieveByKey(int orderID) throws SQLException {
 		// TODO Auto-generated method stub
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		
 		ContainBean bean= new ContainBean();
-		String selectSQL = "SELECT * FROM " + ContainDaoDataSource.TABLE_NAME + " WHERE UTENTE = ? AND CODICE_ORDINE = ?";
+		String selectSQL = "SELECT * FROM " + ContainDaoDataSource.TABLE_NAME + " WHERE CODICE_ORDINE = ?";
 		
 		try {
 			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(selectSQL);
-			preparedStatement.setString(1, user);
-			preparedStatement.setInt(2, orderID);
+			preparedStatement.setInt(1, orderID);
 			
 			ResultSet rs = preparedStatement.executeQuery();
 			
 			while(rs.next()) {
-				bean.setUtente(rs.getString("Utente"));
 				bean.setCodiceOrdine(rs.getInt("Codice_Ordine"));
-				bean.setCodiceProdotto(rs.getInt("Codice_Prodotto"));
+				bean.setCodiceProdotto(rs.getInt("Codice_Info"));
+				bean.setQuantità(rs.getInt("Quantità"));
 			}
 			
 		} finally {
@@ -138,9 +137,9 @@ public class ContainDaoDataSource implements IContainDao {
 			while(rs.next()) {
 				ContainBean  bean = new ContainBean();
 				
-				bean.setUtente(rs.getString("Utente"));
 				bean.setCodiceOrdine(rs.getInt("Codice_Ordine"));
-				bean.setCodiceProdotto(rs.getInt("Codice_Prodotto"));
+				bean.setCodiceProdotto(rs.getInt("Codice_Info"));
+				bean.setQuantità(rs.getInt("Quantità"));
 				items.add(bean);
 			}
 			
@@ -157,27 +156,26 @@ public class ContainDaoDataSource implements IContainDao {
 	}
 
 	@Override
-	public Collection<ContainBean> doRetrieveByOrder(String user, int orderID) throws SQLException {
+	public Collection<ContainBean> doRetrieveByOrder(int orderID) throws SQLException {
 		// TODO Auto-generated method stub
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		
 		Collection<ContainBean> items= new LinkedList<ContainBean>();
-		String selectSQL = "SELECT * FROM " + ContainDaoDataSource.TABLE_NAME + " WHERE UTENTE = ? AND CODICE_ORDINE = ?";
+		String selectSQL = "SELECT * FROM " + ContainDaoDataSource.TABLE_NAME + " WHERE CODICE_ORDINE = ?";
 		try {
 			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(selectSQL);
-			preparedStatement.setString(1, user);
-			preparedStatement.setInt(2, orderID);
+			preparedStatement.setInt(1, orderID);
 			
 			ResultSet rs = preparedStatement.executeQuery();
 			
 			while(rs.next()) {
 				ContainBean  bean = new ContainBean();
 				
-				bean.setUtente(rs.getString("Utente"));
 				bean.setCodiceOrdine(rs.getInt("Codice_Ordine"));
-				bean.setCodiceProdotto(rs.getInt("Codice_Prodotto"));
+				bean.setCodiceProdotto(rs.getInt("Codice_Info"));
+				bean.setQuantità(rs.getInt("Quantità"));
 				items.add(bean);
 			}
 			

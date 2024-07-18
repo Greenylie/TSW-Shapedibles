@@ -9,14 +9,14 @@
          pageEncoding="UTF-8"%>
 
 <%
-    UserBean user = (UserBean) request.getSession().getAttribute("loggedUser");
-    Collection<?> userOrders = (Collection<?>) request.getAttribute("loggedUserOrders");
+    UserBean user = (UserBean) request.getSession().getAttribute("LoggedUser");
+    Collection<?> userOrders = (Collection<?>) request.getAttribute("OrdersLoggedUser");
     if(userOrders == null) {
         response.sendRedirect("./userprofile");
         return;
     }
-    Collection<ContainBean> items = (Collection<ContainBean>) request.getAttribute("Details");
-    InfoDaoDataSource infoDao= new InfoDaoDataSource((DataSource) request.getAttribute("DataSource"));
+    Collection<?> items = (Collection<?>) request.getAttribute("Details");
+    InfoDaoDataSource infoDao= new InfoDaoDataSource((DataSource) request.getServletContext().getAttribute("DataSource"));
 %>
 
 <!DOCTYPE html>
@@ -38,12 +38,12 @@
 <% } %>
 
 <h2> Profilo Utente </h2>
-<h4>Username</h4><a><%=user.getUsername()%></a>
-<h4>Email</h4><a><%=user.getEmail()%></a>
-<h4>Nome e Cognome</h4><a><%=user.getNomeCognome()%></a>
-<h4>Data di Nascita</h4><a><%=user.getDataNascita()%></a>
-<h4>Sesso</h4><a><%=user.getSesso()%></a>
-<h4>Paese</h4><a><%=user.getPaese()%></a>
+<p> <strong>Username: </strong> <%=user.getUsername()%> </p>
+<p> <strong>Email: </strong> <%=user.getEmail()%> </p>
+<p> <strong>Nome e Cognome: </strong><%=user.getNomeCognome()%> </p>
+<p> <strong>Data di Nascita: </strong><%=user.getDataNascita()%> </p>
+<p> <strong>Sesso: </strong><%=user.getSesso()%> </p>
+<p> <strong>Paese: </strong><%=user.getPaese()%> </p>
 <h2> I tuoi ordini </h2>
 <a href="product">List</a>
 <table border="1">
@@ -68,7 +68,7 @@
         <td><%=bean.getStato()%></td>
         <td><%=bean.getSaldoTotale()%></td>
         <td>
-            <a href="UserProfile?action=orderDetails&orderUser=<%=bean.getUtente()%>&orderNum=<%=bean.getCodice()%>"> Details</a><br>
+            <a href="userprofile?action=orderDetails&orderUser=<%=bean.getUtente()%>&orderNum=<%=bean.getCodice()%>"> Details</a><br>
         </td>
     </tr>
     <%
@@ -81,17 +81,9 @@
     <%
         }
     %>
+    
 </table>
-
 <h2>Dettagli</h2>
-<%
-    if(items != null && items.size()!= 0) {
-        Iterator<?> it = items.iterator();
-        while (it.hasNext()) {
-            ContainBean bean = (ContainBean) it.next();
-            InfoBean info = infoDao.doRetrieveByKey(bean.getCodiceProdotto());
-
-%>
 <table border="1">
     <tr>
         <th>Name</th>
@@ -100,16 +92,24 @@
         <th>Quantity</th>
 
     </tr>
+<%
+    if(items != null && items.size()!= 0) {
+        Iterator<?> it = items.iterator();
+        while (it.hasNext()) {
+            ContainBean bean = (ContainBean) it.next();
+        InfoBean info = infoDao.doRetrieveByKey(bean.getCodiceProdotto());
+
+%>
     <tr>
         <td><%=info.getNome()%></td>
         <td><%=info.getDescrizione()%></td>
         <td><%=info.getCosto()%></td>
-        <td><%=info.getDisponibilità()%></td>
+        <td><%=bean.getQuantità()%></td>
     </tr>
-</table>
 <%
-        }}
+    }}
 %>
+</table>
 
 <a href="loginView.jsp" > Login </a>
 <a href="RegisterView.jsp" > Register </a>

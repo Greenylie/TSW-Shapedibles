@@ -98,7 +98,7 @@ public class OrdersControl extends HttpServlet {
 			else if(action.equalsIgnoreCase("orderDetails")) {
 				int orderNum = Integer.parseInt(request.getParameter("orderNum"));
 				String orderUser = request.getParameter("orderUser");
-				Collection<ContainBean> items = containDao.doRetrieveByOrder(orderUser, orderNum);
+				Collection<ContainBean> items = containDao.doRetrieveByOrder(orderNum);
 				request.removeAttribute("Details");
 				request.setAttribute("Details", items);
 			}

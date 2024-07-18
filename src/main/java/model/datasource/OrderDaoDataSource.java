@@ -30,7 +30,7 @@ public class OrderDaoDataSource implements IOrderDao
 		PreparedStatement preparedStatement = null;
 		
 		String insertSQL="INSERT INTO " + OrderDaoDataSource.TABLE_NAME 
-				+ " (utente, codice, indirizzo, stato, data_ordine, saldo-totale) VALUES (?,?,?,?,?,?)";
+				+ " (utente, codice, indirizzo, stato, data_ordine, saldo_totale) VALUES (?,?,?,?,?,?)";
 		
 		try {
 			connection = ds.getConnection();

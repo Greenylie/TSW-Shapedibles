@@ -62,7 +62,7 @@ public class AddressDaoDataSource implements IAddressDao
 		
 		int result = 0;
 		
-		String deleteSQL = "DELETE FROM " + AddressDaoDataSource.TABLE_NAME + " WHERE CODICE = ? AND UTENTE= ? ";
+		String deleteSQL = "DELETE FROM " + AddressDaoDataSource.TABLE_NAME + " WHERE ID = ? AND UTENTE= ? ";
 		
 		try {
 			connection= ds.getConnection();
@@ -91,7 +91,7 @@ public class AddressDaoDataSource implements IAddressDao
 		PreparedStatement preparedStatement = null;
 		
 		AddressBean bean= new AddressBean();
-		String selectSQL = "SELECT * FROM " + AddressDaoDataSource.TABLE_NAME + " WHERE CODICE = ?  AND UTENTE= ? ";
+		String selectSQL = "SELECT * FROM " + AddressDaoDataSource.TABLE_NAME + " WHERE ID = ?  AND UTENTE= ? ";
 		
 		try {
 			connection = ds.getConnection();

@@ -146,44 +146,44 @@ create table ordini
  stato varchar(10) not  null,
  data_ordine date not null,
  saldo_totale decimal(10,2) not null default 0.0,
- PRIMARY KEY(Utente, Codice),
+ PRIMARY KEY(Codice),
  foreign key (Utente) References Utenti(Username) ON UPDATE cascade on delete cascade,
  foreign key (utente, indirizzo) References Indirizzi(utente, id) ON UPDATE cascade on delete cascade
 );
 
 INSERT INTO ordini(Utente, codice, indirizzo, stato, data_ordine, saldo_totale) 
-VALUES ('user', 1, 'adUser1-2', 'spedito', '2024-06-19', 21.90);
+VALUES ('user', 1010, 'adUser1-2', 'spedito', '2024-06-19', 21.90);
 INSERT INTO ordini(Utente, codice, indirizzo, stato, data_ordine, saldo_totale) 
-VALUES ('user2', 1, 'adUser2-1', 'consegnato', '2024-04-23', 24.69);
+VALUES ('user2', 1020, 'adUser2-1', 'consegnato', '2024-04-23', 24.69);
 INSERT INTO ordini(Utente, codice, indirizzo, stato, data_ordine, saldo_totale) 
-VALUES ('user', 2, 'adUser1-1', 'pronto', '2024-06-19', 36.69);
+VALUES ('user', 2030, 'adUser1-1', 'pronto', '2024-06-19', 36.69);
 INSERT INTO ordini(Utente, codice, indirizzo, stato, data_ordine, saldo_totale) 
-VALUES ('user2', 2, 'adUser2-1', 'spedito', '2024-06-19', 12.00);
+VALUES ('user2', 2040, 'adUser2-1', 'spedito', '2024-06-19', 12.00);
 
 create table contiene 
 (
- Utente varchar(18) NOT NULL,
  Codice_Ordine int not null,
  Codice_Info int not null,
- PRIMARY KEY(Codice_Ordine, Codice_Info, Utente),
- foreign key (Utente, Codice_Ordine) References Ordini(Utente, Codice) ON UPDATE cascade on delete cascade,
+ Quantità int not null,
+ PRIMARY KEY(Codice_Ordine, Codice_Info),
+ foreign key (Codice_Ordine) References Ordini(Codice) ON UPDATE cascade on delete cascade,
  foreign key (Codice_Info) References info_prodotto(Codice) ON UPDATE cascade on delete cascade
 );   
 
-INSERT INTO contiene (Utente, Codice_Ordine,  Codice_Info) 
-VALUES ('user', 1, 1);
-INSERT INTO contiene (Utente, Codice_Ordine,  Codice_Info) 
-VALUES ('user', 1, 3);
-INSERT INTO contiene (Utente, Codice_Ordine,  Codice_Info) 
-VALUES ('user2', 1, 3);
-INSERT INTO contiene (Utente, Codice_Ordine,  Codice_Info) 
-VALUES ('user2', 1, 4);
-INSERT INTO contiene (Utente, Codice_Ordine,  Codice_Info) 
-VALUES ('user', 2, 3);
-INSERT INTO contiene (Utente, Codice_Ordine,  Codice_Info) 
-VALUES ('user', 2, 4);
-INSERT INTO contiene (Utente, Codice_Ordine,  Codice_Info) 
-VALUES ('user', 2, 1);
-INSERT INTO contiene (Utente, Codice_Ordine,  Codice_Info) 
-VALUES ('user2', 1, 1);
+INSERT INTO contiene ( Codice_Ordine,  Codice_Info, Quantità) 
+VALUES (1010, 1, 1);
+INSERT INTO contiene ( Codice_Ordine,  Codice_Info, Quantità) 
+VALUES (1010, 3, 1);
+INSERT INTO contiene ( Codice_Ordine,  Codice_Info, Quantità) 
+VALUES (1020, 3, 1);
+INSERT INTO contiene ( Codice_Ordine,  Codice_Info, Quantità) 
+VALUES (1020, 4, 1);
+INSERT INTO contiene ( Codice_Ordine,  Codice_Info, Quantità) 
+VALUES (2030, 3, 1);
+INSERT INTO contiene ( Codice_Ordine,  Codice_Info, Quantità) 
+VALUES (2040, 4, 1);
+INSERT INTO contiene ( Codice_Ordine,  Codice_Info, Quantità) 
+VALUES (2030, 1, 1);
+INSERT INTO contiene ( Codice_Ordine,  Codice_Info, Quantità) 
+VALUES (2040, 1, 1);
 

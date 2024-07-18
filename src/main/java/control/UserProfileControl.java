@@ -60,24 +60,23 @@ public class UserProfileControl extends HttpServlet {
 		containDao= new ContainDaoDataSource(ds);
 		
 		String action = request.getParameter("action");
-		UserBean user = (UserBean) request.getSession().getAttribute("loggedUser");
+		UserBean user = (UserBean) request.getSession().getAttribute("LoggedUser");
 		
 		
 		try {
 			
-			Collection<OrderBean> Ordini =  orderDao.doRetrieveByUser(user.getUsername());
 			
+			Collection<OrderBean> ordini =  orderDao.doRetrieveByUser(user.getUsername());
 			
 			if(action != null){
 				if(action.equalsIgnoreCase("orderDetails")) {
 					int orderNum = Integer.parseInt(request.getParameter("orderNum"));
 					String orderUser = request.getParameter("orderUser");
-					Collection<ContainBean> items = containDao.doRetrieveByOrder(orderUser, orderNum);
+					Collection<ContainBean> items = containDao.doRetrieveByOrder(orderNum);
 					request.removeAttribute("Details");
 					request.setAttribute("Details", items);
-				} 
+				}
 			}
-			
 			} catch(SQLException e) {
 				System.out.println("Error: " + e.getMessage());
 			}

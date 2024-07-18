@@ -35,6 +35,10 @@ public class Cart {
 	public Collection<ProductBean> getProducts() {
 		return new ArrayList<>(products.keySet());
 	}
+	
+	public void ClearCart() {
+		products.clear();
+	}
 
 	public int getProductQuantity(ProductBean product) {
 		return products.getOrDefault(product, 0);

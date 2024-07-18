@@ -89,5 +89,11 @@ public class AddressBean implements Serializable{
 		return id + " " + utente + " " + paese + " " + strada + " "+ città + " " + numero + " " + codice_postale;
 	}
 	
+
+	public String selectString() {
+		return paese + ", " + strada + ", "+ città + ", " + numero + ", " + codice_postale;
+	}
+	
+	
 }
 
