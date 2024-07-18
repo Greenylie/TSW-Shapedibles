@@ -2,6 +2,7 @@ package model.bean;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Objects;
 
 @SuppressWarnings("ALL")
@@ -13,6 +14,7 @@ public class ProductBean implements Serializable
 	private int codice;
 	private int infoCorrenti;
 	String nome;
+	private Collection<ImageBean> immagini;
 	
 	public ProductBean()
 	{
@@ -50,6 +52,10 @@ public class ProductBean implements Serializable
 	{
 		this.nome=nome;
 	}
+	
+	public void setImages (Collection<ImageBean> images) { this.immagini = images; }
+	
+	public Collection<ImageBean> getImages() { return immagini; }
 
     @Override
     public boolean equals(Object o) {

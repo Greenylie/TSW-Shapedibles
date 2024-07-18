@@ -88,6 +88,7 @@ public class ProductDaoDataSource implements IProductDao
 		// TODO Auto-generated method stub
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
+		ImageDaoDataSource imageDaoDataSource = new ImageDaoDataSource(ds);
 		
 		ProductBean bean= new ProductBean();
 		String selectSQL = "SELECT * FROM " + ProductDaoDataSource.TABLE_NAME + " WHERE CODICE= ? ";
@@ -104,7 +105,8 @@ public class ProductDaoDataSource implements IProductDao
 			while(rs.next()) {
 				bean.setCodice(rs.getInt("CODICE"));
 				bean.setNome(rs.getString("NOME"));
-				bean.setInfoCorrenti(rs.getInt("INFO_CORRENTI"));	
+				bean.setInfoCorrenti(rs.getInt("INFO_CORRENTI"));
+				bean.setImages(imageDaoDataSource.doRetrieveByProduct(bean.getCodice()));
 			}
 			
 		} finally {
@@ -124,6 +126,7 @@ public class ProductDaoDataSource implements IProductDao
 		// TODO Auto-generated method stub
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
+		ImageDaoDataSource imageDaoDataSource = new ImageDaoDataSource(ds);
 		
 		ProductBean bean= new ProductBean();
 		String selectSQL = "SELECT * FROM " + ProductDaoDataSource.TABLE_NAME + " WHERE NOME= ? ";
@@ -140,7 +143,8 @@ public class ProductDaoDataSource implements IProductDao
 			while(rs.next()) {
 				bean.setCodice(rs.getInt("CODICE"));
 				bean.setNome(rs.getString("NOME"));
-				bean.setInfoCorrenti(rs.getInt("INFO_CORRENTI"));	
+				bean.setInfoCorrenti(rs.getInt("INFO_CORRENTI"));
+				bean.setImages(imageDaoDataSource.doRetrieveByProduct(bean.getCodice()));
 			}
 			
 		} finally {
@@ -160,6 +164,7 @@ public class ProductDaoDataSource implements IProductDao
 	public Collection<ProductBean> doRetrieveAll(String order) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
+		ImageDaoDataSource imageDaoDataSource = new ImageDaoDataSource(ds);
 		
 		Collection<ProductBean> products= new LinkedList<>();
 		String selectSQL = "SELECT * FROM " + ProductDaoDataSource.TABLE_NAME;
@@ -180,6 +185,7 @@ public class ProductDaoDataSource implements IProductDao
 				bean.setCodice(rs.getInt("CODICE"));
 				bean.setNome(rs.getString("NOME"));
 				bean.setInfoCorrenti(rs.getInt("INFO_CORRENTI"));	
+				bean.setImages(imageDaoDataSource.doRetrieveByProduct(bean.getCodice()));
 				products.add(bean);
 			}
 			
@@ -201,6 +207,7 @@ public class ProductDaoDataSource implements IProductDao
 	public List<ProductBean> searchByName(String query) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
+		ImageDaoDataSource imageDaoDataSource = new ImageDaoDataSource(ds);
 		
 		List<ProductBean> products = new LinkedList<>();
 		String selectSQL = "SELECT * FROM " + ProductDaoDataSource.TABLE_NAME + " WHERE NOME LIKE ?";
@@ -218,6 +225,7 @@ public class ProductDaoDataSource implements IProductDao
 				bean.setCodice(rs.getInt("CODICE"));
 				bean.setNome(rs.getString("NOME"));
 				bean.setInfoCorrenti(rs.getInt("INFO_CORRENTI"));
+				bean.setImages(imageDaoDataSource.doRetrieveByProduct(bean.getCodice()));
 				products.add(bean);
 			}
 			

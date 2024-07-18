@@ -1,5 +1,21 @@
 package control;
 
+import model.bean.ImageBean;
+import model.bean.InfoBean;
+import model.bean.ProductBean;
+import model.datasource.ImageDaoDataSource;
+import model.datasource.InfoDaoDataSource;
+import model.datasource.ProductDaoDataSource;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
+import javax.sql.DataSource;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -9,24 +25,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Collection;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
-import javax.sql.DataSource;
-
-import javax.servlet.RequestDispatcher;
-
-import model.bean.ImageBean;
-import model.bean.InfoBean;
-import model.bean.ProductBean;
-import model.datasource.ImageDaoDataSource;
-import model.datasource.InfoDaoDataSource;
-import model.datasource.ProductDaoDataSource;
-
 
 /**
  * Servlet implementation class ProductUpload
@@ -35,7 +33,7 @@ import model.datasource.ProductDaoDataSource;
 @MultipartConfig()
 public class ProductUpload extends HttpServlet {
 	private static final long serialVersionUID = 1L; 
-	static String SAVE_DIR= "img";
+	static String SAVE_DIR= "assets\\images\\products";
 	static ProductDaoDataSource prodDao;
 	static ImageDaoDataSource imgDao;
 	static InfoDaoDataSource infDao;
@@ -66,7 +64,7 @@ public class ProductUpload extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		Collection<?> prodotti = (Collection<?>) request.getSession().getAttribute("Products");
-		String savePath = request.getServletContext().getRealPath("") + File.separator + SAVE_DIR;
+		String savePath = request.getServletContext().getRealPath("") + SAVE_DIR;
 		ProductBean beanP1 = new ProductBean();
 		ProductBean beanP2 = new ProductBean();
 		ImageBean beanI = new ImageBean();

@@ -146,6 +146,8 @@ async function updateSearchResults(results) {
         
         elResultDiv.classList.add("search-result");
         
+        elResultImg.src = contextPath + "assets/images/products/" +  product.immagini[0].img;
+        
         elResultCart.classList.add("cart-controls");
         elResultCartPlus.id = "cartPlus";
         elResultCartPlus.textContent = "+";

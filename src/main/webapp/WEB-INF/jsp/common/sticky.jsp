@@ -17,6 +17,9 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/styles/base.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/styles/pages/sticky.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <script>
+        var contextPath = "${pageContext.request.contextPath}/";
+    </script>
     <script src="${pageContext.request.contextPath}/assets/script/pages/sticky.js"></script>
     <title></title>
 </head>
@@ -46,7 +49,7 @@
                     </form>
                 </div>
                 <div class="header-right">
-                    <a class="primary-round-btn nodeco" id="loginButton" href="${pageContext.request.contextPath}/Login">
+                    <a class="primary-round-btn nodeco" id="loginButton" href="${pageContext.request.contextPath}/">
                         <span class="material-symbols-rounded">login</span>
                     </a>
                     <a class="primary-round-btn nodeco" id="cartButton" href="${pageContext.request.contextPath}/Login">
