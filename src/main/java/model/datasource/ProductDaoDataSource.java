@@ -53,37 +53,6 @@ public class ProductDaoDataSource implements IProductDao
 		
 		
 	}
-	
-	@Override
-	public void doReSave(ProductBean product) throws SQLException {
-		// TODO Auto-generated method stub
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
-		
-		String insertSQL="INSERT INTO " + ProductDaoDataSource.TABLE_NAME 
-				+ " (codice, info_correnti, nome) VALUES (?,?,?)";
-		
-		try {
-			connection = ds.getConnection();
-			preparedStatement = connection.prepareStatement(insertSQL);
-			preparedStatement.setInt(1, product.getCodice());
-			preparedStatement.setInt(2, product.getInfoCorrenti());
-			preparedStatement.setString(3, product.getNome());
-			
-			
-			preparedStatement.executeUpdate();
-		} finally {
-			try {
-				if (preparedStatement != null)
-					 preparedStatement.close();
-			} finally {
-                assert connection != null;
-                connection.close();
-			}
-		}
-		
-		
-	}
 
 	@Override
 	public synchronized boolean doDelete(int code) throws SQLException {
@@ -271,6 +240,33 @@ public class ProductDaoDataSource implements IProductDao
 		}
 		
 		return products;
+	}
+
+	@Override
+	public void doUpdateInfo(int codice, int codiceInfo) throws SQLException {
+		// TODO Auto-generated method stub
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		
+		String insertSQL="UPDATE " + ProductDaoDataSource.TABLE_NAME 
+				+ " SET INFO_CORRENTI = ? WHERE CODICE= ? ";
+		
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(insertSQL);
+			preparedStatement.setInt(1, codiceInfo);
+			preparedStatement.setInt(2, codice);
+			
+			preparedStatement.executeUpdate();
+		} finally {
+			try {
+				if (preparedStatement != null)
+					 preparedStatement.close();
+			} finally {
+				connection.close();
+			}
+		}
+		
 	}
 
 }

@@ -42,7 +42,7 @@
  <%}else {%>
 
 <h2>Scegli indirizzo di spedizione</h2>
-<form action="checkoutcontrol" id="addressForm" method="get" >
+<form action="checkoutcontrol" id="addressForm" method="post" >
 
 	<label for="address">scegli l'indirizzo di spedizione</label>
 	<select name="address" id="address">
@@ -115,7 +115,7 @@
 %>
 </table>
 
-<form action="checkoutcontrol" id="confirmForm" method="get" >
+<form action="checkoutcontrol" id="confirmForm" method="post" >
     <input type="hidden" name="action" id="action" value="confirm">
     <input type="hidden" name="address" id="address" value="<%=request.getParameter("address")%>">
     <input type="submit" value="conferma">

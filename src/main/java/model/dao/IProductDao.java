@@ -18,5 +18,5 @@ public interface IProductDao {
 
     Collection<ProductBean> searchByName(String query) throws SQLException;
     
-    public void doReSave(ProductBean product) throws SQLException;
+    public void doUpdateInfo(int codice, int codiceInfo) throws SQLException;
 }

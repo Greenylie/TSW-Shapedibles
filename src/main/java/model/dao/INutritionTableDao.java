@@ -13,4 +13,5 @@ public interface INutritionTableDao {
 	public NutritionTableBean doRetrieveByKey(int productID) throws SQLException;
 	
 	public Collection<NutritionTableBean> doRetrieveAll(String order) throws SQLException;
+	
 }

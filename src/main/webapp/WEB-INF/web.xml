@@ -149,5 +149,15 @@
 		<servlet-name>addressesControl</servlet-name>
 		<url-pattern>/addresses</url-pattern>
    </servlet-mapping>
+   
+   <servlet>
+		<servlet-name>ProductDetailsControl</servlet-name>
+		<servlet-class>control.ProductDetailsControl</servlet-class>
+  </servlet>
+	
+  <servlet-mapping>
+		<servlet-name>ProductDetailsControl</servlet-name>
+		<url-pattern>/details</url-pattern> 
+   </servlet-mapping>
 
 </web-app>
