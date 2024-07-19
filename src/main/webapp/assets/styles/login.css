@@ -66,6 +66,7 @@ body{
     background: none;
     border: none;
     font-size: 19px;
+    padding-left: 40%;
 }
 
 .invio:hover{
@@ -79,15 +80,47 @@ body{
     float: right;
     padding-left: 150px;
     font-size: 19px;
+    text-decoration: none;
 }
 
 .rightalign input{
     border: none;
     background: none;
     color: blue;
+    font-size: 19px;
+    padding-right: 10px;
 }
 
 .rightalign:hover{
     color: white;
     transition: background-color 0.4s;
+}
+
+
+/* links */
+a{
+    color: blue;
+    text-decoration: none;
+    float: right;
+}
+
+a:hover {
+    color: blue;
+}
+
+a:link{
+    color: blue;
+}
+
+a:visited{
+    color: blue;
+    text-decoration: none;
+}
+
+a:active{
+    color: blue;
+}
+
+a:target{
+    color: blue;
 }

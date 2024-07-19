@@ -23,10 +23,10 @@
              <input type="submit" value="Login">
         </div>
       <div class="rightalign">
-      </div>
 	  <input type="reset" value="Reset">
     </form>
-    <a href="RegisterView.jsp" > register</a>
+    <a href="RegisterView.jsp" > Register</a>
+</div>
 </div>
 </body>
 </html>

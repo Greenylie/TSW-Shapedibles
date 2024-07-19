@@ -36,7 +36,7 @@
   	 <label for="data di Nascità"> Data di Nascità: </label><br>
   	 <input name="data_nascita" type="date" maxlength="30" required placeholder="enter email"><br>
   	 
-  	 <input type="submit" value="Login"> <input type="reset" value="Reset">  
+  	 <input type="submit" value="Register"> <input type="reset" value="Reset">
   </form>
   
   <a href="loginView.jsp" > login</a>
