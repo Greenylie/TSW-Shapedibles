@@ -20,6 +20,7 @@
     <script>
         var contextPath = "${pageContext.request.contextPath}/";
     </script>
+    <script src="${pageContext.request.contextPath}/assets/script/utils.js"></script>
     <script src="${pageContext.request.contextPath}/assets/script/pages/sticky.js"></script>
     <title></title>
 </head>

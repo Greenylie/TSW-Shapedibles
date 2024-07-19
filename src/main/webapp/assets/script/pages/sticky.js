@@ -91,33 +91,39 @@ function productCartAction(action, product, elResultCartQuantity) {
     /*
     *   action: "addC" or "deleteC"
      */
-        const xhr = new XMLHttpRequest();
-        xhr.open("POST", "cartControl", true);
-        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+    if (action === "addC" && 
+        (product.cartQuantity + 1) > product.info.disponibilità)
+        return;
+    if (action === "deleteC" && product.cartQuantity === 0)
+        return;
+    
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", "cartControl", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
 
-        const requestBody = `action=${action}&id=${encodeURIComponent(product.codice)}`;
+    const requestBody = `action=${action}&id=${encodeURIComponent(product.codice)}`;
 
-        xhr.onload = function() {
-            if (this.status === 200) {
-                response = JSON.parse(this.responseText);
-                if (!response) return;
-                
-                switch (action) {
-                    case "addC":
-                        product.cartQuantity++;
-                        break;
-                    case "deleteC":
-                        product.cartQuantity--;
-                        break;
-                }
-                elResultCartQuantity.textContent = product.cartQuantity.toString();
-                let elCartCounter = document.querySelector("#cartCounter");
-                elCartCounter.classList.add("counter-change");
-                setTimeout(() => { elCartCounter.classList.remove("counter-change"); }, 850);
-                elCartCounter.querySelector("span").textContent = response.cartSize.toString();
+    xhr.onload = function() {
+        if (this.status === 200) {
+            response = JSON.parse(this.responseText);
+            if (!response) return;
+            
+            switch (action) {
+                case "addC":
+                    product.cartQuantity++;
+                    break;
+                case "deleteC":
+                    product.cartQuantity--;
+                    break;
             }
-        };
+            elResultCartQuantity.textContent = product.cartQuantity.toString();
+            let elCartCounter = document.querySelector("#cartCounter");
+            elCartCounter.classList.add("counter-change");
+            setTimeout(() => { elCartCounter.classList.remove("counter-change"); }, 850);
+            elCartCounter.querySelector("span").textContent = response.cartSize.toString();
+        }
+    };
     xhr.send(requestBody);
 }
 
@@ -146,7 +152,7 @@ async function updateSearchResults(results) {
         
         elResultDiv.classList.add("search-result");
         
-        elResultImg.src = contextPath + "assets/images/products/" +  product.immagini[0].img;
+        elResultImg.src =contextPath + "assets/images/products/" +  ImageUtils.getImageWithStringInName(product.immagini, "square");
         
         elResultCart.classList.add("cart-controls");
         elResultCartPlus.id = "cartPlus";

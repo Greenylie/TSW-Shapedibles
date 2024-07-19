@@ -3,7 +3,9 @@ package control;
 import com.google.gson.*;
 import model.Cart;
 import model.bean.ProductBean;
+import model.dao.IInfoDao;
 import model.dao.IProductDao;
+import model.datasource.InfoDaoDataSource;
 import model.datasource.ProductDaoDataSource;
 
 import javax.servlet.RequestDispatcher;
@@ -24,6 +26,7 @@ public class Search extends HttpServlet {
         String query = request.getParameter("ricerca");
         DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
         IProductDao productDao = new ProductDaoDataSource(ds);
+        IInfoDao infoDao = new InfoDaoDataSource(ds);
 
         try {
             Cart cart = (Cart) request.getSession().getAttribute("cart");
@@ -41,7 +44,7 @@ public class Search extends HttpServlet {
                 response.setContentType("application/json");
                 response.setCharacterEncoding("UTF-8");
                 Gson gson = new GsonBuilder()
-                        .registerTypeAdapter(searchResults.getClass(), new ProductBeanWithCartQuantity(cart))
+                        .registerTypeAdapter(searchResults.getClass(), new ProductBeanWithCartQuantity(cart, infoDao))
                         .create();
                 String json = gson.toJson(searchResults);
                 response.getWriter().write(json);
@@ -61,8 +64,10 @@ public class Search extends HttpServlet {
 
     public static class ProductBeanWithCartQuantity implements JsonSerializer<Collection<ProductBean>> {
         private final Cart cart;
-        public ProductBeanWithCartQuantity(Cart cart) {
+        private final IInfoDao infoDao;
+        public ProductBeanWithCartQuantity(Cart cart, IInfoDao infoDao) {
             this.cart = cart;
+            this.infoDao = infoDao;
         }
 
         @Override
@@ -70,9 +75,15 @@ public class Search extends HttpServlet {
             JsonArray jsonArray = new JsonArray();
 
             for (ProductBean product : src) {
-                JsonObject jsonObject = context.serialize(product).getAsJsonObject();
-                jsonObject.addProperty("cartQuantity", cart.getProductQuantity(product));
-                jsonArray.add(jsonObject);
+                JsonObject productObject = context.serialize(product).getAsJsonObject();
+                productObject.addProperty("cartQuantity", cart.getProductQuantity(product));
+                try {
+                    JsonObject infoObject = context.serialize(infoDao.doRetrieveByKey(product.getInfoCorrenti())).getAsJsonObject();
+                    productObject.add("info", infoObject);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+                jsonArray.add(productObject);
             }
 
             return jsonArray;
