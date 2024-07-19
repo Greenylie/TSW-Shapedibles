@@ -67,7 +67,9 @@ public class ProductAdminControl extends HttpServlet {
 		}
 		
 		} catch(SQLException e) {
-			System.out.println("Error: " + e.getMessage());
+			request.setAttribute("error",  "Error: sembra esserci un problema con l'elaborazione deei prodotti.");
+	 		response.sendError(500, "Error: " + e.getMessage());System.out.println("Error..." + e.getMessage());
+
 		}
 		
 		request.getSession().setAttribute("cart", cart);
@@ -77,7 +79,9 @@ public class ProductAdminControl extends HttpServlet {
 			request.removeAttribute("products");
 			request.setAttribute("products", productDao.doRetrieveAll(sort));
 		} catch (SQLException e) {
-			System.out.println("Error; " + e.getMessage());
+			request.setAttribute("error",  "Error: c'è stato un problema con il recupero dati dei prodotti.");
+	 		response.sendError(500, "Error: " + e.getMessage());System.out.println("Error..." + e.getMessage());
+
 		}
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ProductAdmin.jsp");
 			dispatcher.forward(request, response);

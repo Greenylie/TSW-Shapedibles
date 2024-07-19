@@ -54,7 +54,9 @@ public class Search extends HttpServlet {
                 dispatcher.forward(request, response);
             }
         } catch (SQLException e) {
-            e.printStackTrace(); // Consider proper error handling
+        	request.setAttribute("error",  "Error: sembra esserci un problema nella ricerca. se persiste contattare l'asistenza");
+	 		response.sendError(500, "Error: " + e.getMessage());
+
         }
     }
 

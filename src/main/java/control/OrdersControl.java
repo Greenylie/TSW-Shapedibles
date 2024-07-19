@@ -104,7 +104,8 @@ public class OrdersControl extends HttpServlet {
 			}
 		}
 		} catch(SQLException e) {
-			System.out.println("Error: " + e.getMessage());
+			request.setAttribute("error",  "Error: c'è stato un errore nel elaborazione degli ordini.");
+	 		response.sendError(500, "Error: " + e.getMessage());
 		}
 		
 		String sort = request.getParameter("sort");
@@ -113,7 +114,8 @@ public class OrdersControl extends HttpServlet {
 			request.removeAttribute("orders");
 			request.setAttribute("orders", orderDao.doRetrieveAll(sort));
 		} catch (SQLException e) {
-			System.out.println("Error; " + e.getMessage());
+			request.setAttribute("error",  "Error: c'è stato un errore nel recupero dati degli ordini.");
+	 		response.sendError(500, "Error: " + e.getMessage());
 		}
 		
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/OrderHistory.jsp");

@@ -99,7 +99,7 @@ VALUES (3,'shaker.jpg');
 INSERT INTO Immagine (Codice_prodotto, img) 
 VALUES (4,'pancake.jpg'); 
 INSERT INTO Immagine (Codice_prodotto, img) 
-VALUES (1,'butter2.jpg');
+VALUES (1,'butter_square.jpg');
 
 create table coupons
 (

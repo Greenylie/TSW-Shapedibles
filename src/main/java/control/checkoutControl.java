@@ -122,12 +122,8 @@ public class checkoutControl extends HttpServlet {
 						for(ContainBean conbean: containList) {
 							InfoBean info= infoDao.doRetrieveByKey(conbean.getCodiceProdotto());
 							ProductBean product = productDao.doRetrieveByName(info.getNome());
-							info.setDisponibilità(info.getDisponibilità() - cart.getProductQuantity(product));
-							infoDao.doSave(info);
+							infoDao.doUpdateQuantity(info.getCodice(),info.getDisponibilità() - cart.getProductQuantity(product));
 							containDao.doSave(conbean);
-							product.setInfoCorrenti(info.getCodice());
-							productDao.doDelete(product.getCodice());
-							productDao.doSave(product);
 						}
 						cart.ClearCart();
 		        }
@@ -139,7 +135,8 @@ public class checkoutControl extends HttpServlet {
 		   
 	 	} catch(SQLException e) 
 	 	{
-	 		System.out.println("Error: " + e.getMessage());
+	 		request.setAttribute("error",  "Error: c'è stato un errore nel elaborazione del ordine, assicurarsi di inserire i campi corretamente.");
+	 		response.sendError(500, "Error: " + e.getMessage());
 	 	}
 		   
 	 	

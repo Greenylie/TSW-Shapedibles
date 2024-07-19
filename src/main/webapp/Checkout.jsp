@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" errorPage="./errorPage.jsp"%>
 <% 
     InfoDaoDataSource infoDao = new InfoDaoDataSource( (DataSource) request.getServletContext().getAttribute("DataSource"));
 	AddressDaoDataSource addressDao = new AddressDaoDataSource( (DataSource) request.getServletContext().getAttribute("DataSource"));

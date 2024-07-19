@@ -105,6 +105,7 @@ public class InfoDaoDataSource implements IInfoDao {
 				bean.setCosto(rs.getDouble("COSTO"));
 				bean.setDescrizione(rs.getString("DESCRIZIONE"));
 				bean.setDisponibilità(rs.getInt("DISPONIBILITÀ"));	
+				bean.setTipologia(rs.getString("TIPOLOGIA"));	
 			}
 			
 		} finally {
@@ -197,5 +198,33 @@ public class InfoDaoDataSource implements IInfoDao {
 		}
 		
 		return infos;
+	}
+
+	@Override
+	public void doUpdateQuantity(int codice, int quantity) throws SQLException {
+		// TODO Auto-generated method stub
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		
+		String insertSQL="UPDATE " + InfoDaoDataSource.TABLE_NAME 
+				+ " SET DISPONIBILITÀ = ? WHERE CODICE= ? ";
+		
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(insertSQL);
+			preparedStatement.setInt(1, quantity);
+			preparedStatement.setInt(2, codice);
+			
+			preparedStatement.executeUpdate();
+		} finally {
+			try {
+				if (preparedStatement != null)
+					 preparedStatement.close();
+			} finally {
+				connection.close();
+			}
+		}
+		
+		
 	}
 }

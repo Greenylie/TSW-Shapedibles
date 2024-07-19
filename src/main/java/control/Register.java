@@ -75,11 +75,13 @@ public class Register extends HttpServlet {
 			}
 			catch(SQLException e)
 			{
-				System.out.println("Error..." + e.getMessage());
+				request.setAttribute("error",  "Error: c'è stato un errore nel salvataggio delle credenziali, assicurarsi di inserire i campi corretamente.");
+		 		response.sendError(500, "Error: " + e.getMessage());
 			}
 			catch(NoSuchAlgorithmException e)
 			{
-				System.out.println("Error..." + e.getMessage());
+				request.setAttribute("error",  "Error: sembra esserci un problema con la registrazione, se persiste contattare l'assistenza.");
+		 		response.sendError(500, "Error: " + e.getMessage());System.out.println("Error..." + e.getMessage());
 			}
 		} 
 	}

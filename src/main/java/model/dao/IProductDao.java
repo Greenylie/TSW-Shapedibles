@@ -17,4 +17,6 @@ public interface IProductDao {
 	ProductBean doRetrieveByName(String name) throws SQLException;
 
     Collection<ProductBean> searchByName(String query) throws SQLException;
+    
+    public void doReSave(ProductBean product) throws SQLException;
 }

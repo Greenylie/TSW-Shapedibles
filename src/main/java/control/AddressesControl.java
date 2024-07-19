@@ -53,6 +53,8 @@ public class AddressesControl extends HttpServlet {
 		userDao = new UserDaoDataSource(ds);
 		addressDao= new AddressDaoDataSource(ds);
 		
+		if(user==null) {request.setAttribute("error", "Errore: Non c'è alcun utente loggato");}
+		
 		 int max = 50;
 	     int min = 1;
 	     int range = max - min + 1;
@@ -80,7 +82,8 @@ public class AddressesControl extends HttpServlet {
 			}
 			
 			} catch(SQLException e) {
-				System.out.println("Error: " + e.getMessage());
+				request.setAttribute("error",  "Error: c'è stato un errore nel elaborazione del degli indirizzi, assicurati di aver inserito corretamente eventuali dati.");
+		 		response.sendError(500, "Error: " + e.getMessage());
 			}
 		
 		
@@ -88,7 +91,8 @@ public class AddressesControl extends HttpServlet {
 			request.removeAttribute("addresses");
 			request.setAttribute("addresses", addressDao.doRetrieveByUser(user.getUsername()) );
 		} catch (SQLException e) {
-			System.out.println("Error; " + e.getMessage());
+			request.setAttribute("error",  "Error: c'è stato un errore nel recupero degli indirizzi");
+	 		response.sendError(500, "Error: " + e.getMessage());
 		}
 		
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Adresses.jsp");

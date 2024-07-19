@@ -62,6 +62,7 @@ public class UserProfileControl extends HttpServlet {
 		String action = request.getParameter("action");
 		UserBean user = (UserBean) request.getSession().getAttribute("LoggedUser");
 		
+		if(user==null) {request.setAttribute("error", "Errore: Non c'è alcun utente loggato");}
 		
 		try {
 			
@@ -78,7 +79,8 @@ public class UserProfileControl extends HttpServlet {
 				}
 			}
 			} catch(SQLException e) {
-				System.out.println("Error: " + e.getMessage());
+				request.setAttribute("error",  "Error: c'è stato un errore nel elaborazione dei tuoi dati.");
+		 		response.sendError(500, "Error: " + e.getMessage());
 			}
 		
 		
@@ -86,7 +88,8 @@ public class UserProfileControl extends HttpServlet {
 			request.removeAttribute("OrdersLoggedUser");
 			request.setAttribute("OrdersLoggedUser", orderDao.doRetrieveByUser(user.getUsername()));
 		} catch (SQLException e) {
-			System.out.println("Error; " + e.getMessage());
+			request.setAttribute("error",  "Error: c'è stato un errore nel recupero delle informazioni del profilo utente.");
+	 		response.sendError(500, "Error: " + e.getMessage());
 		}
 		
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/UserProfile.jsp");

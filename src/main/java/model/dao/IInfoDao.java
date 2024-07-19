@@ -16,4 +16,6 @@ public interface IInfoDao {
 	public Collection<InfoBean> doRetrieveAll(String order) throws SQLException;
 	
 	public InfoBean doRetrieveByName(String name) throws SQLException;
+	
+	public void doUpdateQuantity(int codice, int quantity) throws SQLException;
 }
