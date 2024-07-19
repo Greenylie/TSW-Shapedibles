@@ -73,7 +73,8 @@ public class CartControl extends HttpServlet {
 				}
 			}
 		} catch(SQLException e) {
-			System.out.println("Error; " + e.getMessage());
+			request.setAttribute("error",  "Error: c'è stato un errore nel elaborazione del carrello.");
+	 		response.sendError(500, "Error: " + e.getMessage());
 		}
 
 		responseData.put("cartSize", cart.getCartSize());

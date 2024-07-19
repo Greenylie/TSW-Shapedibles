@@ -66,7 +66,8 @@ public class AccountManageControl extends HttpServlet {
 			}
 			
 			} catch(SQLException e) {
-				System.out.println("Error: " + e.getMessage());
+				request.setAttribute("error",  "Error: c'è stato un errore nel elaborazione degli utenti.");
+		 		response.sendError(500, "Error: " + e.getMessage());
 			}
 		
 		
@@ -74,7 +75,8 @@ public class AccountManageControl extends HttpServlet {
 			request.removeAttribute("users");
 			request.setAttribute("users", userDao.doRetrieveAll(""));
 		} catch (SQLException e) {
-			System.out.println("Error; " + e.getMessage());
+			request.setAttribute("error",  "Error: c'è stato un errore nel recupero dei dati degli utenti.");
+	 		response.sendError(500, "Error: " + e.getMessage());
 		}
 		
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/AccountManagement.jsp");

@@ -92,10 +92,10 @@ public class ProductUpload extends HttpServlet {
 							  part.write(savePath + File.separator + fileName);
 							  img=fileName;
 							  message = message + fileName + "\n";
-						  } else  System.out.println("Errore: Il file non ha un magic number valido"); //request.setAttribute("error", "Errore: Il file non ha un magic number valido");
-					  }  else  System.out.println("Errore: limite messimo consentito");//request.setAttribute("error", "Errore: Il file non ha un magic number valido");
-					} else  System.out.println("Errore: tipo file sbagliato");//request.setAttribute("error", "Errore: Il file non ha un magic number valido");
-				 } else  System.out.println("Errore: selezionare almeno un file"); //request.setAttribute("error", "Errore: Il file non ha un magic number valido");
+						  } else  request.setAttribute("error", "Errore: Il file non ha un magic number valido");
+					  }  else  request.setAttribute("error", "Errore: Il file non ha un magic number valido");
+					} else  request.setAttribute("error", "Errore: Il file non ha un magic number valido");
+				 } else  request.setAttribute("error", "Errore: Il file non ha un magic number valido");
 				}
 			}
 		   String name = request.getParameter("name");
