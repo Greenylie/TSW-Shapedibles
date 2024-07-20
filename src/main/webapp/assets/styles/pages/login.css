@@ -4,6 +4,14 @@ body{
     background-size: cover;
     //font-family: ;
 }
+
+input[type=reset] {
+    text-decoration: none;
+    background: none;
+    border: none;
+    color: blue;
+}
+
 .login{
     width: 280px;
     position: absolute;
@@ -92,8 +100,7 @@ body{
 }
 
 .rightalign:hover{
-    color: white;
-    transition: background-color 0.4s;
+    /*color: white;*/
 }
 
 
