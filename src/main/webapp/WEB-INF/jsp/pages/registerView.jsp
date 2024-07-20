@@ -9,7 +9,7 @@
 <body>
 <section class="registerBase">
 	<div class="mediaRegister">
-<h2> Register</h2>
+<header> Register</header>
   <form action="register" method="post" class="form">
 	  <div class="input-box">
   	 <label for="username"> Username: </label><br>
@@ -24,7 +24,7 @@
   	 <input name="password" type="password" maxlength="30" required placeholder="enter password"><br>
 	  </div>
 	  <div class="input-box">
-  	  <label for="passwordConf"> Repeat the password: </label><br>
+  	  <label for="passwordConf"> Ripetere la password: </label><br>
   	 <input name="passwordConf" type="password" maxlength="30" required placeholder="enter password again"><br>
 	  </div>
 	  <div class="input-box">
@@ -33,11 +33,11 @@
 	  </div>
 	  <div class="input-box">
   	 <label for="sesso"> Sesso: </label><br>
-  	 <input name="sesso" type="text" maxlength="30" required placeholder="enter s"><br>
+  	 <input name="sesso" type="text" maxlength="30" required placeholder="enter sex"><br>
 	  </div>
 	  <div class="input-box">
   	  <label for="paese"> Paese: </label><br>
-  	 <input name="paese" type="text" maxlength="30" required placeholder="enter "><br>
+  	 <input name="paese" type="text" maxlength="30" required placeholder="insert your country"><br>
 	  </div>
 	  <div class="input-box">
   	 <label for="data di Nascità"> Data di Nascità: </label><br>
