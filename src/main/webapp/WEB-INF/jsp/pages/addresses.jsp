@@ -15,7 +15,7 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <link href="productStyle.css" rel="stylesheet" type="text/css">
+    <link href="${pageContext.request.contextPath}/assets/styles/pages/login.css" rel="stylesheet" type="text/css">
     <title>Pagina prodotti</title>
 </head>
 
