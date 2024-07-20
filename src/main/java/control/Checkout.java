@@ -109,12 +109,7 @@ public class Checkout extends HttpServlet {
 				
 					
 				if(action != null){
-					/*if(action.equalsIgnoreCase("addressSelect")) {
-						
-						
-						request.removeAttribute("order");
-						request.setAttribute("order", bean);
-					} else*/ if(action.equalsIgnoreCase("confirm")) {
+					if(action.equalsIgnoreCase("confirm")) {
 						bean.setStato("completato");
 						orderDao.doSave(bean);	
 						for(ContainBean conbean: containList) {

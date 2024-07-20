@@ -41,6 +41,7 @@
   		<p> <strong>Tipologia: </strong> <%=info.getTipologia()%></p>
    		 <p> <strong>Costo: </strong><%=info.getCosto()%> €</p>
    		 <p> <strong>Descrizione </strong><br><%=info.getDescrizione()%></p>
+   		  <p> <strong>Disponibilità </strong><br><%=info.getDisponibilità()%></p>
 
 <% if(info.getTipologia().equals("altro")==false)
 { %>
@@ -87,11 +88,13 @@
 
 <%} %>
    <a href="cartControl?action=addC&id=<%=product.getCodice()%>"> Add to cart</a><br>
+   <a href="admin/productedit?product=<%=product.getCodice()%>" > edit </a> <br>
   <a href="loginView.jsp" > Login </a>
   <a href="RegisterView.jsp" > Register </a>
 	<a href="Cart.jsp" > Cart </a>
    <a href="WEB-INF/jsp/pages/Checkout.jsp" > Checkout </a>
 	<a href="WEB-INF/jsp/admin/ProductAdmin.jsp" > Admin </a>
+	
 	<a href="WEB-INF/jsp/pages/OrderHistory.jsp" > Order History </a>
 </body>
 </html>

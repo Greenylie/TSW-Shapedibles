@@ -40,7 +40,7 @@ public class Orders extends HttpServlet {
     public Orders() {
         super();
     }
-
+    
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -59,7 +59,13 @@ public class Orders extends HttpServlet {
 		containDao = new ContainDaoDataSource(ds);
 		String action = request.getParameter("action");
 		
+	
 		try {
+			String sort = request.getParameter("sort");
+	
+			request.removeAttribute("orders");
+			request.setAttribute("orders", orderDao.doRetrieveAll(sort)); 
+
 		if(action != null){
 			if(action.equalsIgnoreCase("UserFilter")) {
 				String user = request.getParameter("user");
@@ -95,7 +101,6 @@ public class Orders extends HttpServlet {
 	        }
 			else if(action.equalsIgnoreCase("orderDetails")) {
 				int orderNum = Integer.parseInt(request.getParameter("orderNum"));
-				String orderUser = request.getParameter("orderUser");
 				Collection<ContainBean> items = containDao.doRetrieveByOrder(orderNum);
 				request.removeAttribute("Details");
 				request.setAttribute("Details", items);
@@ -106,16 +111,6 @@ public class Orders extends HttpServlet {
 	 		response.sendError(500, "Error: " + e.getMessage());
 		}
 		
-		String sort = request.getParameter("sort");
-		
-		try {
-			request.removeAttribute("orders");
-			request.setAttribute("orders", orderDao.doRetrieveAll(sort));
-		} catch (SQLException e) {
-			request.setAttribute("error",  "Error: c'è stato un errore nel recupero dati degli ordini.");
-	 		response.sendError(500, "Error: " + e.getMessage());
-		}
-		
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/jsp/admin/orderHistory.jsp");
 			dispatcher.forward(request, response);
 	}
@@ -123,9 +118,9 @@ public class Orders extends HttpServlet {
 
 	private boolean isRightDate(Date date, Date dateMin, Date dateMax) 
 	{
-		if( date.compareTo(dateMin)==0 && date.compareTo(dateMin)>0 ) 
+		if( date.compareTo(dateMin)==0 || date.compareTo(dateMin)>0 ) 
 		{
-			if( date.compareTo(dateMax)==0 && date.compareTo(dateMax)>0 ) return true;
+			if( date.compareTo(dateMax)==0 || date.compareTo(dateMax)<0 ) return true;
 		    else return false;
 		} else return false;
 	}

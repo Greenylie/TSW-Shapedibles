@@ -25,8 +25,12 @@
   <!--  </security-constraint>-->
 
 <!--  Error Pages-->
-  <error-page>
+   <error-page>
 	<error-code>401</error-code>
+	<location>/WEB-INF/jsp/pages/errorPage.jsp</location>
+  </error-page>
+  <error-page>
+	<error-code>400</error-code>
 	<location>/WEB-INF/jsp/pages/errorPage.jsp</location>
   </error-page>
   <error-page>
@@ -44,7 +48,7 @@
   <error-page>
 	<error-code>503</error-code>
 	<location>/WEB-INF/jsp/pages/errorPage.jsp</location>
-  </error-page>
+  </error-page>  
   
 <!--  Home and assets-->
   <servlet>
@@ -182,6 +186,30 @@
   <servlet-mapping>
 	<servlet-name>Addresses</servlet-name>
 	<url-pattern>/user/addresses</url-pattern>
+  </servlet-mapping>
+  
+  <!-- <servlet>
+	<servlet-name>ProductEdit</servlet-name>
+	<servlet-class>control.ProductEdit</servlet-class>
+  	<init-param>
+	  <param-name>file-upload</param-name>
+	  <param-value>img</param-value>
+	  </init-param>
+	 <multipart-config>
+	  <max-file-size>52428800</max-file-size>
+	  <max-request-size>52428800</max-request-size>
+	  <file-size-threshold>0</file-size-threshold>
+	</multipart-config>
+  </servlet> -->
+  
+  <servlet>
+	<servlet-name>ProductEdit</servlet-name>
+	<servlet-class>control.ProductEdit</servlet-class>
+  </servlet>
+  
+   <servlet-mapping>
+	<servlet-name>ProductEdit</servlet-name>
+	<url-pattern>/admin/productedit</url-pattern>
   </servlet-mapping>
   
 <!--Filters-->

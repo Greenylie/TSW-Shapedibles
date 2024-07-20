@@ -15,8 +15,6 @@ function DoSubmit() {
 	} else if(user === "" && (dateMin !== "" || dateMax !== "")) {
 		actionValue = "DateFilter";
 	}
-
-	alert("alert box: " + user + " " + dateMax + " " + dateMin + " " + actionValue);
 	
 	elForm.querySelector("input").value = actionValue;
 	

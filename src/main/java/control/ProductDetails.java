@@ -57,7 +57,7 @@ public class ProductDetails extends HttpServlet {
 		
 		try {
 			ProductBean product= prodDao.doRetrieveByKey(Integer.parseInt(request.getParameter("product"))) ;
-			InfoBean info = infoDao.doRetrieveByKey(product.getCodice());
+			InfoBean info = infoDao.doRetrieveByKey(product.getInfoCorrenti());
 			NutritionTableBean nutritionTable = nutDao.doRetrieveByKey(product.getCodice());
 			
 			
