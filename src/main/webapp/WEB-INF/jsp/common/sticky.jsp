@@ -50,10 +50,10 @@
                     </form>
                 </div>
                 <div class="header-right">
-                    <a class="primary-round-btn nodeco" id="loginButton" href="${pageContext.request.contextPath}/">
+                    <a class="primary-round-btn nodeco" id="loginButton" href="${pageContext.request.contextPath}/login">
                         <span class="material-symbols-rounded">login</span>
                     </a>
-                    <a class="primary-round-btn nodeco" id="cartButton" href="${pageContext.request.contextPath}/Login">
+                    <a class="primary-round-btn nodeco" id="cartButton" href="${pageContext.request.contextPath}/cart">
                         <span class="material-symbols-rounded">shopping_cart</span>
                         <div id="cartCounter">
                             <span>${cart.getCartSize()}</span>

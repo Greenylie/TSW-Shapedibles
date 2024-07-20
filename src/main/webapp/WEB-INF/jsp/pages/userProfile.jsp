@@ -6,13 +6,13 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8" errorPage="./errorPage.jsp"%>
+         pageEncoding="UTF-8" errorPage="errorPage.jsp"%>
 
 <%
     UserBean user = (UserBean) request.getSession().getAttribute("LoggedUser");
     Collection<?> userOrders = (Collection<?>) request.getAttribute("OrdersLoggedUser");
     if(userOrders == null) {
-        response.sendRedirect("./userprofile");
+        response.sendRedirect("./user/profile");
         return;
     }
     Collection<?> items = (Collection<?>) request.getAttribute("Details");
@@ -68,7 +68,7 @@
         <td><%=bean.getStato()%></td>
         <td><%=bean.getSaldoTotale()%></td>
         <td>
-            <a href="userprofile?action=orderDetails&orderUser=<%=bean.getUtente()%>&orderNum=<%=bean.getCodice()%>"> Details</a><br>
+            <a href="${pageContext.request.contextPath}/UserProfile?action=orderDetails&orderUser=<%=bean.getUtente()%>&orderNum=<%=bean.getCodice()%>"> Details</a><br>
         </td>
     </tr>
     <%
@@ -93,7 +93,7 @@
 
     </tr>
 <%
-    if(items != null && items.size()!= 0) {
+    if(items != null && !items.isEmpty()) {
         Iterator<?> it = items.iterator();
         while (it.hasNext()) {
             ContainBean bean = (ContainBean) it.next();
@@ -112,11 +112,11 @@
 </table>
 
 <a href="loginView.jsp" > Login </a>
-<a href="RegisterView.jsp" > Register </a>
-<a href="Cart.jsp" > Cart </a>
-<a href="Checkout.jsp" > Checkout </a>
-<a href="ProductAdmin.jsp" > Admin </a>
-<a href="Adresses.jsp" > Your addresses </a>
+<a href="WEB-INF/jsp/pages/RegisterView.jsp" > Register </a>
+<a href="WEB-INF/jsp/pages/Cart.jsp" > Cart </a>
+<a href="WEB-INF/jsp/pages/Checkout.jsp" > Checkout </a>
+<a href="../admin/ProductAdmin.jsp" > Admin </a>
+<a href="WEB-INF/jsp/pages/Adresses.jsp" > Your addresses </a>
 
 </body>
 </html>

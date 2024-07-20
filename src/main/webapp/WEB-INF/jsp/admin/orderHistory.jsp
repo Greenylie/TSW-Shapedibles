@@ -6,12 +6,12 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8" errorPage="./errorPage.jsp"%>
+         pageEncoding="UTF-8" errorPage="../pages/errorPage.jsp"%>
 
 <%
     Collection<?> orders = (Collection<?>) request.getAttribute("orders");
     if(orders == null) {
-        response.sendRedirect("./orders");
+        response.sendRedirect("./user/orders");
         return;
     }
     Collection<?> items = (Collection<?>) request.getAttribute("Details");
@@ -27,7 +27,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link href="productStyle.css" rel="stylesheet" type="text/css">
-    <script type="text/javascript" src="orders.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/assets/script/pages/orders.js"></script>
     <title>Order History</title>
 </head>
 
@@ -62,7 +62,7 @@
         <td><%=bean.getStato()%></td>
         <td><%=bean.getSaldoTotale()%></td>
         <td>
-            <a href="orders?action=orderDetails&orderUser=<%=bean.getUtente()%>&orderNum=<%=bean.getCodice()%>"> Details</a><br>
+            <a href="${pageContext.request.contextPath}/admin/orders?action=orderDetails&orderUser=<%=bean.getUtente()%>&orderNum=<%=bean.getCodice()%>"> Details</a><br>
         </td>
     </tr>
     <%
@@ -107,7 +107,7 @@
 %>
 </table>
 <h2>Filter </h2>
-<form action="orders" id="filterForm" method="get" onSubmit="DoSubmit()">
+<form action="${pageContext.request.contextPath}/admin/orders" id="filterForm" method="get">
     <input type="hidden" name="action" id="action" value="insert">
 
 	<label for="user">user:</label>
@@ -130,14 +130,14 @@
     <label for="dateMax">Max Date:</label>
     <input name="dateMax" id="dateMax" type="date" placeholder="yyyy-mm-dd"><br>
 
-    <input type="submit" value="Add" onclick="DoSubmit()"><input type="reset" value="Reset">
+    <input type="submit" value="Add"><input type="reset" value="Reset">
 </form>
 
-<a href="loginView.jsp" > Login </a>
-<a href="RegisterView.jsp" > Register </a>
-<a href="Cart.jsp" > Cart </a>
-<a href="Checkout.jsp" > Checkout </a>
-<a href="ProductAdmin.jsp" > Admin </a>
+<a href="../pages/loginView.jsp" > Login </a>
+<a href="WEB-INF/jsp/pages/RegisterView.jsp" > Register </a>
+<a href="WEB-INF/jsp/pages/Cart.jsp" > Cart </a>
+<a href="WEB-INF/jsp/pages/Checkout.jsp" > Checkout </a>
+<a href="../admin/ProductAdmin.jsp" > Admin </a>
 
 </body>
 </html>

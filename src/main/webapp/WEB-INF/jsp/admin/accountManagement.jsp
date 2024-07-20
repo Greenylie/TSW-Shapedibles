@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8" errorPage="./errorPage.jsp"%>
+         pageEncoding="UTF-8" errorPage="../pages/errorPage.jsp"%>
 
 <%
     Collection<?> users = (Collection<?>) request.getAttribute("users");
@@ -14,6 +14,9 @@
         response.sendRedirect("./users");
         return;
     }
+    
+    UserBean loggedUser = (UserBean) session.getAttribute("LoggedUser");
+    String loggedUsername = loggedUser != null ? loggedUser.getUsername() : "";
 %>
 
 <!DOCTYPE html>
@@ -23,14 +26,14 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <link href="assets/styles/product.css" rel="stylesheet" type="text/css">
+    <link href="../../../assets/styles/pages/product.css" rel="stylesheet" type="text/css">
     <title>Gestione Account</title>
 </head>
 
 <body>
 <div class="productContainer">
     <%
-        if(session.getAttribute("LoggedUser")!=null)
+        if(loggedUser != null)
         { %>
     <h1> Sei Loggato!</h1>
     <% } %>
@@ -63,7 +66,9 @@
             <td><%=bean.getUserAdmin()%></td>
             <td>
                 <a href="users?action=admin&username=<%=bean.getUsername()%>">Make Admin</a><br>
+                <% if(!bean.getUsername().equals(loggedUsername)) { %>
                 <a href="users?action=delete&username=<%=bean.getUsername()%>">Delete user</a><br>
+                <% } %>
             </td>
         </tr>
         <%
@@ -78,12 +83,12 @@
         %>
     </table>
 
-    <a href="loginView.jsp" > Login </a>
-    <a href="RegisterView.jsp" > Register </a>
-    <a href="Cart.jsp" > Cart </a>
-    <a href="Checkout.jsp" > Checkout </a>
+    <a href="../pages/loginView.jsp" > Login </a>
+    <a href="WEB-INF/jsp/pages/RegisterView.jsp" > Register </a>
+    <a href="WEB-INF/jsp/pages/Cart.jsp" > Cart </a>
+    <a href="../pages/Checkout.jsp" > Checkout </a>
     <a href="ProductAdmin.jsp" > Admin </a>
-    <a href="OrderHistory.jsp" > Order History </a>
+    <a href="../pages/OrderHistory.jsp" > Order History </a>
 </div>
 </body>
 </html>

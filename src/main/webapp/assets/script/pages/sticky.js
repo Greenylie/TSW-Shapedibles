@@ -98,7 +98,7 @@ function productCartAction(action, product, elResultCartQuantity) {
         return;
     
     const xhr = new XMLHttpRequest();
-    xhr.open("POST", "cartControl", true);
+    xhr.open("POST", "Cart", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
 

@@ -1,5 +1,5 @@
  <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" errorPage="./errorPage.jsp"%>
+    pageEncoding="UTF-8" errorPage="WEB-INF/jsp/pages/errorPage.jsp"%>
 
 <% 
 	ImageDaoDataSource imageDao = new ImageDaoDataSource( (DataSource) request.getServletContext().getAttribute("DataSource"));
@@ -22,7 +22,7 @@
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans&display=swap" rel="stylesheet">
-	<link href="assets/styles/product.css" rel="stylesheet" type="text/css">
+	<link href="assets/styles/pages/product.css" rel="stylesheet" type="text/css">
 	<title>Pagina prodotti</title>
 </head>
 
@@ -110,12 +110,12 @@
   	}
   %>
   
-  <a href="loginView.jsp" > Login </a>
-  <a href="RegisterView.jsp" > Register </a>
-	<a href="Cart.jsp" > Cart </a>
-   <a href="Checkout.jsp" > Checkout </a>
-	<a href="ProductAdmin.jsp" > Admin </a>
-	<a href="OrderHistory.jsp" > Order History </a>
+  <a href="WEB-INF/jsp/pages/loginView.jsp" > Login </a>
+  <a href="WEB-INF/jsp/pages/RegisterView.jsp" > Register </a>
+	<a href="WEB-INF/jsp/pages/Cart.jsp" > Cart </a>
+   <a href="WEB-INF/jsp/pages/Checkout.jsp" > Checkout </a>
+	<a href="WEB-INF/jsp/admin/ProductAdmin.jsp" > Admin </a>
+	<a href="WEB-INF/jsp/pages/OrderHistory.jsp" > Order History </a>
 	</div>
 </body>
 </html>
