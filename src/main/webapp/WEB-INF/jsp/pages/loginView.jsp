@@ -12,7 +12,7 @@
 </head>
 <body>
 <jsp:include page="../common/sticky.jsp"/>
-<div class="content">
+<div class="content login">
     <div class="base glassy login">
         <h1> Login </h1>
         <form id="loginForm" onsubmit="return submitFormLogin(event)">
@@ -37,5 +37,6 @@
         <a class="hyperlink" href="${pageContext.request.contextPath}/register">Vuoi registrarti?</a>
     </div>
 </div>
+<jsp:include page="../common/footer.jsp"/>
 </body>
 </html>

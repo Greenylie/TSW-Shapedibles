@@ -74,15 +74,35 @@ public class Checkout extends HttpServlet {
 			 request.setAttribute("addresses", addresses);
 
 			
-				bean.setCodice((int) (Math.random() * range) - min);
+				
 				System.out.println(" username: " + user.getUsername());
 				bean.setUtente(user.getUsername());
 				bean.setStato("in checkout");
 				bean.setDataOrdine(now.toString().substring(0,10));
 				
 	 	
+				
+					
+				String address = request.getParameter("address");
+				System.out.println(address);
+				if(address !="" && address!= null) bean.setIndirizzo(address);
+				
+				if(bean.getIndirizzo()==" ") 
+				{ 
+					int codice=(int) (Math.random() * range) - min;
+					bean.setCodice(codice);
+					request.getSession().removeAttribute("order");
+					request.getSession().setAttribute("order", bean);
+					//System.out.println("codice:" + codice + " " + request.getAttribute("ordersCode") + " " +bean.getCodice());
+				}
+				else 
+				{	
+					OrderBean temp = (OrderBean) request.getSession().getAttribute("order");
+					bean.setCodice(temp.getCodice());
+				}
+				
 				double saldotot=0.0;
-	 	
+			 	
 				List<ProductBean> prodcart = (List<ProductBean>) cart.getProducts();
 				List<ContainBean> containList = new ArrayList<>();
 					for(ProductBean beancart: prodcart) {
@@ -94,10 +114,6 @@ public class Checkout extends HttpServlet {
 							contain.setQuantità(cart.getProductQuantity(beancart));
 							containList.add(contain);
 					}
-					
-				String address = request.getParameter("address");
-				System.out.println(address);
-				if(address !="" && address!= null) bean.setIndirizzo(address);
 				bean.setSaldoTotale(saldotot);	
 				request.removeAttribute("order");
 				request.setAttribute("order", bean);
@@ -130,6 +146,7 @@ public class Checkout extends HttpServlet {
 	 	{
 	 		request.setAttribute("error",  "Error: c'è stato un errore nel elaborazione del ordine, assicurarsi di inserire i campi corretamente.");
 	 		response.sendError(500, "Error: " + e.getMessage());
+	 		System.out.println("Error: " + e.getMessage());
 	 	}
 		   
 	 	

@@ -19,6 +19,8 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
+import java.util.Collection;
+import java.util.Iterator;
 
 /**
  * Servlet implementation class Register
@@ -28,6 +30,7 @@ import java.sql.SQLException;
 public class Register extends HttpServlet {
 	@Serial
 	private static final long serialVersionUID = 1L;
+	
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -52,7 +55,10 @@ public class Register extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setAttribute("countries", Country.getValues());
 		request.setAttribute("genders", Gender.getValues());
-
+		
+		DataSource ds= (DataSource) getServletContext().getAttribute("DataSource");
+		UserDaoDataSource userDao = new UserDaoDataSource(ds);
+		String error=null;
 		boolean ajax = "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
 		String username= request.getParameter("username");
 		String email= request.getParameter("email");
@@ -66,38 +72,57 @@ public class Register extends HttpServlet {
 
 		String redirectURL = request.getContextPath() + "/Login";
 		
-		UserBean user= new UserBean();
-		if(password.equals(passwordConf)) 
-		{
-			try {
-				user.setUsername(username);
-				user.setEmail(email);
-				user.setPass(hashPassword(password));
-				user.setNomeCognome(nomeCognome);
-				user.setSesso(sesso);
-				user.setPaese(paese);
-				user.setDataNascita(dataNascista);
-				user.setUserAdmin(isAdmin);
+		try {
+		
+			UserBean user= new UserBean();
+			System.out.println(checkUsername(username, userDao));
+			if(checkUsername(username, userDao)==true) {
+				if(password.equals(passwordConf)) 
+				{
+					user.setUsername(username);
+					user.setEmail(email);
+					user.setPass(hashPassword(password));
+					user.setNomeCognome(nomeCognome);
+					user.setSesso(sesso);
+					user.setPaese(paese);
+					user.setDataNascita(dataNascista);
+					user.setUserAdmin(isAdmin);
 			
-				DataSource ds= (DataSource) getServletContext().getAttribute("DataSource");
-				UserDaoDataSource userDao = new UserDaoDataSource(ds);
-				userDao.doSave(user);
-			
+				
+					userDao.doSave(user);
+				}
+				else {
+			    		error = "le password non combaciano.";
+			    		request.setAttribute("error", "Error: " + error);
+			    		request.setAttribute("ajaxError", error);
+			 		}
 			}
+		    else {
+		    		error = "l'username scelto è già esistente";
+		    		request.setAttribute("error", "Error: " + error);
+		    		request.setAttribute("ajaxError", error);
+		 		 }
+			
+				
+		    }
 			catch(SQLException e)
 			{
-				String error = "C'è stato un errore nel salvataggio delle credenziali, assicurarsi di inserire i campi corretamente.";
+				
+				error = "C'è stato un errore nel salvataggio delle credenziali, assicurarsi di inserire i campi corretamente.";
 				request.setAttribute("error", "Error: " + error);
 				request.setAttribute("ajaxError", error);
 		 		response.sendError(500, "Error: " + e.getMessage());
 			}
 			catch(NoSuchAlgorithmException e)
 			{
-				String error = "Sembra esserci un problema con la registrazione, se persiste contattare l'assistenza.";
+				
+				error = "Sembra esserci un problema con la registrazione, se persiste contattare l'assistenza.";
 				request.setAttribute("error", "Error: " + error);
 				request.setAttribute("ajaxError", error);
 				response.sendError(500, "Error: " + e.getMessage());System.out.println("Error..." + e.getMessage());
 			}
+			
+			
 
 			if(ajax) {
 				response.setContentType("application/json");
@@ -105,13 +130,14 @@ public class Register extends HttpServlet {
 				Gson gson = new Gson();
 				if (request.getAttribute("ajaxError") != null) {
 					response.sendError(401, request.getAttribute("ajaxError").toString());
+					request.removeAttribute("ajaxError");
 				}
 				else
 					response.getWriter().write(gson.toJson(redirectURL));
 			}
 			else
 				response.sendRedirect(redirectURL);
-		} 
+		 
 	}
 	
 	private String hashPassword(String password) throws NoSuchAlgorithmException {
@@ -123,6 +149,17 @@ public class Register extends HttpServlet {
 	    }
 	    return sb.toString();
 	   }
-
-
+	
+	private boolean checkUsername(String username, UserDaoDataSource userDao) throws SQLException 
+	{
+		Collection<?> userCheck = (Collection<?>) userDao.doRetrieveAll("");
+		Iterator<?> it=  userCheck.iterator();
+		while(it.hasNext()) 
+		{
+			UserBean bean= (UserBean) it.next();
+			System.out.println(bean.getUsername());
+			if(username.equals(bean.getUsername())) return false;
+		} 
+		return true;
+	}
 }

@@ -47,6 +47,27 @@ body {
     align-items: center;
 }
 
+::-webkit-scrollbar {
+    width: 0.5em;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(var(--background),0.3);
+    border-radius: 3em;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    border-radius: 3em;
+    background: rgba(var(--secondary),0.3);;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(var(--primary),0.6);
+    box-shadow: 0 0 50px rgba(var(--primary), 0.6);
+}
+
 ::selection {
     color: rgba(var(--primary), 0.7);
     background: rgba(var(--secondary), 0.3);

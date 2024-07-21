@@ -27,7 +27,16 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 2.5em 0;
+}
+
+.content.login {
+    padding-top: 10%;
+    padding-bottom: 20%;
+}
+
+.content.register {
+    padding-top: 5%;
+    padding-bottom: 20%;
 }
 
 @keyframes slideIn {
