@@ -27,7 +27,7 @@
 		<tr>
 			<th>Name</th>
 			<th>Price</th>
-			<th>quantity</th>
+			<th>Quantity</th>
 			<th>Action</th>
 		</tr>
 		<% List<ProductBean> prodcart = (List<ProductBean>) cart.getProducts();

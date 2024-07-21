@@ -22,7 +22,7 @@
 			<div class="form-group">
 				<label for="username">Username</label>
 				<div class="textbox">
-					<input id="username" name="username" type="text" maxlength="30" required placeholder="enter Username">
+					<input id="username" name="username" type="text" maxlength="30" required placeholder="enter username">
 				</div>
 			</div>
 	

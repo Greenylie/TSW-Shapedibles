@@ -42,11 +42,11 @@
 <a href="product">List</a>
 <table border="1">
     <tr>
-        <th>Utente</th>
+        <th>User</th>
         <th>Code</th>
-        <th>Stato</th>
+        <th>Status</th>
         <th>Data</th>
-        <th>Saldo</th>
+        <th>Balance</th>
         <th>Action</th>
     </tr>
     <%
@@ -77,7 +77,7 @@
     %>
 </table>
 
-<h2>Dettagli</h2>
+<h2>Details</h2>
 <table border="1">
     <tr>
         <th>Name</th>

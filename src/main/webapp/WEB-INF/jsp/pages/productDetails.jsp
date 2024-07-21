@@ -64,11 +64,11 @@
   		<td><%=nut.getGrassiSaturi()%> g</td>
   	</tr>
   	<tr>
-  		<td>carboedrati</td>
+  		<td>carboidrati</td>
   		<td><%=nut.getCarboedrati()%> g</td>
   	</tr>
   	<tr>
-  		<td>zucherri</td>
+  		<td>zuccheri</td>
   		<td><%=nut.getZucherri()%> g</td>
   	</tr>
   	<tr>
@@ -88,7 +88,7 @@
 
 <%} %>
    <a href="cartControl?action=addC&id=<%=product.getCodice()%>"> Add to cart</a><br>
-   <a href="admin/productedit?product=<%=product.getCodice()%>" > edit </a> <br>
+   <a href="admin/productedit?product=<%=product.getCodice()%>" > Edit </a> <br>
   <a href="loginView.jsp" > Login </a>
   <a href="RegisterView.jsp" > Register </a>
 	<a href="Cart.jsp" > Cart </a>

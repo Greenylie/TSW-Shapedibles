@@ -66,7 +66,7 @@
     <input name="strada" type="text" maxlength="100" required placeholder="enter your street"><br>
     
     
-	<label for="numero">street number:</label><br>
+	<label for="numero">Street Number:</label><br>
     <input name="numero" type=   "number" min="0" value="0" required><br>
 
     <label for="cap">CAP:</label><br>

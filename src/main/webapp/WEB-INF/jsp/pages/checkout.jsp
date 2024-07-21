@@ -39,13 +39,13 @@
 <% if(order.getStato()=="completato") {%>
   <h2>Acquisto completato!</h2>
  <% } else if(items.isEmpty()) {%> 
- 	<h2>il tuo carello è vuoto!</h2>
+ 	<h2>Il tuo carello è vuoto!</h2>
  <%}else {%>
 
-<h2>Scegli indirizzo di spedizione</h2>
+<h2>Scegli l'indirizzo di spedizione</h2>
 <form action="${pageContext.request.contextPath}/Checkout" id="addressForm" method="post" >
 
-	<label for="address">scegli l'indirizzo di spedizione</label>
+	<label for="address">Scegli l'indirizzo di spedizione</label>
 	<select name="address" id="address">
 	 <%
 	   Iterator<?> it1 = addresses.iterator();
@@ -74,7 +74,7 @@
         <td><%=order.getStato()%></td>
         <td><%=order.getSaldoTotale()%></td>
         <%if(order.getIndirizzo()== " ") {%>
-           <td> non selezionato</td>
+           <td>Non selezionato</td>
         <%} else {
         	String a = order.getIndirizzo();
         	System.out.println(a);
