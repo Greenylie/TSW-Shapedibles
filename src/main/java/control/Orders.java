@@ -21,8 +21,10 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Collection;
+import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.NoSuchElementException;
 
 /**
  * Servlet implementation class Orders
@@ -61,11 +63,23 @@ public class Orders extends HttpServlet {
 		
 	
 		try {
+			
 			String sort = request.getParameter("sort");
-	
+			/*Enumeration<String> temp =  request.getParameterNames();
+			if(temp!=null) {
+			if(attributeExists(temp)) {
+				if(!action.equalsIgnoreCase("orderDetails")){
+				request.removeAttribute("orders");
+				request.setAttribute("orders", orderDao.doRetrieveAll(sort)); 
+				}
+			}	
+			} else {
+				request.removeAttribute("orders");
+				request.setAttribute("orders", orderDao.doRetrieveAll(sort)); 	
+			}*/
 			request.removeAttribute("orders");
 			request.setAttribute("orders", orderDao.doRetrieveAll(sort)); 
-
+			
 		if(action != null){
 			if(action.equalsIgnoreCase("UserFilter")) {
 				String user = request.getParameter("user");
@@ -106,10 +120,12 @@ public class Orders extends HttpServlet {
 				request.setAttribute("Details", items);
 			}
 		}
+		
+		
 		} catch(SQLException e) {
 			request.setAttribute("error",  "Error: c'è stato un errore nel elaborazione degli ordini.");
 	 		response.sendError(500, "Error: " + e.getMessage());
-		}
+		} 
 		
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/jsp/admin/orderHistory.jsp");
 			dispatcher.forward(request, response);
@@ -123,6 +139,17 @@ public class Orders extends HttpServlet {
 			if( date.compareTo(dateMax)==0 || date.compareTo(dateMax)<0 ) return true;
 		    else return false;
 		} else return false;
+	}
+	
+	private boolean attributeExists(Enumeration<String> en) 
+	{
+		boolean answer=false;
+		while(en.hasMoreElements()) 
+		{
+			System.out.println(en.nextElement());
+			if(en.nextElement().equals("action")) answer=true;
+		}
+		return answer;
 	}
 
 }
