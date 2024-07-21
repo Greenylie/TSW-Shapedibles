@@ -9,5 +9,6 @@
 </head>
 <body>
     <jsp:include page="../common/sticky.jsp"/>
+    <jsp:include page="../common/footer.jsp"/>
 </body>
 </html>

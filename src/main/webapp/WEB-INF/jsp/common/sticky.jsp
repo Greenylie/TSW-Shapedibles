@@ -86,7 +86,7 @@
     
         <div class="ruler">
             <div class="line"></div>
-            <a class="handle" href="#main">
+            <a class="handle" href="#headerSpace">
                 <img src="${pageContext.request.contextPath}/assets/images/svg/handle.svg" alt="Logo">
             </a>
         </div>

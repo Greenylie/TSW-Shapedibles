@@ -387,6 +387,7 @@ header {
 }
 
 .handle {
+    pointer-events: visible;
     width: 55%;
     opacity: 0;
     user-select: none;
