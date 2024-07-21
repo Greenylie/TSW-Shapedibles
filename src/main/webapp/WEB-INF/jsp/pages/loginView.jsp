@@ -1,30 +1,38 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" errorPage="/WEB-INF/jsp/pages/errorPage.jsp"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" errorPage="/WEB-INF/jsp/pages/errorPage.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="ISO-8859-1">
-	<link href="${pageContext.request.contextPath}/assets/styles/pages/login.css" rel="stylesheet" type="text/css">
     <title>Shapedibles - Login</title>
+    <jsp:include page="../procedural/fractalNoise.jsp"/>
+
+    <link href="${pageContext.request.contextPath}/assets/styles/base.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/assets/styles/pages/login.css" rel="stylesheet" type="text/css">
+    <script src="${pageContext.request.contextPath}/assets/script/pages/login.js"></script>
 </head>
 <body>
-<div class="login">
-<h1> Login </h1>
-  <form action="login" method="post">
-  	 <div class="textbox">
-  	 <!--<label for="name"> Username: </label><br>-->
-  	 <input name="username" type="text" maxlength="30" required placeholder="enter username"><br>
-	 </div>
-		 <div class="textbox">
-		 <!--<label for="name"> Password: </label><br>-->
-         <input name="password" type="password" maxlength="30" required placeholder="enter password"><br>
-       </div>
-        <div class="invio">
-             <input type="submit" value="Login">
+<jsp:include page="../common/sticky.jsp"/>
+<div class="login glassy">
+    <h1> Login </h1>
+    <form id="loginForm" onsubmit="return submitForm(event)">
+        <label for="username">Username</label>
+        <div class="textbox">
+            <input id="username" name="username" type="text" maxlength="30" required placeholder="Il tuo username">
         </div>
-      <div class="rightalign"></div>
-	  <input type="reset" value="Reset">
+        <label for="password">Password</label>
+        <div class="textbox">
+            <input id="password" name="password" type="password" maxlength="30" required placeholder="La tua password">
+        </div>
+        <div class="buttons">
+            <div id="resetButton" class="secondary-round-btn">
+                <span class="material-symbols-rounded">close</span>
+                <input type="reset" value="">
+            </div>
+            
+            <input class="primary-btn" id="submitBtn" type="submit" value="ACCEDI">
+        </div>
     </form>
-    <a href="${pageContext.request.contextPath}/register" > Register</a>
+    <a class="hyperlink" href="${pageContext.request.contextPath}/register">Vuoi registrarti?</a>
 </div>
 </body>
 </html>

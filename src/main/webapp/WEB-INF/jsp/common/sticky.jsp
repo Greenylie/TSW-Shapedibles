@@ -1,3 +1,5 @@
+<%--suppress HtmlFormInputWithoutLabel --%>
+<%--suppress HtmlUnknownTarget --%>
 <%--suppress ELValidationInspection --%>
 <%--@elvariable id="cart" type="model.Cart"--%>
 <%--suppress HtmlFormInputWithoutLabel --%>
@@ -11,12 +13,19 @@
     }
 %>
 <%@ page contentType="text/html;charset=UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+<%--    Icons--%>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+<%--    Font--%>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
+    
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/styles/base.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/styles/pages/sticky.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
     <script>
         var contextPath = "${pageContext.request.contextPath}/";
     </script>
@@ -50,9 +59,18 @@
                     </form>
                 </div>
                 <div class="header-right">
-                    <a class="primary-round-btn nodeco" id="loginButton" href="${pageContext.request.contextPath}/login">
-                        <span class="material-symbols-rounded">login</span>
-                    </a>
+                    <c:choose>
+                        <c:when test="${empty sessionScope['LoggedUser']}">
+                            <a class="primary-round-btn nodeco profile-button" href="${pageContext.request.contextPath}/login">
+                                <span class="material-symbols-rounded">login</span>
+                            </a>
+                        </c:when>
+                        <c:otherwise>
+                            <a class="secondary-round-btn nodeco profile-button" href="${pageContext.request.contextPath}/user/profile">
+                                <span class="material-symbols-rounded">account_circle</span>
+                            </a>
+                        </c:otherwise>
+                    </c:choose>
                     <a class="primary-round-btn nodeco" id="cartButton" href="${pageContext.request.contextPath}/cart">
                         <span class="material-symbols-rounded">shopping_cart</span>
                         <div id="cartCounter">

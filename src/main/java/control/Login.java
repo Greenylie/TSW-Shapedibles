@@ -1,9 +1,11 @@
 package control;
 
+import com.google.gson.Gson;
 import model.bean.UserBean;
 import model.datasource.UserDaoDataSource;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 import java.io.IOException;
+import java.io.Serial;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -20,7 +23,9 @@ import java.sql.SQLException;
  * Servlet implementation class Login
  */
 @WebServlet("/Login")
+@MultipartConfig
 public class Login extends HttpServlet {
+	@Serial
 	private static final long serialVersionUID = 1L;
        
     /**
@@ -42,10 +47,13 @@ public class Login extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		boolean ajax = "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
 		String username= request.getParameter("username");
 		String password= request.getParameter("password");
+
+		String redirectURL = request.getContextPath() + "/Login";
 		
-		UserBean userCheck = new UserBean();
+		UserBean userCheck;
 		
 		try {
 			
@@ -58,17 +66,17 @@ public class Login extends HttpServlet {
 			{
 				HttpSession session = request.getSession(true);
 				session.setAttribute("LoggedUser", userCheck);
-				String redirectURL = (String) session.getAttribute("redirectURL");
+				redirectURL = (String) session.getAttribute("redirectURL");
 				if(redirectURL != null) {
 					session.removeAttribute("redirectURL");
-					response.sendRedirect(redirectURL);
+					
 				} else {
 					// Default redirect if no stored URL
-					response.sendRedirect(request.getContextPath() + "/Home");
+					redirectURL = request.getContextPath() + "/Home";
 				}
 				
 			}
-			 else response.sendRedirect(request.getContextPath() + "/.jsp");
+			 else redirectURL = request.getContextPath() + "/Login";
 			
 		}
 		catch(SQLException e)
@@ -82,6 +90,16 @@ public class Login extends HttpServlet {
 	 		response.sendError(500, "Error: " + e.getMessage());System.out.println("Error..." + e.getMessage());
 		}
 		
+		if(ajax) {
+			response.setContentType("application/json");
+			response.setCharacterEncoding("UTF-8");
+			Gson gson = new Gson();
+			if (redirectURL.equals(request.getContextPath() + "/Login"))
+				response.setStatus(401);
+			response.getWriter().write(gson.toJson(redirectURL));
+		}
+		else 
+			response.sendRedirect(redirectURL);
 	}
 
 	private String hashPassword(String password) throws NoSuchAlgorithmException {

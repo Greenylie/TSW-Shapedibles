@@ -1,3 +1,5 @@
+// noinspection JSUnresolvedReference
+
 let scrollTimeout;
 let scrollPos;
 let hideSearchResultsTimeout;
@@ -8,6 +10,7 @@ let elButtonSearch;
 let elErrorSearch;
 let elSearchResults;
 let elCartButton;
+let elBody;
 //Utils
 let mouseOnSearchResults //Used to avoid hiding search results when mouse is over them
 
@@ -65,25 +68,28 @@ async function clearSearchResults(changeHeight) {
         await heightSearchResults(0);
         elSearchResults.classList.remove("loaded");
     }
+    elBody.classList.remove("blurred-overlay");
 }
 
 function heightSearchResults(newHeight) {
-    const steps = 20;
     return new Promise((resolve) => {
         let currentHeight = elSearchResults.offsetHeight;
+        const steps = 20;
         let step = 0;
-        let stepHeight = (newHeight - currentHeight) / steps;
+        const stepHeight = (newHeight - currentHeight) / steps;
 
-        let animationInterval = setInterval(() => {
-            currentHeight += stepHeight;
-            elSearchResults.style.height = currentHeight + "px";
-            step++;
-
-            if (step >= steps) {
-                clearInterval(animationInterval);
+        function animateHeight() {
+            if (step < steps) {
+                currentHeight += stepHeight;
+                elSearchResults.style.height = `${currentHeight}px`;
+                step++;
+                requestAnimationFrame(animateHeight);
+            } else {
                 resolve(); // Resolve the promise when animation is complete
             }
-        }, 10);
+        }
+
+        requestAnimationFrame(animateHeight);
     });
 }
 
@@ -195,6 +201,7 @@ async function updateSearchResults(results) {
     elSearchResults.classList.add("glassy");
     
     elSearchResults.classList.add("loaded");
+    elBody.classList.add("blurred-overlay");
 
 }
 
@@ -206,13 +213,13 @@ function searchError(error) {
     }, 700)
 }
 
-document.onreadystatechange = () => {
+document.addEventListener("readystatechange", () => {
     if (document.readyState === "complete") {
-        main();
+        mainSticky();
     }
-};
+});
 
-function main() {
+function mainSticky() {
     //Elements
     elInputSearch = document.getElementById("inputSearch");
     elSearchBar = document.getElementsByClassName("searchbar")[0];
@@ -220,6 +227,7 @@ function main() {
     elErrorSearch = document.getElementById("errorSearch");
     elSearchResults = document.getElementById("searchResultsContainer");
     elCartButton = document.getElementById("cartButton");
+    elBody = document.querySelector("body")
     
     //Scroll ruler animation
     window.addEventListener("scroll", updateScroller);
