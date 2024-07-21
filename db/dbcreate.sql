@@ -140,22 +140,6 @@ INSERT INTO Immagine (Codice_prodotto, img) VALUES
 (19, 'cocco_square.jpg'), (19, 'cocco_wide.jpg'), (19, 'cocco_transparent.jpg'),
 (20, 'bevanda_fragola_square.jpg'), (20, 'bevanda_fragola_wide.jpg'), (20, 'bevanda_fragola_transparent.jpg');
 
-create table coupons
-(
- Codice varchar(13) PRIMARY KEY not null, 
- percentuale_sconto int not null,
- saldo_minimo decimal(10,2) not null
-);
-
-INSERT INTO coupons (Codice, percentuale_sconto, saldo_minimo) 
-VALUES ('001201002', 20, 20.40);
-INSERT INTO coupons (Codice, percentuale_sconto, saldo_minimo) 
-VALUES ('001201102', 50, 50.00);
-INSERT INTO coupons (Codice, percentuale_sconto, saldo_minimo) 
-VALUES ('001201202', 10, 25.00);
-INSERT INTO coupons (Codice, percentuale_sconto, saldo_minimo) 
-VALUES ('001201302', 30, 32.00);
-
 create table tabelleNutrizionali 
 (
   Codice_Prodotto int PRIMARY KEY not null,
