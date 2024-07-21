@@ -23,6 +23,7 @@
         <div class="textbox">
             <input id="password" name="password" type="password" maxlength="30" required placeholder="La tua password">
         </div>
+        <p id="loginError"></p>
         <div class="buttons">
             <div id="resetButton" class="secondary-round-btn">
                 <span class="material-symbols-rounded">close</span>

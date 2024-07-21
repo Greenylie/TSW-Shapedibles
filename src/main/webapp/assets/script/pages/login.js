@@ -1,6 +1,6 @@
 //Elements
 let elFormLogin;
-let elSubmitButton;
+let elErrorLogin;
 
 function submitForm(event) {
     event.preventDefault();
@@ -14,6 +14,14 @@ function submitForm(event) {
             const response = JSON.parse(this.responseText);
             await animationEnd;
             window.location.replace(response);
+        }
+        else
+        {
+            elErrorLogin.innerHTML = "Credenziali non valide";
+            document.querySelector(".login").style.animation = "shake 0.5s cubic-bezier(.28, 1.63, .62, .88)";
+            animationEnd = setTimeout(() => {
+                elErrorLogin.innerHTML = "";
+            }, 5000);
         }
     };
     document.querySelector(".login").style.animation = "slideOut 1.4s cubic-bezier(.28, 1.63, .62, .88)";
@@ -30,7 +38,6 @@ document.addEventListener("readystatechange", () => {
 });
 
 function mainLogin() {
-    elSubmitButton = document.getElementById("submitBtn");
     elFormLogin = document.getElementById("loginForm");
-    
+    elErrorLogin = document.getElementById("loginError");
 }

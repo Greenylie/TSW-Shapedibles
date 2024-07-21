@@ -13,6 +13,7 @@ body {
     position: relative;
     padding: 1.5em;
     border-radius: 3em;
+    transition: all 0.4s ease;
     animation: slideIn 1.4s cubic-bezier(.28, 1.63, .62, .88);
 }
 
@@ -47,6 +48,20 @@ body {
 
 }
 
+@keyframes shake {
+    10%, 90% {
+        transform: translateX(-1em);
+    }
+    20%, 80% {
+        transform: translateX(1em);
+    }
+    30%, 50%, 70% {
+        transform: translateX(-0.5em);
+    }
+    40%, 60% {
+        transform: translateX(0.5em);
+    }
+}
 
 .login h1{
     font-size: 45px;
@@ -95,6 +110,12 @@ input[type="submit"]{
 
 input[type="submit"]:hover{
     color: rgba(var(--primary),0.8);
+}
+
+#loginError {
+    width: 100%;
+    color: rgba(138, 28, 28, 1);
+    text-align: center;
 }
 
 #resetButton {
