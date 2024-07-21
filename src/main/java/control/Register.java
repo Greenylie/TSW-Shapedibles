@@ -92,13 +92,13 @@ public class Register extends HttpServlet {
 					userDao.doSave(user);
 				}
 				else {
-			    		error = "le password non combaciano.";
+			    		error = "Le password non combaciano.";
 			    		request.setAttribute("error", "Error: " + error);
 			    		request.setAttribute("ajaxError", error);
 			 		}
 			}
 		    else {
-		    		error = "l'username scelto è già esistente";
+		    		error = "L'username scelto è già esistente";
 		    		request.setAttribute("error", "Error: " + error);
 		    		request.setAttribute("ajaxError", error);
 		 		 }
@@ -129,8 +129,10 @@ public class Register extends HttpServlet {
 				response.setCharacterEncoding("UTF-8");
 				Gson gson = new Gson();
 				if (request.getAttribute("ajaxError") != null) {
-					response.sendError(401, request.getAttribute("ajaxError").toString());
-					request.removeAttribute("ajaxError");
+					String ajaxError = request.getAttribute("ajaxError").toString();
+					response.setStatus(401);
+					response.getWriter().write(gson.toJson(ajaxError));
+					
 				}
 				else
 					response.getWriter().write(gson.toJson(redirectURL));
