@@ -35,7 +35,7 @@ function updateScroller() {
             handle.style.opacity = "0%";
         else
             line.style.opacity = "20%";
-            handle.style.opacity = "40%";
+            handle.style.opacity = "";
     }, 300);
 }
 
@@ -154,7 +154,8 @@ async function updateSearchResults(results) {
         const elResultCartQuantity = document.createElement("div");
         const elResultInfo = document.createElement("div");
         const elResultName = document.createElement("p");
-        const elResultQuantity = document.createElement("span");
+        const elResultDesc = document.createElement("span");
+        const elResultQuantity = document.createElement("div");
         
         console.log(product);
         
@@ -179,11 +180,21 @@ async function updateSearchResults(results) {
         elResultCartQuantity.textContent = product.cartQuantity.toString();
         
         elResultName.textContent = product.nome; // Directly access property
+        elResultDesc.textContent = product.info.descrizione;
+        elResultDesc.classList.add("desc");
+        
+        elResultQuantity.textContent = product.info.disponibilità + " disponibili";
+        elResultQuantity.classList.add("quantity");
+        
+        elResultInfo.classList.add("info");
+        elResultInfo.appendChild(elResultName);
+        elResultInfo.appendChild(elResultDesc);
+        
+        elResultImg.appendChild(elResultQuantity);
 
         elResultDiv.appendChild(elResultImg);
         elResultDiv.appendChild(elResultCart);
-        elResultDiv.appendChild(elResultName);
-        elResultDiv.appendChild(elResultQuantity); // Append quantity to the div
+        elResultDiv.appendChild(elResultInfo);
 
         elSearchResults.appendChild(elResultDiv);
         newHeight += elResultDiv.offsetHeight;

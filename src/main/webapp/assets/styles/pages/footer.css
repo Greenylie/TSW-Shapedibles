@@ -1,3 +1,7 @@
+#footer {
+ backdrop-filter: blur(1px);
+}
+
 .footer-wrapper {
     height: 10em;
     width: calc(100vw - 2em);

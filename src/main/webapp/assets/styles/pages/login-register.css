@@ -1,4 +1,5 @@
 .base{
+    z-index: 6;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -27,6 +28,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    backdrop-filter: blur(1px);
 }
 
 .content.login {
@@ -91,6 +93,19 @@
     background-clip: text;
     text-shadow: 0 0 2em rgba(var(--secondary),1);
     color: transparent;
+    animation: pulse 10s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
 }
 
 #loginForm {
@@ -140,9 +155,9 @@ input[type="submit"]:hover{
     color: rgba(var(--primary),0.8);
 }
 
-#loginError {
+#loginError, #registerError {
     width: 100%;
-    color: rgba(138, 28, 28, 1);
+    color: rgba(var(--redish), 1);
     text-align: center;
 }
 
