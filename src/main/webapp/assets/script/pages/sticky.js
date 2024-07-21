@@ -11,6 +11,8 @@ let elErrorSearch;
 let elSearchResults;
 let elCartButton;
 let elBody;
+let elHeader;
+let elHeaderSpace
 //Utils
 let mouseOnSearchResults //Used to avoid hiding search results when mouse is over them
 
@@ -213,6 +215,11 @@ function searchError(error) {
     }, 700)
 }
 
+function adjustHeaderSpace() {
+    const headerHeight = elHeader.offsetHeight;
+    elHeaderSpace.style.height = headerHeight + 'px';
+}
+
 document.addEventListener("readystatechange", () => {
     if (document.readyState === "complete") {
         mainSticky();
@@ -227,11 +234,18 @@ function mainSticky() {
     elErrorSearch = document.getElementById("errorSearch");
     elSearchResults = document.getElementById("searchResultsContainer");
     elCartButton = document.getElementById("cartButton");
-    elBody = document.querySelector("body")
+    elBody = document.querySelector("body");
+    elHeader = document.querySelector("header");
+    elHeaderSpace = document.querySelector("#headerSpace");
+
+    adjustHeaderSpace();
     
     //Scroll ruler animation
     window.addEventListener("scroll", updateScroller);
-    window.addEventListener("resize", updateScroller);
+    window.addEventListener("resize", () => {
+        updateScroller();
+        adjustHeaderSpace();
+    });
     
     //Searchbar animation and advanced styling
     elInputSearch.addEventListener("input", () => searchInputChange());

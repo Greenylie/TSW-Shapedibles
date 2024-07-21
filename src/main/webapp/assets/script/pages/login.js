@@ -2,7 +2,7 @@
 let elFormLogin;
 let elErrorLogin;
 
-function submitForm(event) {
+function submitFormLogin(event) {
     event.preventDefault();
     const formData = new FormData(elFormLogin);
     const xhr = new XMLHttpRequest();
@@ -18,13 +18,13 @@ function submitForm(event) {
         else
         {
             elErrorLogin.innerHTML = "Credenziali non valide";
-            document.querySelector(".login").style.animation = "shake 0.5s cubic-bezier(.28, 1.63, .62, .88)";
+            document.querySelector(".base").style.animation = "shake 0.5s cubic-bezier(.28, 1.63, .62, .88)";
             animationEnd = setTimeout(() => {
                 elErrorLogin.innerHTML = "";
             }, 5000);
         }
     };
-    document.querySelector(".login").style.animation = "slideOut 1.4s cubic-bezier(.28, 1.63, .62, .88)";
+    document.querySelector(".base").style.animation = "slideOut 1.4s cubic-bezier(.28, 1.63, .62, .88)";
     animationEnd = setTimeout(() => {}, 900);
     console.log(formData);
     xhr.send(formData)

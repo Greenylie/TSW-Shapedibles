@@ -7,6 +7,10 @@ body > *:not(.sticky) {
     filter: blur(10px);
 }
 
+#headerSpace {
+    width: 100%;
+}
+
 .sticky {
     z-index: 10;
     position: fixed;

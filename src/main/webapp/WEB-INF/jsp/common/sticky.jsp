@@ -1,3 +1,5 @@
+<%--suppress ELValidationInspection --%>
+<%--suppress HtmlUnknownTarget --%>
 <%--suppress HtmlFormInputWithoutLabel --%>
 <%--suppress HtmlUnknownTarget --%>
 <%--suppress ELValidationInspection --%>
@@ -34,6 +36,7 @@
     <title></title>
 </head>
 <body>
+    <div id="headerSpace"></div>
     <div class="sticky">
         <header>
             <div class="header-wrapper glassy">
