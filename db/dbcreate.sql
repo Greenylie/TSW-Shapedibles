@@ -20,6 +20,8 @@ INSERT INTO utenti (Username, email, pass, nome_cognome, sesso, paese, data_nasc
 VALUES ('user', 'TryUser1@gmail.com', 'b14361404c078ffd549c03db443c3fede2f3e534d73f78f77301ed97d4a436a9fd9db05ee8b325c0ad36438b43fec8510c204fc1c1edb21d0941c00e9e2c1ce2', 'Molly Blindeff', 'donna', 'Italia', '2024-03-17', 0); 
 INSERT INTO utenti (Username, email, pass, nome_cognome, sesso, paese, data_nascita, user_admin) 
 VALUES ('user2', 'TryUser2@gmail.com', '291116775902b38dd09587ad6235cec503fc14dbf9c09cad761f2e5a5755102eaceb54b95ffd179c22652c3910dbc6ed85ddde7e09eef1ecf3ad219225f509f5', 'Indus Tarbella', 'uomo', 'Italia', '2024-03-17', 0); 
+INSERT INTO utenti (Username, email, pass, nome_cognome, sesso, paese, data_nascita, user_admin)
+VALUES ('Gabri', 'lol@gmail.com', '30cbb414c16256b85334d8b3e18710f896b25dbb8ab4dd722de7239e5a98d91ed8fd2d51a0465314dcbbc61ffc653765a573f2cb32191713039d796fedc00add', 'Gabriel Tabasco', 'Maschio', 'Italia', '2004-05-01', 1); 
 
 create table indirizzi 
 (
@@ -51,19 +53,32 @@ create table info_prodotto
   costo decimal(10,2) not null,
   descrizione varchar(10000) not null, 
   disponibilità int not null,
-  tipologia varchar(10) not null
+  tipologia varchar(20) not null
 );
 
 
-INSERT INTO info_prodotto (Nome, costo, descrizione, disponibilità, tipologia) 
-VALUES ('Burro di arachidi proteico', 12.00, 'il nostro cremisissimo burro di arachidi proteico, con pezzi di arachide interi per un extra crunch', 20, 'cibo'); 
-INSERT INTO info_prodotto (Nome, costo, descrizione, disponibilità, tipologia) 
-VALUES ('100% Proteine solubile, al gusto brownie', 27.50, '1000g di proteine pure al 100% per le tue sessioni di workout più intense. Ora al sapore di Brownie al cioccolato', 15, 'proteine'); 
-INSERT INTO info_prodotto (Nome, costo, descrizione, disponibilità, tipologia) 
-VALUES ('Shaker S', 9.99, 'shaker di plastica di alta qualita nero trasparente con tappo collegato e materiale termico isolante', 10, 'altro'); 
-INSERT INTO info_prodotto (Nome, costo, descrizione, disponibilità, tipologia) 
-VALUES ('Pancake proteico', 14.70, 'preparato con ricetta per preaparere i tuoi pankake proteici per una dolce e salutare colazione', 45, 'cibo'); 
-
+INSERT INTO info_prodotto (Nome, costo, descrizione, disponibilità, tipologia) VALUES
+('Crema di mandorle proteica', 15.00, 'Deliziosa crema di mandorle ricca di proteine, perfetta per snack sani.', 25, 'Crema Spalmabile'),
+('Proteine del siero del latte al cioccolato', 30.00, 'Polvere di proteine del siero del latte al gusto cioccolato, ideale per il post-allenamento.', 30, 'Proteine'),
+('Shaker XL', 12.99, 'Shaker XL di alta qualità, perfetto per i tuoi frullati proteici.', 20, 'Shaker'),
+('Barrette proteiche al burro di arachidi', 20.00, 'Barrette proteiche al gusto burro di arachidi, perfette per uno snack post-allenamento.', 50, 'Snack'),
+('Bevanda proteica al cioccolato', 3.50, 'Deliziosa bevanda proteica al gusto cioccolato, pronta da bere.', 100, 'Bibita'),
+('Crema di nocciole proteica', 18.00, 'Cremosa crema di nocciole ricca di proteine, perfetta per uno snack salutare.', 15, 'Crema Spalmabile'),
+('Proteine vegane al gusto vaniglia', 28.00, 'Polvere di proteine vegane al gusto vaniglia, ideale per le diete vegane.', 25, 'Proteine'),
+('Shaker con scomparti', 14.99, 'Shaker con scomparti separati per polvere e liquidi, perfetto per i tuoi frullati.', 30, 'Shaker'),
+('Snack proteici al cioccolato fondente', 22.00, 'Snack croccanti al cioccolato fondente, ricchi di proteine.', 40, 'Snack'),
+('Bevanda proteica alla vaniglia', 3.50, 'Bevanda proteica al gusto vaniglia, pronta da bere.', 90, 'Bibita'),
+('Burro di anacardi proteico', 16.00, 'Cremoso burro di anacardi arricchito con proteine, ideale per uno spuntino.', 20, 'Crema Spalmabile'),
+('Proteine del riso al gusto fragola', 27.00, 'Polvere di proteine del riso al gusto fragola, perfetta per i frullati.', 35, 'Proteine'),
+('Shaker termico', 17.99, 'Shaker termico per mantenere i tuoi frullati freschi o caldi più a lungo.', 15, 'Shaker'),
+('Barrette proteiche al cioccolato e menta', 21.00, 'Barrette proteiche al gusto cioccolato e menta, perfette per uno snack.', 45, 'Snack'),
+('Bevanda proteica al caffè', 4.00, 'Bevanda proteica al gusto caffè, perfetta per un boost mattutino.', 80, 'Bibita'),
+('Crema di pistacchi proteica', 20.00, 'Deliziosa crema di pistacchi ricca di proteine, ideale per uno snack.', 10, 'Crema Spalmabile'),
+('Proteine del pisello al gusto cioccolato', 26.00, 'Polvere di proteine del pisello al gusto cioccolato, ideale per le diete vegane.', 25, 'Proteine'),
+('Shaker portatile', 11.99, 'Shaker portatile compatto e facile da trasportare, perfetto per i tuoi viaggi.', 25, 'Shaker'),
+('Snack proteici al cocco', 23.00, 'Snack croccanti al gusto cocco, ricchi di proteine.', 50, 'Snack'),
+('Bevanda proteica alla fragola', 3.50, 'Bevanda proteica al gusto fragola, pronta da bere.', 95, 'Bibita');                                                                                   
+                                                            
 create table prodotti 
 (
  Codice int PRIMARY KEY not null AUTO_INCREMENT, 
@@ -71,14 +86,27 @@ create table prodotti
  nome varchar(70) not null,
 foreign key (info_correnti) References info_prodotto(codice) On Delete cascade on update cascade
 );
-INSERT INTO prodotti (info_correnti, nome) 
-VALUES (1,'Burro di arachidi proteico'); 
-INSERT INTO prodotti (info_correnti, nome) 
-VALUES (2,'100% Proteine solubile, al gusto brownie'); 
-INSERT INTO prodotti (info_correnti, nome) 
-VALUES (3,'Shaker S'); 
-INSERT INTO prodotti (info_correnti, nome) 
-VALUES (4,'Pancake proteico'); 
+INSERT INTO prodotti (info_correnti, nome) VALUES
+(1, 'Crema di mandorle proteica'),
+(2, 'Proteine del siero del latte al cioccolato'),
+(3, 'Shaker XL'),
+(4, 'Barrette proteiche al burro di arachidi'),
+(5, 'Bevanda proteica al cioccolato'),
+(6, 'Crema di nocciole proteica'),
+(7, 'Proteine vegane al gusto vaniglia'),
+(8, 'Shaker con scomparti'),
+(9, 'Snack proteici al cioccolato fondente'),
+(10, 'Bevanda proteica alla vaniglia'),
+(11, 'Burro di anacardi proteico'),
+(12, 'Proteine del riso al gusto fragola'),
+(13, 'Shaker termico'),
+(14, 'Barrette proteiche al cioccolato e menta'),
+(15, 'Bevanda proteica al caffè'),
+(16, 'Crema di pistacchi proteica'),
+(17, 'Proteine del pisello al gusto cioccolato'),
+(18, 'Shaker portatile'),
+(19, 'Snack proteici al cocco'),
+(20, 'Bevanda proteica alla fragola');
 
 
 
@@ -90,16 +118,27 @@ create table Immagine
    foreign key (Codice_Prodotto) References Prodotti(Codice) On Delete cascade on update cascade
 );
 
-INSERT INTO Immagine (Codice_prodotto, img) 
-VALUES (1,'butter.jpg'); 
-INSERT INTO Immagine (Codice_prodotto, img) 
-VALUES (2,'protein.jpg'); 
-INSERT INTO Immagine (Codice_prodotto, img) 
-VALUES (3,'shaker.jpg'); 
-INSERT INTO Immagine (Codice_prodotto, img) 
-VALUES (4,'pancake.jpg'); 
-INSERT INTO Immagine (Codice_prodotto, img) 
-VALUES (1,'butter_square.jpg');
+INSERT INTO Immagine (Codice_prodotto, img) VALUES
+(1, 'mandorle_square.jpg'), (1, 'mandorle_wide.jpg'), (1, 'mandorle_transparent.jpg'),
+(2, 'cioccolato_square.jpg'), (2, 'cioccolato_wide.jpg'), (2, 'cioccolato_transparent.jpg'),
+(3, 'shaker_xl_square.jpg'), (3, 'shaker_xl_wide.jpg'), (3, 'shaker_xl_transparent.jpg'),
+(4, 'barrette_arachidi_square.jpg'), (4, 'barrette_arachidi_wide.jpg'), (4, 'barrette_arachidi_transparent.jpg'),
+(5, 'bevanda_cioccolato_square.jpg'), (5, 'bevanda_cioccolato_wide.jpg'), (5, 'bevanda_cioccolato_transparent.jpg'),
+(6, 'nocciole_square.jpg'), (6, 'nocciole_wide.jpg'), (6, 'nocciole_transparent.jpg'),
+(7, 'vaniglia_square.jpg'), (7, 'vaniglia_wide.jpg'), (7, 'vaniglia_transparent.jpg'),
+(8, 'shaker_scomparti_square.jpg'), (8, 'shaker_scomparti_wide.jpg'), (8, 'shaker_scomparti_transparent.jpg'),
+(9, 'cioccolato_fondente_square.jpg'), (9, 'cioccolato_fondente_wide.jpg'), (9, 'cioccolato_fondente_transparent.jpg'),
+(10, 'bevanda_vaniglia_square.jpg'), (10, 'bevanda_vaniglia_wide.jpg'), (10, 'bevanda_vaniglia_transparent.jpg'),
+(11, 'anacardi_square.jpg'), (11, 'anacardi_wide.jpg'), (11, 'anacardi_transparent.jpg'),
+(12, 'fragola_square.jpg'), (12, 'fragola_wide.jpg'), (12, 'fragola_transparent.jpg'),
+(13, 'shaker_termico_square.jpg'), (13, 'shaker_termico_wide.jpg'), (13, 'shaker_termico_transparent.jpg'),
+(14, 'cioccolato_menta_square.jpg'), (14, 'cioccolato_menta_wide.jpg'), (14, 'cioccolato_menta_transparent.jpg'),
+(15, 'caffe_square.jpg'), (15, 'caffe_wide.jpg'), (15, 'caffe_transparent.jpg'),
+(16, 'pistacchi_square.jpg'), (16, 'pistacchi_wide.jpg'), (16, 'pistacchi_transparent.jpg'),
+(17, 'pisello_square.jpg'), (17, 'pisello_wide.jpg'), (17, 'pisello_transparent.jpg'),
+(18, 'shaker_portatile_square.jpg'), (18, 'shaker_portatile_wide.jpg'), (18, 'shaker_portatile_transparent.jpg'),
+(19, 'cocco_square.jpg'), (19, 'cocco_wide.jpg'), (19, 'cocco_transparent.jpg'),
+(20, 'bevanda_fragola_square.jpg'), (20, 'bevanda_fragola_wide.jpg'), (20, 'bevanda_fragola_transparent.jpg');
 
 create table coupons
 (
@@ -131,13 +170,27 @@ create table tabelleNutrizionali
   foreign key (Codice_Prodotto) References Prodotti(Codice) ON UPDATE cascade on delete cascade
 );
 
-INSERT INTO tabelleNutrizionali(Codice_prodotto, energia, grassi, grassi_saturi, carboedrati, zucherri, fibre, proteine, sale) 
-VALUES (1, 2004, 4.12, 1.45, 1.05, 7.56, 0.01, 5.60, 0.10);
-INSERT INTO tabelleNutrizionali(Codice_prodotto, energia, grassi, grassi_saturi, carboedrati, zucherri, fibre, proteine, sale) 
-VALUES (2, 3674, 4.12, 1.45, 1.05, 7.56, 0.01, 5.60, 0.10);
-INSERT INTO tabelleNutrizionali(Codice_prodotto, energia, grassi, grassi_saturi, carboedrati, zucherri, fibre, proteine, sale) 
-VALUES (4, 2784, 4.12, 1.45, 1.05, 7.56, 0.01, 5.60, 0.10);
-
+INSERT INTO tabelleNutrizionali(Codice_prodotto, energia, grassi, grassi_saturi, carboedrati, zucherri, fibre, proteine, sale) VALUES
+(1, 2004, 4.12, 1.45, 1.05, 7.56, 0.01, 5.60, 0.10),
+(2, 3674, 4.12, 1.45, 1.05, 7.56, 0.01, 5.60, 0.10),
+(3, 1500, 0.50, 0.20, 0.80, 0.30, 0.10, 30.00, 0.05),
+(4, 2784, 10.00, 3.50, 22.00, 15.00, 2.50, 20.00, 0.50),
+(5, 110, 0.30, 0.10, 20.00, 10.00, 0.50, 20.00, 0.20),
+(6, 1800, 16.00, 3.00, 2.00, 1.00, 0.50, 8.00, 0.03),
+(7, 120, 0.50, 0.10, 1.00, 0.50, 0.20, 25.00, 0.10),
+(8, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00),
+(9, 1500, 10.00, 3.50, 15.00, 10.00, 2.50, 20.00, 0.40),
+(10, 110, 0.30, 0.10, 20.00, 10.00, 0.50, 20.00, 0.20),
+(11, 1800, 14.00, 3.00, 2.00, 1.00, 0.50, 8.00, 0.03),
+(12, 120, 0.50, 0.10, 1.00, 0.50, 0.20, 25.00, 0.10),
+(13, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00),
+(14, 1500, 10.00, 3.50, 15.00, 10.00, 2.50, 20.00, 0.40),
+(15, 110, 0.30, 0.10, 20.00, 10.00, 0.50, 20.00, 0.20),
+(16, 1800, 14.00, 3.00, 2.00, 1.00, 0.50, 8.00, 0.03),
+(17, 120, 0.50, 0.10, 1.00, 0.50, 0.20, 25.00, 0.10),
+(18, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00),
+(19, 1500, 10.00, 3.50, 15.00, 10.00, 2.50, 20.00, 0.40),
+(20, 110, 0.30, 0.10, 20.00, 10.00, 0.50, 20.00, 0.20);
 create table ordini 
 (
  Utente varchar(18) NOT NULL,

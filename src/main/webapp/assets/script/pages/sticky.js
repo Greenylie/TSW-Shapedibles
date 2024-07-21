@@ -160,7 +160,7 @@ async function updateSearchResults(results) {
         
         elResultDiv.classList.add("search-result");
         
-        elResultImg.src =contextPath + "assets/images/products/" +  ImageUtils.getImageWithStringInName(product.immagini, "square");
+        elResultImg.src = ImageUtils.getImageWithStringInName(contextPath, product.immagini, "square");
         
         elResultCart.classList.add("cart-controls");
         elResultCartPlus.id = "cartPlus";
