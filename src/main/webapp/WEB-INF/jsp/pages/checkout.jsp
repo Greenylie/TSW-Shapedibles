@@ -26,12 +26,14 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <link href="../../../assets/styles/pages/style.css" rel="stylesheet" type="text/css">
-    <link href="../../../assets/styles/pages/checkout.css" rel="stylesheet" type="text/css">
+    <jsp:include page="../procedural/fractalNoise.jsp"/>
+    <link href="${pageContext.request.contextPath}/assets/styles/base.css" rel="stylesheet" type="text/css">
+    <link href="${pageContext.request.contextPath}/assets/styles/pages/checkout.css" rel="stylesheet" type="text/css">
     <title>Checkout</title>
 </head>
 
 <body>
+<jsp:include page="../common/sticky.jsp"/>
 <div class="content">
     <div class="base glassy">
         <h1>Checkout </h1>
@@ -136,6 +138,7 @@
         <% } %>
     </div>
 </div>
+<jsp:include page="../common/footer.jsp"/>
 </body>
 
 </html>

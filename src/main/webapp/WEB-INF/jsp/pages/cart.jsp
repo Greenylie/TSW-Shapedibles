@@ -53,7 +53,7 @@
                 </td>
                 <td><%=cart.getProductQuantity(beancart)%>
                 </td>
-                <td><a href="Cart?action=deleteC&id=<%=beancart.getCodice()%>">Delete from cart</a></td>
+                <td><a class="hyperlink" href="Cart?action=deleteC&id=<%=beancart.getCodice()%>">Delete from cart</a></td>
             </tr>
             <%} %>
         </table>
