@@ -1,4 +1,4 @@
- <%@ page contentType="text/html; charset=UTF-8"
+<%@ page contentType="text/html; charset=UTF-8"
 		  pageEncoding="UTF-8" errorPage="errorPage.jsp"%>
 
 <% 
@@ -52,6 +52,9 @@
 		<%} %>
 	</table>		
 	<% } %>
+		<a class="primary-round-btn nodeco checkout" href="${pageContext.request.contextPath}/user/checkout">
+			<span class="material-symbols-rounded">check</span>
+		</a>
 	</div>
 </div>
 <jsp:include page="../common/footer.jsp"/>
