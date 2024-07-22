@@ -42,6 +42,12 @@ public class ImageBean implements Serializable
 		return img;
 	}
 	
+	public String getImgIfString(String string) {
+		if (this.img.contains(string))
+			return this.img;
+		return null;
+	}
+	
 	public int getCodiceProdotto()
 	{
 		return codiceProdotto;

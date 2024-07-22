@@ -1,8 +1,8 @@
 // noinspection JSUnresolvedReference
-
 let scrollTimeout;
 let scrollPos;
 let hideSearchResultsTimeout;
+let currentSearchRequest;
 //Elements
 let elInputSearch;
 let elSearchBar;
@@ -42,17 +42,19 @@ function updateScroller() {
 function searchInputChange() {
     const searchQuery = elInputSearch.value.trim();
     if (searchQuery.length > 0) {
-        const xhr = new XMLHttpRequest();
-        xhr.open("GET", "search?ricerca=" + encodeURIComponent(searchQuery), true);
-        xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
-        xhr.onload = function() {
+        if (currentSearchRequest)
+            currentSearchRequest.abort();
+        currentSearchRequest = new XMLHttpRequest();
+        currentSearchRequest.open("GET", "search?ricerca=" + encodeURIComponent(searchQuery), true);
+        currentSearchRequest.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+        currentSearchRequest.onload = function() {
             if (this.status === 200) {
                 const results = JSON.parse(this.responseText);
                 // Update UI with results
                 updateSearchResults(results);
             }
         };
-        xhr.send();
+        currentSearchRequest.send();
     }
     else
         clearSearchResults(true);
@@ -195,6 +197,13 @@ async function updateSearchResults(results) {
         elResultDiv.appendChild(elResultImg);
         elResultDiv.appendChild(elResultCart);
         elResultDiv.appendChild(elResultInfo);
+        
+        let toProduct = () => {
+            window.location.assign(contextPath + "ProductDetails?product=" + product.codice);
+        }
+        
+        elResultName.addEventListener("click", toProduct);
+        elResultImg.addEventListener("click", toProduct);
 
         elSearchResults.appendChild(elResultDiv);
         newHeight += elResultDiv.offsetHeight;

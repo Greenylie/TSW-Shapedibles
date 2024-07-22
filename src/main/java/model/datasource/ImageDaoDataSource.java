@@ -13,7 +13,7 @@ import java.util.LinkedList;
 
 public class ImageDaoDataSource implements IImageDao
 {
-	private static final String TABLE_NAME="Immagine";
+	private static final String TABLE_NAME="immagine";
 	private final DataSource ds;
 	
 	public ImageDaoDataSource(DataSource ds)

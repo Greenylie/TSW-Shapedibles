@@ -160,6 +160,7 @@ header {
     aspect-ratio: 1/1;
     margin-right: 10px;
     border-radius: 1em;
+    cursor: pointer;
 }
 
 .search-result .info {
@@ -184,7 +185,7 @@ header {
     font-family: Merriweather, sans-serif;
     color: rgba(var(--primary),0.6);
     text-shadow: 0 0 10px rgba(var(--text-dark),0.8);
-    
+    cursor: pointer;
 }
 
 .search-result .desc {

@@ -1,0 +1,15 @@
+h2 {
+    font-size: clamp(2em,5vw,10em);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid transparent;
+    backdrop-filter: blur(2px);
+    font-size: 1.5em;
+}
+
+td {
+    text-align: center;
+}

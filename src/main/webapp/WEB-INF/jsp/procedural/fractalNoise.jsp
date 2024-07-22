@@ -6,7 +6,7 @@
             <filter id='fractalNoiseFilter'>
                 <feTurbulence
                         type='fractalNoise'
-                        baseFrequency='0.5'
+                        baseFrequency='0.7'
                         stitchTiles='stitch'></feTurbulence>
         
                 <feBlend in="SourceGraphic" in2="monoNoise" mode="screen"></feBlend>

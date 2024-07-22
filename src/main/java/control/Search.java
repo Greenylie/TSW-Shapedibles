@@ -24,6 +24,7 @@ import java.util.Collection;
 public class Search extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String query = request.getParameter("ricerca");
+        String id = request.getParameter("id");
         DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
         IProductDao productDao = new ProductDaoDataSource(ds);
         IInfoDao infoDao = new InfoDaoDataSource(ds);
@@ -34,6 +35,20 @@ public class Search extends HttpServlet {
             {
                 cart = new Cart();
                 request.getSession().setAttribute("cart", cart);
+            }
+            
+            if (id != null) {
+                ProductBean product = productDao.doRetrieveByKey(Integer.parseInt(id));
+                if (product != null) {
+                    response.setContentType("application/json");
+                    response.setCharacterEncoding("UTF-8");
+                    Gson gson = new GsonBuilder()
+                            .registerTypeAdapter(ProductBean.class, new ProductBeanWithCartQuantity(cart, infoDao))
+                            .create();
+                    String json = gson.toJson(product);
+                    response.getWriter().write(json);
+                    return;
+                }
             }
             
             Collection<ProductBean> searchResults = productDao.searchByName(query);

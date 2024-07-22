@@ -14,15 +14,19 @@
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<link href="${pageContext.request.contextPath}/assets/styles/pages/login.css" rel="stylesheet" type="text/css">
-	<link href="productStyle.css" rel="stylesheet" type="text/css">
+	<jsp:include page="../procedural/fractalNoise.jsp"/>
+	<link href="${pageContext.request.contextPath}/assets/styles/base.css" rel="stylesheet" type="text/css">
+	<link href="${pageContext.request.contextPath}/assets/styles/pages/cart.css" rel="stylesheet" type="text/css">
 	<title>Carrello</title>
 </head>
 
 <body>
+<jsp:include page="../common/sticky.jsp"/>
+<div class="content">
+	<div class="base glassy">
+	<h2>Cart</h2>
   <%InfoDaoDataSource DAOEmily = new InfoDaoDataSource((DataSource)request.getServletContext().getAttribute("DataSource"));
 	  if(cart != null) { %>
-		<h2>Cart</h2>
 		<table border="1">
 		<tr>
 			<th>Name</th>
@@ -47,12 +51,9 @@
 		</tr>
 		<%} %>
 	</table>		
-	<% } %>	
-	
-  <a href="${pageContext.request.contextPath}/login" > Login</a>
-  <a href="${pageContext.request.contextPath}/register" > Register</a>
-   <a href="${pageContext.request.contextPath}/cart" > Cart</a>
-   <a href="${pageContext.request.contextPath}/user/checkout" > Checkout</a>
-   <a href="../../../Product.jsp" > Product</a>
+	<% } %>
+	</div>
+</div>
+<jsp:include page="../common/footer.jsp"/>
 </body>
 </html>
