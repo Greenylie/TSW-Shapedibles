@@ -146,7 +146,7 @@ async function updateSearchResults(results) {
 
     let newHeight = 0;
 
-    results.forEach((product) => {
+    for (const product of results) {
         // Directly access product properties, assuming product is already an object
         const elResultDiv = document.createElement("div");
         const elResultImg = document.createElement("img");
@@ -163,7 +163,7 @@ async function updateSearchResults(results) {
         
         elResultDiv.classList.add("search-result");
         
-        elResultImg.src = ImageUtils.getImageWithStringInName(contextPath, product.immagini, "square");
+        elResultImg.src = await ImageUtils.getImageWithStringInName(contextPath, product.immagini, "square");
         
         elResultCart.classList.add("cart-controls");
         elResultCartPlus.id = "cartPlus";
@@ -207,7 +207,7 @@ async function updateSearchResults(results) {
 
         elSearchResults.appendChild(elResultDiv);
         newHeight += elResultDiv.offsetHeight;
-    });
+    }
 
     const elSpacer = document.createElement("div");
     elSpacer.classList.add("spacer");

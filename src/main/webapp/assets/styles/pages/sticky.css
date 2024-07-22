@@ -26,6 +26,10 @@ body > *:not(.sticky) {
         "null ruler";
 }
 
+.glassy{
+    backdrop-filter: blur(8px);
+}
+
 header {
     grid-area: header;
     overflow: visible;
