@@ -190,7 +190,7 @@ header {
 
 .search-result .desc {
     max-height: 100%;
-    font-size: clamp(0.3em,3vw,0.7em);
+    font-size: clamp(0.3em,3vw,0.6em);
     font-weight: 500;
     color: rgba(var(--text),0.8);
     text-shadow: 0 0 4px rgba(var(--text-dark),0.8);

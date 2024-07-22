@@ -249,6 +249,48 @@ h2{
     animation: pulse 10s infinite;
 }
 
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid rgba(var(--primary),0);
+    backdrop-filter: blur(2px);
+    font-size: 1.5em;
+}
+
+td {
+    text-align: center;
+    border-right: 1px solid rgba(var(--primary),0.5);
+    border-left: 1px solid rgba(var(--primary),0.5);
+}
+
+tr {
+    height: 1.8em;
+}
+
+tr:nth-child(even) {
+    background: rgba(var(--secondary),0.1);
+}
+
+tr:nth-child(odd) {
+    background: rgba(var(--accent),0.1);
+}
+
+tr:last-child {
+    border-bottom: 1px solid rgba(var(--primary),0.5);
+}
+
+th {
+    text-align: center;
+    font-size: 1em;
+    font-weight: bold;
+    padding: 0.5em;
+    background: rgba(var(--primary),0.5);
+    box-shadow: 0 0 20px rgba(var(--primary),0.5);
+    border-bottom: 1px solid rgba(var(--primary),0.5);
+    color: rgba(var(--text),0.8);
+    text-shadow: 0 0 1.5em rgba(var(--text-dark),1);
+}
+
 @keyframes pulse {
     0% {
         transform: scale(1);

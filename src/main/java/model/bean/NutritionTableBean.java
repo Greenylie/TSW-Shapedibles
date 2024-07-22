@@ -1,9 +1,11 @@
 package model.bean;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 public class NutritionTableBean implements Serializable{
 
+	@Serial
 	private static final long serialVersionUID = 1L;
 	
 	int codice_prodotto;

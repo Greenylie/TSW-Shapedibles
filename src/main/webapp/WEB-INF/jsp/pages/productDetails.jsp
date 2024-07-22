@@ -24,6 +24,8 @@
 			wideImage = request.getContextPath() + "/assets/images/products/" + img.getImg();
 		}
 	}
+
+	NutritionTableBean nut = (NutritionTableBean) request.getAttribute("nutritionTable");
 %>
 
 <!DOCTYPE html>
@@ -36,6 +38,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<jsp:include page="../procedural/fractalNoise.jsp"/>
 	<title><%=product.getNome()%></title>
+	<link href="${pageContext.request.contextPath}/assets/styles/base.css" rel="stylesheet" type="text/css">
 	<link href="${pageContext.request.contextPath}/assets/styles/pages/productDetails.css" rel="stylesheet" type="text/css">
 	<script>
 		var productId = <%=product.getCodice()%>;
@@ -83,6 +86,49 @@
 				<img id="wideImage"  src="<%=wideImage%>" alt="<%=product.getNome()%>">
 			</div>
 		</div>
+		<% if (!info.getTipologia().equals("Shaker")) {%>
+			<div class="base glassy" id="nutritionBase">
+				<table border="1">
+					<tr>
+						<th>Valore Nutrizionale</th>
+						<th>Quantità</th>
+					</tr>
+					<tr>
+						<td>energia</td>
+						<td><%=nut.getEnergia()%> kl</td>
+					</tr>
+					<tr>
+						<td>grassi</td>
+						<td><%=nut.getGrassi()%> g</td>
+					</tr>
+					<tr>
+						<td>di cui saturi</td>
+						<td><%=nut.getGrassiSaturi()%> g</td>
+					</tr>
+					<tr>
+						<td>carboidrati</td>
+						<td><%=nut.getCarboedrati()%> g</td>
+					</tr>
+					<tr>
+						<td>zuccheri</td>
+						<td><%=nut.getZucherri()%> g</td>
+					</tr>
+					<tr>
+						<td>fibre</td>
+						<td><%=nut.getFibre()%> g</td>
+					</tr>
+					<tr>
+						<td>proteine</td>
+						<td><%=nut.getProteine()%> g</td>
+					</tr>
+					<tr>
+						<td>sale</td>
+						<td><%=nut.getSale()%> g</td>
+					</tr>
+	
+				</table>
+			</div>
+		<% } %>
 	</div>
 	<jsp:include page="../common/footer.jsp"/>
 </body>
