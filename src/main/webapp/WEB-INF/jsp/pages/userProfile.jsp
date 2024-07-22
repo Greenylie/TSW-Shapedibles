@@ -48,12 +48,12 @@
         <a href="product">List</a>
         <table border="1">
             <tr>
-                <th>User</th>
-                <th>Code</th>
-                <th>Status</th>
+                <th>Utente</th>
+                <th>Codice</th>
+                <th>Stato</th>
                 <th>Data</th>
-                <th>Balance</th>
-                <th>Action</th>
+                <th>Saldo</th>
+                <th>Azione</th>
             </tr>
             <%
                 if (userOrders != null && userOrders.size() != 0) {
@@ -92,10 +92,10 @@
         <h2>Dettagli</h2>
         <table border="1">
             <tr>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Price</th>
-                <th>Quantity</th>
+                <th>Nome</th>
+                <th>Descrizione</th>
+                <th>Prezzo</th>
+                <th>Quantità</th>
 
             </tr>
             <%
