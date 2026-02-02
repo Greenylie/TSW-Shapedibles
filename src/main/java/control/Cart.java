@@ -50,7 +50,7 @@ public class Cart extends HttpServlet {
 		
 		
 		DataSource ds= (DataSource) getServletContext().getAttribute("DataSource");
-		productDao = new ProductDaoDataSource(ds);
+		productDao = createProductDao(ds);
 		
 		model.Cart cart = (model.Cart) request.getSession().getAttribute("cart");
 		if(cart == null) 
@@ -87,5 +87,12 @@ public class Cart extends HttpServlet {
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/jsp/pages/cart.jsp");
 			dispatcher.forward(request, response);
 		}
+	}
+
+	/**
+	 * Factory method for ProductDao - can be overridden in tests.
+	 */
+	protected IProductDao createProductDao(DataSource ds) {
+		return new ProductDaoDataSource(ds);
 	}
 }

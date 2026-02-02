@@ -1,0 +1,10 @@
+services:
+  web-app:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    image: justalish/mia-applicazione:local
+    ports:
+      - "8443:8443"
+      - "8080:8080"
+    restart: unless-stopped

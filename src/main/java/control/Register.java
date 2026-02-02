@@ -2,6 +2,7 @@ package control;
 
 import com.google.gson.Gson;
 import model.bean.UserBean;
+import model.dao.IUserDao;
 import model.datasource.UserDaoDataSource;
 import model.enums.Country;
 import model.enums.Gender;
@@ -57,17 +58,17 @@ public class Register extends HttpServlet {
 		request.setAttribute("genders", Gender.getValues());
 		
 		DataSource ds= (DataSource) getServletContext().getAttribute("DataSource");
-		UserDaoDataSource userDao = new UserDaoDataSource(ds);
+		IUserDao userDao = createUserDao(ds);
 		String error=null;
 		boolean ajax = "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
 		String username= request.getParameter("username");
 		String email= request.getParameter("email");
 		String password= request.getParameter("password");
 		String passwordConf= request.getParameter("passwordConf");
-		String nomeCognome= request.getParameter("nome_cognome");
-		String sesso= request.getParameter("sesso");
-		String paese= request.getParameter("paese");
-		String dataNascista= request.getParameter("data_nascita");
+		String nomeCognome= request.getParameter("name_surname");
+		String sesso= request.getParameter("gender");
+		String paese= request.getParameter("country");
+		String dataNascista= request.getParameter("birthday");
 		int isAdmin= 0;
 
 		String redirectURL = request.getContextPath() + "/Login";
@@ -152,7 +153,7 @@ public class Register extends HttpServlet {
 	    return sb.toString();
 	   }
 	
-	private boolean checkUsername(String username, UserDaoDataSource userDao) throws SQLException 
+	private boolean checkUsername(String username, IUserDao userDao) throws SQLException 
 	{
 		Collection<?> userCheck = (Collection<?>) userDao.doRetrieveAll("");
 		Iterator<?> it=  userCheck.iterator();
@@ -163,5 +164,12 @@ public class Register extends HttpServlet {
 			if(username.equals(bean.getUsername())) return false;
 		} 
 		return true;
+	}
+
+	/**
+	 * Factory method for UserDao - can be overridden in tests.
+	 */
+	protected IUserDao createUserDao(DataSource ds) {
+		return new UserDaoDataSource(ds);
 	}
 }

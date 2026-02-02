@@ -14,9 +14,15 @@ import java.util.LinkedList;
 
 public class NutritionTableDaoDataSource implements INutritionTableDao
 {
-	private static final String TABLE_NAME="tabelleNutrizionali";
-	private DataSource ds=null;
+	private static final String TABLE_NAME="nutritionalValues";
 	
+	//@ spec_public non_null
+	private DataSource ds;
+	
+	//@ public invariant ds != null;
+
+	//@ requires ds != null;
+	//@ ensures this.ds == ds;
 	public NutritionTableDaoDataSource(DataSource ds)
 	{
 		this.ds=ds;
@@ -26,14 +32,15 @@ public class NutritionTableDaoDataSource implements INutritionTableDao
 	@Override
 	public void doSave(NutritionTableBean nutritionTable) throws SQLException {
 		// TODO Auto-generated method stub
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
+		/*@ nullable @*/Connection connection = null;
+		/*@ nullable @*/PreparedStatement preparedStatement = null;
 		
 		String insertSQL="INSERT INTO " + NutritionTableDaoDataSource.TABLE_NAME 
-				+ " (Codice_Prodotto, energia, grassi, grassi_saturi, carboedrati, zucherri, fibre, proteine, sale) VALUES (?,?,?,?,?,?,?,?,?)";
+				+ " (Product_Code, energy, fats, saturated_fats, carbs, sugars, fibers, proteins, salt) VALUES (?,?,?,?,?,?,?,?,?)";
 		
 		try {
 			connection = ds.getConnection();
+			//@ assert connection != null;
 			preparedStatement = connection.prepareStatement(insertSQL);
 			preparedStatement.setInt(1, nutritionTable.getCodiceProdotto());
 			preparedStatement.setInt(2, nutritionTable.getEnergia());
@@ -60,20 +67,21 @@ public class NutritionTableDaoDataSource implements INutritionTableDao
 	@Override
 	public boolean doDelete(int productID) throws SQLException {
 		// TODO Auto-generated method stub
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
+		/*@ nullable @*/Connection connection = null;
+		/*@ nullable @*/PreparedStatement preparedStatement = null;
 		
 		int result = 0;
 		
-		String deleteSQL = "DELETE FROM " + NutritionTableDaoDataSource.TABLE_NAME + " WHERE CODICE_PRODOTTO = ?";
+		String deleteSQL = "DELETE FROM " + NutritionTableDaoDataSource.TABLE_NAME + " WHERE PRODUCT_CODE = ?";
 		
 		try {
 			connection= ds.getConnection();
+			//@ assert connection != null;
 			preparedStatement = connection.prepareStatement(deleteSQL);
 			preparedStatement.setInt(1, productID);
 			
 			result = preparedStatement.executeUpdate();
-			
+			//@ assert result >= 0;
 		} finally {
 			try {
 				if (preparedStatement != null)
@@ -88,29 +96,31 @@ public class NutritionTableDaoDataSource implements INutritionTableDao
 	@Override
 	public NutritionTableBean doRetrieveByKey(int productID) throws SQLException {
 		// TODO Auto-generated method stub
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
+		/*@ nullable @*/Connection connection = null;
+		/*@ nullable @*/PreparedStatement preparedStatement = null;
 		
 		NutritionTableBean bean= new NutritionTableBean();
-		String selectSQL = "SELECT * FROM " + NutritionTableDaoDataSource.TABLE_NAME + " WHERE CODICE_PRODOTTO = ?";
+		//@ assert bean != null;
+		String selectSQL = "SELECT * FROM " + NutritionTableDaoDataSource.TABLE_NAME + " WHERE PRODUCT_CODE = ?";
 		
 		try {
 			connection = ds.getConnection();
+			//@ assert connection != null;
 			preparedStatement = connection.prepareStatement(selectSQL);
 			preparedStatement.setInt(1, productID);
 			
 			ResultSet rs = preparedStatement.executeQuery();
-			
+			//@ assume rs != null;
 			while(rs.next()) {
-				bean.setCodiceProdotto(rs.getInt("CODICE_PRODOTTO"));
-				bean.setEnergia(rs.getInt("ENERGIA"));
-				bean.setGrassi(rs.getInt("GRASSI"));
-				bean.setGrassiSaturi(rs.getInt("GRASSI_SATURI"));
-				bean.setCarboedrati(rs.getInt("CARBOEDRATI"));
-				bean.setZucherri(rs.getInt("ZUCHERRI"));
-				bean.setFibre(rs.getInt("FIBRE"));
-				bean.setProteine(rs.getInt("PROTEINE"));
-				bean.setSale(rs.getInt("SALE"));
+				bean.setCodiceProdotto(rs.getInt("PRODUCT_CODE"));
+				bean.setEnergia(rs.getInt("ENERGY"));
+				bean.setGrassi(rs.getInt("FATS"));
+				bean.setGrassiSaturi(rs.getInt("SATURATED_FATS"));
+				bean.setCarboedrati(rs.getInt("CARBS"));
+				bean.setZucherri(rs.getInt("SUGARS"));
+				bean.setFibre(rs.getInt("FIBERS"));
+				bean.setProteine(rs.getInt("PROTEINS"));
+				bean.setSale(rs.getInt("SALT"));
 			}
 			
 		} finally {
@@ -128,35 +138,44 @@ public class NutritionTableDaoDataSource implements INutritionTableDao
 	@Override
 	public Collection<NutritionTableBean> doRetrieveAll(String order) throws SQLException {
 		// TODO Auto-generated method stub
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
+		/*@ nullable @*/Connection connection = null;
+		/*@ nullable @*/PreparedStatement preparedStatement = null;
 		
 		Collection<NutritionTableBean> tables= new LinkedList<NutritionTableBean>();
+		//@ assert tables != null && tables.isEmpty();
 		String selectSQL = "SELECT * FROM " + NutritionTableDaoDataSource.TABLE_NAME;
 		
 		if(order != null && !order.equals("")) {
-			selectSQL +=" ORDER BY" + order;
+			selectSQL +=" ORDER BY " + order;
 		}
 		
 		try {
 			connection = ds.getConnection();
+			//@ assert connection != null;
 			preparedStatement = connection.prepareStatement(selectSQL);
 			
 			ResultSet rs = preparedStatement.executeQuery();
-			
+			//@ assume rs != null;
+
+			/*@ 
+              @ loop_invariant tables != null;
+              @ loop_invariant tables.size() >= 0;
+              @*/
 			while(rs.next()) {
 				NutritionTableBean  bean = new NutritionTableBean();
 				
-				bean.setCodiceProdotto(rs.getInt("CODICE_PRODOTTO"));
-				bean.setEnergia(rs.getInt("ENERGIA"));
-				bean.setGrassi(rs.getInt("GRASSI"));
-				bean.setGrassiSaturi(rs.getInt("GRASSI_SATURI"));
-				bean.setCarboedrati(rs.getInt("CARBOEDRATI"));
-				bean.setZucherri(rs.getInt("ZUCHERRI"));
-				bean.setFibre(rs.getInt("FIBRE"));
-				bean.setProteine(rs.getInt("PROTEINE"));
-				bean.setSale(rs.getInt("SALE"));
+				bean.setCodiceProdotto(rs.getInt("PRODUCT_CODE"));
+				bean.setEnergia(rs.getInt("ENERGY"));
+				bean.setGrassi(rs.getInt("FATS"));
+				bean.setGrassiSaturi(rs.getInt("SATURATED_FATS"));
+				bean.setCarboedrati(rs.getInt("CARBS"));
+				bean.setZucherri(rs.getInt("SUGARS"));
+				bean.setFibre(rs.getInt("FIBERS"));
+				bean.setProteine(rs.getInt("PROTEINS"));
+				bean.setSale(rs.getInt("SALT"));
+				//@ assert bean != null;
 				tables.add(bean);
+				//@ assert !tables.isEmpty();
 			}
 			
 		} finally {

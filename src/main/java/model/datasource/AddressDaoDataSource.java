@@ -13,9 +13,15 @@ import java.util.LinkedList;
 
 public class AddressDaoDataSource implements IAddressDao
 {
-	private static final String TABLE_NAME="indirizzi";
-	private DataSource ds=null;
+	private static final String TABLE_NAME="adresses";
 	
+	//@ spec_public non_null
+	private DataSource ds;
+	
+	//@ public invariant ds != null;
+
+	//@ requires ds != null;
+	//@ ensures this.ds == ds;
 	public AddressDaoDataSource(DataSource ds)
 	{
 		this.ds=ds;
@@ -25,14 +31,15 @@ public class AddressDaoDataSource implements IAddressDao
 	@Override
 	public void doSave(AddressBean coupon) throws SQLException {
 		// TODO Auto-generated method stub
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
+		/*@ nullable @*/Connection connection = null;
+		/*@ nullable @*/PreparedStatement preparedStatement = null;
 		
 		String insertSQL="INSERT INTO " + AddressDaoDataSource.TABLE_NAME 
-				+ " (id, utente, paese, strada, città, numero, codice_postale) VALUES (?,?,?,?,?,?,?)";
+				+ " (id, \"user\", country, street, city, number, Postal_Code) VALUES (?,?,?,?,?,?,?)";
 		
 		try {
 			connection = ds.getConnection();
+			//@ assert connection != null;
 			preparedStatement = connection.prepareStatement(insertSQL);
 			preparedStatement.setString(1, coupon.getId());
 			preparedStatement.setString(2, coupon.getUtente());
@@ -57,21 +64,22 @@ public class AddressDaoDataSource implements IAddressDao
 	@Override
 	public boolean doDelete(String id, String user) throws SQLException {
 		// TODO Auto-generated method stub
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
+		/*@ nullable @*/Connection connection = null;
+		/*@ nullable @*/PreparedStatement preparedStatement = null;
 		
 		int result = 0;
 		
-		String deleteSQL = "DELETE FROM " + AddressDaoDataSource.TABLE_NAME + " WHERE ID = ? AND UTENTE= ? ";
+		String deleteSQL = "DELETE FROM " + AddressDaoDataSource.TABLE_NAME + " WHERE ID = ? AND \"user\"= ? ";
 		
 		try {
 			connection= ds.getConnection();
+			//@ assert connection != null;
 			preparedStatement = connection.prepareStatement(deleteSQL);
 			preparedStatement.setString(1, id);
 			preparedStatement.setString(2, user);
 			
 			result = preparedStatement.executeUpdate();
-			
+			//@ assert result >= 0;
 		} finally {
 			try {
 				if (preparedStatement != null)
@@ -87,28 +95,30 @@ public class AddressDaoDataSource implements IAddressDao
 	@Override
 	public AddressBean doRetrieveByKey(String id, String user) throws SQLException {
 		// TODO Auto-generated method stub
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
+		/*@ nullable @*/Connection connection = null;
+		/*@ nullable @*/PreparedStatement preparedStatement = null;
 		
 		AddressBean bean= new AddressBean();
-		String selectSQL = "SELECT * FROM " + AddressDaoDataSource.TABLE_NAME + " WHERE ID = ?  AND UTENTE= ? ";
+		//@ assert bean != null;
+		String selectSQL = "SELECT * FROM " + AddressDaoDataSource.TABLE_NAME + " WHERE ID = ?  AND \"user\"= ? ";
 		
 		try {
 			connection = ds.getConnection();
+			//@ assert connection != null;
 			preparedStatement = connection.prepareStatement(selectSQL);
 			preparedStatement.setString(1, id);
 			preparedStatement.setString(2, user);
 			
 			ResultSet rs = preparedStatement.executeQuery();
-			
+			//@ assert rs != null;
 			while(rs.next()) {
 				bean.setId(rs.getString("ID"));
-				bean.setUtente(rs.getString("UTENTE"));
-				bean.setPaese(rs.getString("PAESE"));
-				bean.setStrada(rs.getString("STRADA"));
-				bean.setCittà(rs.getString("città"));
-				bean.setNumero(rs.getInt("NUMERO"));
-				bean.setCodicePostale(rs.getString("CODICE_POSTALE"));
+				bean.setUtente(rs.getString("user"));
+				bean.setPaese(rs.getString("country"));
+				bean.setStrada(rs.getString("street"));
+				bean.setCittà(rs.getString("city"));
+				bean.setNumero(rs.getInt("number"));
+				bean.setCodicePostale(rs.getString("Postal_Code"));
 			}
 			
 		} finally {
@@ -119,40 +129,48 @@ public class AddressDaoDataSource implements IAddressDao
 			connection.close();
 		}
 		}
-		
+		//@ assert bean != null;
 		return bean;
 	}
 
 	@Override
 	public Collection<AddressBean> doRetrieveAll(String order) throws SQLException {
 		// TODO Auto-generated method stub
-				Connection connection = null;
-				PreparedStatement preparedStatement = null;
+				/*@ nullable @*/Connection connection = null;
+				/*@ nullable @*/PreparedStatement preparedStatement = null;
 				
 				Collection<AddressBean> Addresses= new LinkedList<AddressBean>();
+				//@ assert Addresses != null && Addresses.isEmpty();
 				String selectSQL = "SELECT * FROM " + AddressDaoDataSource.TABLE_NAME;
 				
 				if(order != null && !order.equals("")) {
-					selectSQL +=" ORDER BY" + order;
+					selectSQL +=" ORDER BY " + order;
 				}
 				
 				try {
 					connection = ds.getConnection();
+					//@ assert connection != null;
 					preparedStatement = connection.prepareStatement(selectSQL);
 					
 					ResultSet rs = preparedStatement.executeQuery();
 					
+					//@ assert rs != null;
+					/*@ 
+			  		@ loop_invariant Addresses != null;
+			  		@*/
 					while(rs.next()) {
 						AddressBean  bean = new AddressBean();
 						
 						bean.setId(rs.getString("ID"));
-						bean.setUtente(rs.getString("UTENTE"));
-						bean.setPaese(rs.getString("PAESE"));
-						bean.setStrada(rs.getString("STRADA"));
-						bean.setCittà(rs.getString("città"));
-						bean.setNumero(rs.getInt("NUMERO"));
-						bean.setCodicePostale(rs.getString("CODICE_POSTALE"));
+						bean.setUtente(rs.getString("user"));
+						bean.setPaese(rs.getString("country"));
+						bean.setStrada(rs.getString("street"));
+						bean.setCittà(rs.getString("city"));
+						bean.setNumero(rs.getInt("number"));
+						bean.setCodicePostale(rs.getString("Postal_Code"));
+						//@ assert bean != null;
 						Addresses.add(bean);
+						//@ assert !Addresses.isEmpty();
 					}
 					
 				} finally {
@@ -170,30 +188,38 @@ public class AddressDaoDataSource implements IAddressDao
 	@Override
 	public Collection<AddressBean> doRetrieveByUser(String user) throws SQLException {
 		// TODO Auto-generated method stub
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
+		/*@ nullable @*/Connection connection = null;
+		/*@ nullable @*/PreparedStatement preparedStatement = null;
 		
 		Collection<AddressBean> Addresses= new LinkedList<AddressBean>();
-		String selectSQL = "SELECT * FROM " + AddressDaoDataSource.TABLE_NAME + " WHERE UTENTE= ? ";
+		//@ assert Addresses != null && Addresses.isEmpty();
+		String selectSQL = "SELECT * FROM " + AddressDaoDataSource.TABLE_NAME + " WHERE \"user\"= ? ";
 		
 		try {
 			connection = ds.getConnection();
+			//@ assert connection != null;
 			
 			preparedStatement = connection.prepareStatement(selectSQL);
 			preparedStatement.setString(1, user);
 			ResultSet rs = preparedStatement.executeQuery();
 			
+			//@ assert rs != null;
+			/*@ 
+			  @ loop_invariant Addresses != null;
+			  @*/
 			while(rs.next()) {
 				AddressBean  bean = new AddressBean();
 				
 				bean.setId(rs.getString("ID"));
-				bean.setUtente(rs.getString("UTENTE"));
-				bean.setPaese(rs.getString("PAESE"));
-				bean.setStrada(rs.getString("STRADA"));
-				bean.setCittà(rs.getString("città"));
-				bean.setNumero(rs.getInt("NUMERO"));
-				bean.setCodicePostale(rs.getString("CODICE_POSTALE"));
+				bean.setUtente(rs.getString("user"));
+				bean.setPaese(rs.getString("country"));
+				bean.setStrada(rs.getString("street"));
+				bean.setCittà(rs.getString("city"));
+				bean.setNumero(rs.getInt("number"));
+				bean.setCodicePostale(rs.getString("Postal_Code"));
+				//@ assert bean != null;
 				Addresses.add(bean);
+				//@ assert !Addresses.isEmpty();
 			}
 			
 		} finally {

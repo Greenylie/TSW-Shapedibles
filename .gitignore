@@ -6,3 +6,12 @@
 out
 TSW-Shapedibles.iml
 /bin/
+*.iml
+.idea/
+*.class
+*.exec
+/target/*
+!/target/site/
+!/target/pit-reports/
+!/target/surefire-reports/
+!/target/jmh-results/

@@ -2,6 +2,7 @@ package control;
 
 import com.google.gson.Gson;
 import model.bean.UserBean;
+import model.dao.IUserDao;
 import model.datasource.UserDaoDataSource;
 
 import javax.servlet.ServletException;
@@ -58,7 +59,7 @@ public class Login extends HttpServlet {
 		try {
 			
 			DataSource ds= (DataSource) getServletContext().getAttribute("DataSource");
-			UserDaoDataSource userDao = new UserDaoDataSource(ds);
+			IUserDao userDao = createUserDao(ds);
 			
 			userCheck= userDao.doRetrieveByKey(username);
 			
@@ -111,6 +112,13 @@ public class Login extends HttpServlet {
 	    }
 	    return sb.toString();
 	   }
+
+	/**
+	 * Factory method for UserDao - can be overridden in tests.
+	 */
+	protected IUserDao createUserDao(DataSource ds) {
+		return new UserDaoDataSource(ds);
+	}
 
 	
 }

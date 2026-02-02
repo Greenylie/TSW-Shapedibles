@@ -51,9 +51,9 @@ public class ProductDetails extends HttpServlet {
 		IInfoDao infoDao = null;
 		INutritionTableDao nutDao= null;
 		DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
-		prodDao= new ProductDaoDataSource(ds);
-		infoDao= new InfoDaoDataSource(ds);
-		nutDao = new NutritionTableDaoDataSource(ds);
+		prodDao= createProductDao(ds);
+		infoDao= createInfoDao(ds);
+		nutDao = createNutritionTableDao(ds);
 		
 		try {
 			ProductBean product= prodDao.doRetrieveByKey(Integer.parseInt(request.getParameter("product"))) ;
@@ -76,6 +76,27 @@ public class ProductDetails extends HttpServlet {
 		
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/jsp/pages/productDetails.jsp");
 		dispatcher.forward(request, response);
+	}
+
+	/**
+	 * Factory method for ProductDao - can be overridden in tests.
+	 */
+	protected IProductDao createProductDao(DataSource ds) {
+		return new ProductDaoDataSource(ds);
+	}
+
+	/**
+	 * Factory method for InfoDao - can be overridden in tests.
+	 */
+	protected IInfoDao createInfoDao(DataSource ds) {
+		return new InfoDaoDataSource(ds);
+	}
+
+	/**
+	 * Factory method for NutritionTableDao - can be overridden in tests.
+	 */
+	protected INutritionTableDao createNutritionTableDao(DataSource ds) {
+		return new NutritionTableDaoDataSource(ds);
 	}
 
 }
